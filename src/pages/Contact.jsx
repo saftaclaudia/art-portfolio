@@ -4,8 +4,9 @@ import emailjs from "emailjs-com";
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-  const [succes, setSuccces] = useState(false);
+  const [success, setSucccess] = useState(false);
   const [error, setError] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -13,37 +14,45 @@ function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSending(true);
+    setSucccess(false);
+    setError(false);
 
     emailjs
-      .send("service_yjtyup2", "template_u8zklev", form, "eyzRAnrj05vrYo--H")
-      .then((result) => {
-        console.log(result.text);
-        setSuccces(true);
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        form,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+      )
+      .then(() => {
+        setSucccess(true);
         setError(false);
         setForm({ name: "", email: "", message: "" });
       })
       .catch((error) => {
         console.error(error.text);
         setError(true);
-        setSuccces(false);
-      });
+      })
+      .finally(() => setSending(false));
 
     console.log("Submitted form", form);
     //send to email or backend
   };
 
   return (
-    <section id="contact" className="pt-20 pb-4 px-4">
-      <div className="max-w-2xl mx-auto">
-        <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
+    <section id="contact" className="pt-20 pb-16 px-4">
+      <div className="max-w-2xl mx-auto text-center">
+        <p className="font-accent text-xl text-coral mb-1">let&apos;s talk</p>
+        <h2 className="text-3xl md:text-4xl font-display font-mediumtext-ink mb-4">
           Contact
         </h2>
-        <p className="text-gray-600 text-center mb-8">
+        <p className="text-ink/70  mb-10">
           {" "}
-          Feel free to get in touch with me. I’d love to hear from you!
+          Feel free to get in touch with me. I&aops;d love to hear from you!
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-5 text-left">
           <input
             name="name"
             type="text"
@@ -51,7 +60,7 @@ function Contact() {
             onChange={handleChange}
             placeholder="Your name"
             required
-            className=" w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
           />
 
           <input
@@ -61,7 +70,7 @@ function Contact() {
             onChange={handleChange}
             placeholder="Your email"
             required
-            className="w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
           />
 
           <textarea
@@ -71,21 +80,24 @@ function Contact() {
             onChange={handleChange}
             placeholder="Your message"
             required
-            className=" w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
           />
 
           <button
             type="submit"
-            className="bg-gray-600 text-white px-6 py-2 rounded-md hover:bg-gray-700 transition"
+            disabled={sending}
+            className="bg-coral text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
           >
-            Send Message
+            {sending ? "Senfinh..." : "Send Message"}
           </button>
-          {succes && (
-            <p className="text-green-600">Message sent successfully</p>
+          {success && (
+            <p className="text-sage-700 text-sm">
+              Message sent successfully. Thank you
+            </p>
           )}
           {error && (
-            <p className="text-red-600">
-              Oops! Something went wrong.sent successfully
+            <p className="text-clay text-sm">
+              Something went wrong. Please try again.
             </p>
           )}
         </form>

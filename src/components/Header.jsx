@@ -11,32 +11,37 @@ function Header({ onNavigate }) {
   };
 
   return (
-    <header className=" sticky top-0 z-50 flex justify-between items-center px-6 py-4 border-b border-gray-200 bg-white/80 backdrop-blur-md shadow-sm">
-      <h1 className="text-xl  text-gray-700">Art by Claudia</h1>
+    <header className=" sticky top-0 z-50 flex justify-between items-center px-6 md:px-10 py-4 border-b border-blush/60 bg-cream/85 backdrop-blur-md">
+      <button
+        onClick={() => onNavigate("home")}
+        className=" font-accent text-2xl md:text-3xl text-clay hover:text-coral transition-colors"
+      >
+        Art by Claudia
+      </button>
 
       {/* Desktop nav */}
-      <nav className="hidden md:flex space-x-6 text-gray-600 text-sm font-medium">
+      <nav className="hidden md:flex space-x-8 text-ink/80 text-sm font-medium tracking-wide">
         <button
           onClick={() => onNavigate("home")}
-          className="hover:text-gray-900"
+          className="hover:text-coral transition-colors"
         >
           Home
         </button>
         <button
           onClick={() => onNavigate("gallery")}
-          className="hover:text-gray-900"
+          className="hover:text-coral transition-colors"
         >
           Gallery
         </button>
         <button
           onClick={() => onNavigate("about")}
-          className="hover:text-gray-900"
+          className="hover:text-coral transition-colors"
         >
           About
         </button>
         <button
           onClick={() => onNavigate("contact")}
-          className="hover:text-gray-900"
+          className="hover:text-coral transition-colors"
         >
           Contact
         </button>
@@ -44,9 +49,9 @@ function Header({ onNavigate }) {
 
       {/* Mobile burger button */}
       <button
-        className="md:hidden text-gray-600"
+        className="md:hidden text-clay"
         onClick={() => setIsOpen(!isOpen)}
-        aria-label="Toogle menu"
+        aria-label="Toggle menu"
       >
         {isOpen ? <X size={28} /> : <Menu size={28} />}
       </button>
@@ -59,36 +64,32 @@ function Header({ onNavigate }) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-20 left-0 w-full bg-white shadow-md p-6 flex flex-col space-y-4 text-gray-700 md:hidden z-50"
+            className="absolute top-full left-0 w-full bg-cream border-b border-blush/60 shadow-sm p-6 flex flex-col space-y-5 text-ink md:hidden z-50"
           >
-            <a
-              href="#gallery"
+            <button
               onClick={() => handleLinkClick("home")}
-              className="hover:text-gray-900 transition-colors"
+              className="text-left hover:text-coral transition-colors"
             >
               Home
-            </a>
-            <a
-              href="#gallery"
+            </button>
+            <button
               onClick={() => handleLinkClick("gallery")}
-              className="hover:text-gray-900 transition-colors"
+              className="text-left hover:text-coral transition-colors"
             >
               Gallery
-            </a>
-            <a
-              href="#gallery"
+            </button>
+            <button
               onClick={() => handleLinkClick("about")}
-              className="hover:text-gray-900 transition-colors"
+              className="text-left hover:text-coral transition-colors"
             >
               About
-            </a>
-            <a
-              href="#contact"
+            </button>
+            <button
               onClick={() => handleLinkClick("contact")}
-              className="hover:text-gray-900 transition-colors"
+              className="text-left hover:text-coral transition-colors"
             >
               Contact
-            </a>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
