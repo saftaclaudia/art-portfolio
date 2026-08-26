@@ -1,50 +1,42 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-function Header({ onNavigate }) {
+const navItems = [
+  { to: "/", label: "Home" },
+  { to: "/gallery", label: "Gallery" },
+  { to: "/about", label: "About" },
+  { to: "/contact", label: "Contact" },
+];
+
+function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleLinkClick = (section) => {
-    onNavigate(section);
-    setIsOpen(false);
-  };
+  const linkClass = ({ isActive }) =>
+    `hover:text-coral transition-colors ${isActive ? "text-coral" : "text-ink/80"}`;
 
   return (
     <header className=" sticky top-0 z-50 flex justify-between items-center px-6 md:px-10 py-4 border-b border-blush/60 bg-cream/85 backdrop-blur-md">
-      <button
-        onClick={() => onNavigate("home")}
+      <NavLink
+        to="/"
         className=" font-accent text-2xl md:text-3xl text-clay hover:text-coral transition-colors"
       >
         Art by Claudia
-      </button>
+      </NavLink>
 
       {/* Desktop nav */}
-      <nav className="hidden md:flex space-x-8 text-ink/80 text-sm font-medium tracking-wide">
-        <button
-          onClick={() => onNavigate("home")}
-          className="hover:text-coral transition-colors"
-        >
-          Home
-        </button>
-        <button
-          onClick={() => onNavigate("gallery")}
-          className="hover:text-coral transition-colors"
-        >
-          Gallery
-        </button>
-        <button
-          onClick={() => onNavigate("about")}
-          className="hover:text-coral transition-colors"
-        >
-          About
-        </button>
-        <button
-          onClick={() => onNavigate("contact")}
-          className="hover:text-coral transition-colors"
-        >
-          Contact
-        </button>
+      <nav className="hidden md:flex space-x-8 text-sm font-medium tracking-wide">
+        {navItems.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end={item.to === "/"}
+            className={linkClass}
+          >
+            {item.label}
+          </NavLink>
+        ))}
       </nav>
 
       {/* Mobile burger button */}
@@ -66,30 +58,17 @@ function Header({ onNavigate }) {
             transition={{ duration: 0.2 }}
             className="absolute top-full left-0 w-full bg-cream border-b border-blush/60 shadow-sm p-6 flex flex-col space-y-5 text-ink md:hidden z-50"
           >
-            <button
-              onClick={() => handleLinkClick("home")}
-              className="text-left hover:text-coral transition-colors"
-            >
-              Home
-            </button>
-            <button
-              onClick={() => handleLinkClick("gallery")}
-              className="text-left hover:text-coral transition-colors"
-            >
-              Gallery
-            </button>
-            <button
-              onClick={() => handleLinkClick("about")}
-              className="text-left hover:text-coral transition-colors"
-            >
-              About
-            </button>
-            <button
-              onClick={() => handleLinkClick("contact")}
-              className="text-left hover:text-coral transition-colors"
-            >
-              Contact
-            </button>
+            {navItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.to === "/"}
+                onClick={() => setIsOpen(false)}
+                className={linkClass}
+              >
+                {item.label}
+              </NavLink>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>

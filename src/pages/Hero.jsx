@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "react-scroll";
 import myPortrait from "../assets/profile-optimized.jpg";
+import { useNavigate } from "react-router-dom";
 
-export default function Hero({ onNavigate }) {
+export default function Hero() {
+  const navigate = useNavigate();
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center px-6 bg-cream">
       <div className="max-w-2xl mx-auto text-center">
@@ -43,7 +45,7 @@ export default function Hero({ onNavigate }) {
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
           className="bg-coral text-white px-8 py-3.5 rounded-full font-medium shadow-md shadow-coral/20 hover:bg-clay transition-colors"
-          onClick={() => onNavigate("gallery")}
+          onClick={() => navigate("/gallery")}
         >
           View Gallery
         </motion.button>
