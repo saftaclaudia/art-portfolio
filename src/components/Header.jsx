@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
+import { Menu, X, ShoppingBag } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCart } from "../context/useCart";
 
 const navItems = [
   { to: "/", label: "Home" },
@@ -11,6 +12,7 @@ const navItems = [
 ];
 
 function Header() {
+  const { items } = useCart();
   const [isOpen, setIsOpen] = useState(false);
 
   const linkClass = ({ isActive }) =>
@@ -38,6 +40,19 @@ function Header() {
           </NavLink>
         ))}
       </nav>
+
+      {/* Cart icon */}
+      <Link
+        to="/cart"
+        className="relative text-clay hover:text-coral transition-colors"
+      >
+        <ShoppingBag size={24} />
+        {items.length > 0 && (
+          <span className="absolute -top-2 -right-2 bg-coral text0white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">
+            {items.length}
+          </span>
+        )}
+      </Link>
 
       {/* Mobile burger button */}
       <button
