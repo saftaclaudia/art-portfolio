@@ -1,6 +1,6 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { motion } from "framer-motion";
 import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 
 const FILTERS = [
@@ -10,11 +10,11 @@ const FILTERS = [
 ];
 
 export default function Gallery() {
+  const navigate = useNavigate();
   const [artworks, setArtworks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeFilter, setActiveFilter] = useState("all");
-  const [selectedArtwork, setSelectedArtwork] = useState(null);
 
   useEffect(() => {
     async function fetchArtworks() {
@@ -33,14 +33,6 @@ export default function Gallery() {
       setLoading(false);
     }
     fetchArtworks();
-  }, []);
-
-  useEffect(() => {
-    function handleEscape(e) {
-      if (e.key === "Escape") setSelectedArtwork(null);
-    }
-    window.addEventListener("keydown", handleEscape);
-    return () => window.removeEventListener("keydown", handleEscape);
   }, []);
 
   const filteredArtworks = useMemo(() => {
@@ -108,7 +100,7 @@ export default function Gallery() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: (i % 3) * 0.08 }}
-                onClick={() => setSelectedArtwork(artwork)}
+                onClick={() => navigate(`/gallery/${artwork.slug}`)}
                 className="group rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer"
               >
                 <div className="aspect-[4/3] w-full overflow-hidden bg-sand">
@@ -148,65 +140,6 @@ export default function Gallery() {
           </div>
         )}
       </div>
-      {/* Modal */}
-      <AnimatePresence>
-        {selectedArtwork && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-ink/60 backdrop-blur-sm flex items-center justify-center p-4"
-            onClick={() => setSelectedArtwork(null)}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              transition={{ duration: 0.25 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-2xl overflow-hidden max-w-3xl w-full max-h-[90vh] overflow-y-auto grid md:grid-cols-2"
-            >
-              <div className="bg-sand">
-                <img
-                  src={selectedArtwork.image_url}
-                  alt={selectedArtwork.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              <div className="p-6 md:p-8 relative">
-                <button
-                  onClick={() => setSelectedArtwork(null)}
-                  aria-label="Close"
-                  className="absolute top-4 right-4 text-ink/50 hover:text-coral transition-colors"
-                >
-                  <X size={22} />
-                </button>
-
-                <p className="text-xs uppercase tracking-wide text-sage font-medium mb-2">
-                  {selectedArtwork.medium}
-                  {selectedArtwork.artist ? ` · ${selectedArtwork.artist}` : ""}
-                </p>
-
-                <h3 className="text-2xl md:text-3xl font-display font-medium text-ink mb-4">
-                  {selectedArtwork.title}
-                </h3>
-                {selectedArtwork.description && (
-                  <p className="text-ink/75 leading-relaxed mb-6">
-                    {selectedArtwork.description}
-                  </p>
-                )}
-
-                {selectedArtwork.price && (
-                  <p className="text-coral font-semibold text-xl">
-                    ${selectedArtwork.price}
-                  </p>
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }
