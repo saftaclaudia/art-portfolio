@@ -12,6 +12,10 @@ import ScrollToTop from "./components/ScrollToTop";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderConfirmedPage from "./pages/OrderConfirmedPage";
+import AdminLoginPage from "./pages/AdminLoginPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminPage from "./pages/AdminPage";
+import AdminArtworkForm from "./pages/AdminArtworkForm";
 
 function App() {
   return (
@@ -28,6 +32,32 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/order-confirmed" element={<OrderConfirmedPage />} />
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/new"
+            element={
+              <ProtectedRoute>
+                <AdminArtworkForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/edit/:id"
+            element={
+              <ProtectedRoute>
+                <AdminArtworkForm />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>
       <Footer />
