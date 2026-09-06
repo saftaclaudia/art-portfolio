@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { useCart } from "../context/useCart";
+import { Helmet } from "react-helmet-async";
 
 export default function ProductPage() {
   const { slug } = useParams();
@@ -133,114 +134,142 @@ export default function ProductPage() {
   }
 
   return (
-    <section className="max-w-5xl mx-auto px-4 py-16">
-      <Link
-        to="/gallery"
-        className="inline-block text-sm text-ink/60 hover:text-coral transition-colors mb-8"
-      >
-        &larr; Back to gallery
-      </Link>
+    <>
+      <Helmet>
+        <title>{artwork.title} | Art by Claudia</title>
+        <meta
+          name="description"
+          content={
+            artwork.description
+              ? artwork.description.slice(0, 155)
+              : `${artwork.title} - original ${artwork.medium} artwork by Claudia`
+          }
+        />
+        <meta
+          property="og:title"
+          content={`${artwork.title} | Art by Claudia`}
+        />
+        <meta
+          property="og:description"
+          content={
+            artwork.description
+              ? artwork.description.slice(0, 155)
+              : `Original ${artwork.medium} artwork by Claudia`
+          }
+        />
+        <meta property="og:image" content={artwork.image_url} />
+        <meta property="og:type" content="product" />
+      </Helmet>
 
-      <div className="grid md:grid-cols-2 gap-10">
-        <div className="rounded-2xl overflow-hidden bg-sand">
-          <img
-            src={artwork.image_url}
-            alt={artwork.title}
-            className="w-full h-full object-cover"
-          />
-        </div>
+      <section className="max-w-5xl mx-auto px-4 py-16">
+        <Link
+          to="/gallery"
+          className="inline-block text-sm text-ink/60 hover:text-coral transition-colors mb-8"
+        >
+          &larr; Back to gallery
+        </Link>
 
-        <div>
-          <p className="text-xs uppercase tracking-wide text-sage font-medium mb-4">
-            {artwork.medium} {artwork.artist ? ` · ${artwork.artist}` : ""}
-          </p>
-          <h1 className="text-3xl md:text-4xl font-display font-medium text-ink mb-4">
-            {artwork.title}
-          </h1>
-          {artwork.description && (
-            <p className="text-ink/75 leading-relaxed mb-6">
-              {artwork.description}
+        <div className="grid md:grid-cols-2 gap-10">
+          <div className="rounded-2xl overflow-hidden bg-sand">
+            <img
+              src={artwork.image_url}
+              alt={artwork.title}
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div>
+            <p className="text-xs uppercase tracking-wide text-sage font-medium mb-4">
+              {artwork.medium} {artwork.artist ? ` · ${artwork.artist}` : ""}
             </p>
-          )}
+            <h1 className="text-3xl md:text-4xl font-display font-medium text-ink mb-4">
+              {artwork.title}
+            </h1>
+            {artwork.description && (
+              <p className="text-ink/75 leading-relaxed mb-6">
+                {artwork.description}
+              </p>
+            )}
 
-          {options.length === 0 && (
-            <span className="inline-block bg-ink/10 text-ink/60 px-6 py-3 rounded-full font-medium mb-6">
-              Sold
-            </span>
-          )}
+            {options.length === 0 && (
+              <span className="inline-block bg-ink/10 text-ink/60 px-6 py-3 rounded-full font-medium mb-6">
+                Sold
+              </span>
+            )}
 
-          {options.length > 0 && (
-            <>
-              {/* Option selector */}
-              <div className="mb-6 space-y-2">
-                {options.map((option) => (
-                  <label
-                    key={option.key}
-                    className={`flex items-center justify-between gap-3 rounded-xl border px-4 py-3 cursor-pointer transition-colors ${
-                      selectedKey === option.key
-                        ? "border-coral bg-blush/30"
-                        : "border-blush bg-white hover:border-coral/50"
-                    }`}
-                  >
-                    <span className="flex items-center gap-3">
-                      <input
-                        type="radio"
-                        name="option"
-                        checked={selectedKey === option.key}
-                        onChange={() => setSelectedKey(option.key)}
-                        className="accent-coral"
-                      />
-                      <span className="text-ink/80 font-medium">
-                        {option.label}
+            {options.length > 0 && (
+              <>
+                {/* Option selector */}
+                <div className="mb-6 space-y-2">
+                  {options.map((option) => (
+                    <label
+                      key={option.key}
+                      className={`flex items-center justify-between gap-3 rounded-xl border px-4 py-3 cursor-pointer transition-colors ${
+                        selectedKey === option.key
+                          ? "border-coral bg-blush/30"
+                          : "border-blush bg-white hover:border-coral/50"
+                      }`}
+                    >
+                      <span className="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          name="option"
+                          checked={selectedKey === option.key}
+                          onChange={() => setSelectedKey(option.key)}
+                          className="accent-coral"
+                        />
+                        <span className="text-ink/80 font-medium">
+                          {option.label}
+                        </span>
                       </span>
-                    </span>
-                    <span className="text-coral font-semibold whitespace-nowrap">
-                      ${option.price}
-                    </span>
-                  </label>
-                ))}
-              </div>
-              {selectedOption?.key !== "original" && (
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-sm text-ink/60">Quantity</span>
-                  <div className="flex items-center border border-blush rounded-full overflow-hidden">
-                    <button
-                      type="button"
-                      onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                      className="w-9 h-9 flex items-center justify-center text-ink/60 hover:text-coral transition-colors"
-                      aria-label="Decrease quantity"
-                    >
-                      −
-                    </button>
-                    <span className="w-8 text-center text-ink font-medium">
-                      {quantity}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setQuantity((q) => q + 1)}
-                      className="w-9 h-9 flex items-center justify-center text-ink/60 hover:text-coral transition-colors"
-                      aria-label="Increase quantity"
-                    >
-                      +
-                    </button>
-                  </div>
+                      <span className="text-coral font-semibold whitespace-nowrap">
+                        ${option.price}
+                      </span>
+                    </label>
+                  ))}
                 </div>
-              )}
+                {selectedOption?.key !== "original" && (
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-sm text-ink/60">Quantity</span>
+                    <div className="flex items-center border border-blush rounded-full overflow-hidden">
+                      <button
+                        type="button"
+                        onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                        className="w-9 h-9 flex items-center justify-center text-ink/60 hover:text-coral transition-colors"
+                        aria-label="Decrease quantity"
+                      >
+                        −
+                      </button>
+                      <span className="w-8 text-center text-ink font-medium">
+                        {quantity}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setQuantity((q) => q + 1)}
+                        className="w-9 h-9 flex items-center justify-center text-ink/60 hover:text-coral transition-colors"
+                        aria-label="Increase quantity"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                )}
 
-              <button
-                onClick={handleAddToCart}
-                className="bg-coral text-white px-8 py-3.5 rounded-full font-medium shadow-md shadow-coral/20 hover:bg-clay transition-colors"
-              >
-                Add to Cart
-              </button>
+                <button
+                  onClick={handleAddToCart}
+                  className="bg-coral text-white px-8 py-3.5 rounded-full font-medium shadow-md shadow-coral/20 hover:bg-clay transition-colors"
+                >
+                  Add to Cart
+                </button>
 
-              {feedback && (
-                <p className="text-sm text-sage-700 mt-3">{feedback}</p>
-              )}
-            </>
-          )}
+                {feedback && (
+                  <p className="text-sm text-sage-700 mt-3">{feedback}</p>
+                )}
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
