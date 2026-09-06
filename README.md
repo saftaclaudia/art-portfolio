@@ -14,15 +14,17 @@ Coming soon...
 - React Router
 - Supabase (database, auth, storage)
 - EmailJS (order & contact notifications)
+- @dnd-kit (drag-and-drop reordering in admin)
 
 ## 📁 Features
 
 - Responsive, mobile-friendly design with a custom warm color palette
 - Gallery with filtering by medium (watercolor / digital / acrylic)
-- Individual product pages with shareable URLs
+- Individual product pages with shareable URLs, original dimensions, and optional print size/price variants
 - Shopping cart (persisted in local storage) and checkout flow
 - Order notifications sent by email
 - Admin panel (login-protected) to add, edit, and delete artworks, including image uploads
+- Admin artworks are grouped by medium, with drag-and-drop reordering within each category
 - Row Level Security (RLS) on the database — only authenticated users can modify data
 
 ## 🛠️ Getting Started

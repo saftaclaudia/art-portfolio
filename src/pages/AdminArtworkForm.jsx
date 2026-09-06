@@ -23,7 +23,10 @@ export default function AdminArtworkForm() {
     price: "",
     artist: "",
     in_stock: true,
+    dimensions: "",
   });
+
+  const [printOptions, setPrintOptions] = useState([]);
 
   const [imageFile, setImageFile] = useState(null);
   const [existingImageUrl, setExistingImageUrl] = useState("");
@@ -49,8 +52,10 @@ export default function AdminArtworkForm() {
           price: data.price || "",
           artist: data.artist || "",
           in_stoc: data.in_stock,
+          dimensions: data.dimensions || "",
         });
 
+        setPrintOptions(data.print_options || []);
         setExistingImageUrl(data.image_url || "");
       }
       setLoading(false);
@@ -62,6 +67,21 @@ export default function AdminArtworkForm() {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setForm({ ...form, [name]: type === "checkbox" ? checked : value });
+  };
+
+  const handlePrintOptionChange = (index, field, value) => {
+    const updated = [...printOptions];
+    updated[index] = { ...updated[index], [field]: value };
+    setPrintOptions(updated);
+  };
+
+  const addPrintOption = () => {
+    if (printOptions.length >= 3) return;
+    setPrintOptions([...printOptions, { size: "", price: "" }]);
+  };
+
+  const removePrintOption = (index) => {
+    setPrintOptions(printOptions.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e) => {
@@ -106,6 +126,10 @@ export default function AdminArtworkForm() {
       in_stock: form.in_stock,
       image_url: imageUrl,
       slug: slugify(form.title),
+      dimensions: form.dimensions,
+      print_options: printOptions
+        .filter((p) => p.size && p.price)
+        .map((p) => ({ size: p.size, price: Number(p.price) })),
     };
 
     const { error: saveError } = isEditing
@@ -184,6 +208,62 @@ export default function AdminArtworkForm() {
           placeholder="Artist (optional)"
           className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
         />
+
+        <input
+          name="dimensions"
+          type="text"
+          value={form.dimensions}
+          onChange={handleChange}
+          placeholder="Original sixe (e.g 30 X 40 cm"
+          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+        />
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <label className="block text-sm text-ink/70">
+              Print options (up to 3){" "}
+            </label>
+            {printOptions.length < 3 && (
+              <button
+                type="button"
+                onClick={addPrintOption}
+                className="text-sm text-coral hover:text-clay transition-colors"
+              >
+                + Add option
+              </button>
+            )}
+          </div>
+          {printOptions.map((option, index) => (
+            <div key={index} className="flex gap-2 mb-2">
+              <input
+                type="text"
+                value={option.size ?? ""}
+                onChange={(e) =>
+                  handlePrintOptionChange(index, "size", e.target.value)
+                }
+                placeholder="Size (e.g. A4)"
+                className="flex-1 rounded-xl border border-blush bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-coral/50"
+              />
+              <input
+                type="text"
+                value={option.price ?? ""}
+                onChange={(e) =>
+                  handlePrintOptionChange(index, "price", e.target.value)
+                }
+                placeholder="Price"
+                className="w-28 rounded-xl border border-blush bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-coral/50"
+              />
+              <button
+                type="button"
+                onClick={() => removePrintOption(index)}
+                aria-label="Remove print option"
+                className="text-ink/40 hover:text-clay transition-colors px-2"
+              >
+                {" "}
+                x
+              </button>
+            </div>
+          ))}
+        </div>
 
         <label className="flex items-center gap-2 text-sm text-ink/70">
           <input
