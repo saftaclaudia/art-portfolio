@@ -11,11 +11,24 @@ export function CartProvider({ children }) {
     localStorage.setItem("cart", JSON.stringify(items));
   }, [items]);
 
-  function addToCart(artwork) {
+  function addToCart(artwork, quantity = 1) {
     setItems((prev) => {
-      const alreadyInCart = prev.some((item) => item.id === artwork.id);
-      if (alreadyInCart) return prev;
-      return [...prev, artwork];
+      const existingIndex = prev.findIndex((item) => item.id === artwork.id);
+
+      if (existingIndex !== -1) {
+        // Original artworks are unique — never increase their quantity
+        if (artwork.variantType === "original") return prev;
+
+        // Prints can stack — increase the existing quantity
+        const updated = [...prev];
+        updated[existingIndex] = {
+          ...updated[existingIndex],
+          quantity: updated[existingIndex].quantity + quantity,
+        };
+        return updated;
+      }
+
+      return [...prev, { ...artwork, quantity }];
     });
   }
 
@@ -27,7 +40,10 @@ export function CartProvider({ children }) {
     setItems([]);
   }
 
-  const total = items.reduce((sum, item) => sum + (item.price || 0), 0);
+  const total = items.reduce(
+    (sum, item) => sum + (item.price || 0) * (item.quantity || 1),
+    0,
+  );
 
   return (
     <CartContext.Provider
