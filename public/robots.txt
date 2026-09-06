@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+
+Sitemap: https://art-portfolio-smoky.vercel.app/sitemap.xml
