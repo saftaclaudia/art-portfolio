@@ -47,14 +47,15 @@ export default function CartPage() {
               </h3>
               <p className="text-xs uppercase tracking-wide text-sage font-medium">
                 {item.medium}
+                {item.variantLabel ? ` · ${item.variantLabel}` : ""}
               </p>
             </div>
-
             {item.price && (
-              <span className="text-coral fint-semibold whitespace-nowrap">
-                ${item.price}
+              <span className="text-coral font-semibold whitespace-nowrap">
+                ${item.price} {item.quantity > 1 ? `× ${item.quantity}` : ""}
               </span>
             )}
+
             <button
               onClick={() => removeFromCart(item.id)}
               aria-label={`Remove ${item.title} from cart`}
