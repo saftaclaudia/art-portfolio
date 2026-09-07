@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { supabase } from "../supabaseClient";
 
 export default function AdminLoginPage() {
   const { login } = useAuth();
@@ -12,6 +13,11 @@ export default function AdminLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetMessage, setResetMessage] = useState("");
+  const [resetSending, setResetSending] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +32,23 @@ export default function AdminLoginPage() {
     } else {
       navigate("/admin");
     }
+  };
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    setResetSending(true);
+    setResetMessage("");
+
+    const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+      redirectTo: `${window.location.origin}/admin/reset-password`,
+    });
+
+    setResetSending(false);
+    setResetMessage(
+      error
+        ? "Something went wrong. Please try again."
+        : "Check your email for a reset link.",
+    );
   };
 
   return (
@@ -70,6 +93,37 @@ export default function AdminLoginPage() {
         </button>
         {error && <p className="text-clay text-sm text-center">{error}</p>}
       </form>
+
+      {!showForgotPassword ? (
+        <button
+          type="button"
+          onClick={() => setShowForgotPassword(true)}
+          className="block w-full text-center text-sm text-ink/60 hover:text-coral transition-colors mt-4"
+        >
+          Forgot password?
+        </button>
+      ) : (
+        <form onSubmit={handleResetPassword} className="mt-6 space-y-3">
+          <input
+            type="email"
+            value={resetEmail}
+            onChange={(e) => setResetEmail(e.target.value)}
+            placeholder="Your email"
+            required
+            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+          />
+          <button
+            type="submit"
+            disabled={resetSending}
+            className="w-full bg-ink/10 text-ink px-8 py-2.5 rounded-full font-medium hover:bg-ink/20 transition-colors disabled:opacity-60"
+          >
+            {resetSending ? "Sending..." : "Send Reset Link"}
+          </button>
+          {resetMessage && (
+            <p className="text-sm text-center text-ink/70">{resetMessage}</p>
+          )}
+        </form>
+      )}
     </div>
   );
 }
