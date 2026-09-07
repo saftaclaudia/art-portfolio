@@ -16,6 +16,7 @@ import AdminLoginPage from "./pages/AdminLoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminPage from "./pages/AdminPage";
 import AdminArtworkForm from "./pages/AdminArtworkForm";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/order-confirmed" element={<OrderConfirmedPage />} />
           <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin/reset-password" element={<ResetPasswordPage />} />
+
           <Route
             path="/admin"
             element={
