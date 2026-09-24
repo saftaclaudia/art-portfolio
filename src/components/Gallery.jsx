@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet-async";
 
 const FILTERS = [
   { key: "all", label: "All" },
-  { key: "watercolor", label: "Wateercolor" },
+  { key: "watercolor", label: "Watercolor" },
   { key: "digital", label: "Digital" },
 ];
 

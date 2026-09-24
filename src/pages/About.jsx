@@ -50,9 +50,9 @@ function About() {
               self-portraits. Drawing has stayed with me through most of my
               life, especially during harder times, when it gave me a way to
               relax and step back from everything happening around me. There
-              were also long stretches when I couldn't bring myself to draw at
-              all. Lately, I've found joy in small watercolor illustrations,
-              inspired by the new places I get to visit.
+              were also long stretches when I couldn&apos;t bring myself to draw
+              at all. Lately, I&apos; ve found joy in small watercolor
+              illustrations, inspired by the new places I get to visit.
             </p>
           </motion.div>
         </div>
