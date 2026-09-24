@@ -10,6 +10,60 @@ const FILTERS = [
   { key: "digital", label: "Digital" },
 ];
 
+function ArtworkCardImage({ artwork }) {
+  const extraImages = Array.isArray(artwork.images) ? artwork.images : [];
+  const allImages = [artwork.image_url, ...extraImages];
+  const [index, setIndex] = useState(0);
+
+  const next = (e) => {
+    e.stopPropagation();
+    setIndex((i) => (i + 1) % allImages.length);
+  };
+  const prev = (e) => {
+    e.stopPropagation();
+    setIndex((i) => (i - 1 + allImages.length) % allImages.length);
+  };
+  return (
+    <div className="relative aspect-[4/3] w-full overflow-hidden bg-sand">
+      <img
+        src={allImages[index]}
+        alt={artwork.title}
+        loading="lazy"
+        className="w-full h-full object-cover transition-transform duration-500"
+      />
+      {allImages.length > 1 && (
+        <>
+          <button
+            onClick={prev}
+            aria-label="Previous image"
+            className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/80 shadow flex items-center justify-center text-ink/60 hover:text-coral transition-colors"
+          >
+            {" "}
+            ‹{" "}
+          </button>
+          <button
+            onClick={next}
+            aria-label="Next image"
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/80 shadow flex items-center justify-center text-ink/60 hover:text-coral transition-colors"
+          >
+            {" "}
+            ›
+          </button>
+
+          <div>
+            {allImages.map((_, i) => (
+              <span
+                key={i}
+                className={`w-1.5 h-1.5 rounded-full ${i === index ? "bg-coral" : "bg-white/70"}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 export default function Gallery() {
   const navigate = useNavigate();
   const [artworks, setArtworks] = useState([]);
@@ -113,14 +167,7 @@ export default function Gallery() {
                   onClick={() => navigate(`/gallery/${artwork.slug}`)}
                   className="group rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer"
                 >
-                  <div className="aspect-[4/3] w-full overflow-hidden bg-sand">
-                    <img
-                      src={artwork.image_url}
-                      alt={artwork.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
+                  <ArtworkCardImage artwork={artwork} />
 
                   <div className="p-5">
                     <div className="flex items-start justify-between gap-2 mb-1">

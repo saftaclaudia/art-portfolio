@@ -170,12 +170,26 @@ export default function ProductPage() {
         </Link>
 
         <div className="grid md:grid-cols-2 gap-10">
-          <div className="rounded-2xl overflow-hidden bg-sand">
-            <img
-              src={artwork.image_url}
-              alt={artwork.title}
-              className="w-full h-full object-cover"
-            />
+          <div className="space-y-6">
+            <div className="rounded-2xl overflow-hidden bg-sand">
+              <img
+                src={artwork.image_url}
+                alt={artwork.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {Array.isArray(artwork.images) &&
+              artwork.images?.length > 0 &&
+              artwork.images.map((url, index) => (
+                <div key={url} className="rounded-2xl overflow-hidden bg-sand">
+                  <img
+                    src={url}
+                    alt={`${artwork.title} - view ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
           </div>
 
           <div>

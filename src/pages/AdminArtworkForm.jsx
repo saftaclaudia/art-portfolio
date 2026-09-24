@@ -29,6 +29,9 @@ export default function AdminArtworkForm() {
   const [printOptions, setPrintOptions] = useState([]);
 
   const [imageFile, setImageFile] = useState(null);
+  const [extraImageFiles, setExtraImageFiles] = useState([]);
+  const [existingExtraImages, setExistingExtraImages] = useState([]);
+
   const [existingImageUrl, setExistingImageUrl] = useState("");
   const [loading, setLoading] = useState(isEditing);
   const [saving, setSaving] = useState(false);
@@ -57,6 +60,7 @@ export default function AdminArtworkForm() {
 
         setPrintOptions(data.print_options || []);
         setExistingImageUrl(data.image_url || "");
+        setExistingExtraImages(data.images || []);
       }
       setLoading(false);
     }
@@ -82,6 +86,10 @@ export default function AdminArtworkForm() {
 
   const removePrintOption = (index) => {
     setPrintOptions(printOptions.filter((_, i) => i !== index));
+  };
+
+  const removeExistingExtraImage = (index) => {
+    setExistingExtraImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e) => {
@@ -111,6 +119,25 @@ export default function AdminArtworkForm() {
 
       imageUrl = publicUrlData.publicUrl;
     }
+
+    const newExtraImageUrls = [];
+    for (const file of extraImageFiles) {
+      const fileExt = file.name.split(".").pop();
+      const fileName = `${slugify(form.title)}-extra-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${fileExt}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("artworks")
+        .upload(fileName, file);
+
+      if (!uploadError) {
+        const { data: publicUrlData } = supabase.storage
+          .from("artworks")
+          .getPublicUrl(fileName);
+        newExtraImageUrls.push(publicUrlData.publicUrl);
+      }
+    }
+    const finalImages = [...existingExtraImages, ...newExtraImageUrls];
+
     if (!imageUrl) {
       setError("Please upload an image");
       setSaving(false);
@@ -125,6 +152,7 @@ export default function AdminArtworkForm() {
       artist: form.artist,
       in_stock: form.in_stock,
       image_url: imageUrl,
+      images: finalImages,
       slug: slugify(form.title),
       dimensions: form.dimensions,
       print_options: printOptions
@@ -293,6 +321,46 @@ export default function AdminArtworkForm() {
             required={!isEditing}
             className="w-full text-sm text-ink/70"
           />
+        </div>
+
+        <div>
+          <label className="block text-sm text-ink/70 md-2">
+            Aditinal images (optional, unlimited)
+          </label>
+          {existingExtraImages.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-3">
+              {existingExtraImages.map((url, index) => (
+                <div key={url} className="relative">
+                  <img
+                    src={url}
+                    alt={`Extra ${index + 1}`}
+                    className="w-16 h-16 object-cover rounded-lg"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeExistingExtraImage(index)}
+                    className="absolute -top-2 -right-2 w-5 h-5 bg-white rounded-full shadow text-clay text-sm flex items-center justify-center"
+                    aria-label="Remove image"
+                  >
+                    x
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <input
+            type="file"
+            accept="omage/*"
+            multiple
+            onChange={(e) => setExtraImageFiles(Array.from(e.target.files))}
+            className="w-full text-sm text-ink/70"
+          />
+          {extraImageFiles.length > 0 && (
+            <p className="text-xs text-ink/50 mt-1">
+              {extraImageFiles.length} new image(5) selected
+            </p>
+          )}
         </div>
 
         <button
