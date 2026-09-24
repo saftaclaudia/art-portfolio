@@ -44,9 +44,15 @@ function About() {
               through brushstrokes and light.
             </p>
             <p className="text-ink/75 leading-relaxed">
-              My journey started in childhood, sketching flowers and seaside
-              landscapes. Today, I transform those inspirations into artworks
-              filled with life and emotion.
+              My journey started in childhood, when drawing became a way to
+              escape into a quiet, colorful space of my own. I made comic strips
+              inspired by everyday moments, then moved on to pencil
+              self-portraits. Drawing has stayed with me through most of my
+              life, especially during harder times, when it gave me a way to
+              relax and step back from everything happening around me. There
+              were also long stretches when I couldn't bring myself to draw at
+              all. Lately, I've found joy in small watercolor illustrations,
+              inspired by the new places I get to visit.
             </p>
           </motion.div>
         </div>
