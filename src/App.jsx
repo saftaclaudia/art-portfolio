@@ -17,6 +17,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminPage from "./pages/AdminPage";
 import AdminArtworkForm from "./pages/AdminArtworkForm";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import AdminAccountPage from "./pages/AdminAccountPage";
 
 function App() {
   return (
@@ -41,6 +42,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <AdminPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/account"
+            element={
+              <ProtectedRoute>
+                <AdminAccountPage />
               </ProtectedRoute>
             }
           />
