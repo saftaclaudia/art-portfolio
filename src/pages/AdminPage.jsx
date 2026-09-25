@@ -189,13 +189,20 @@ export default function AdminPage() {
         <h1 className="text-3xl font-display font-medium text-ink">
           Admin Panel
         </h1>
-        <div className="flex gap-3">
+        <div className="flex gap-3 items-center">
           <Link
             to="/admin/new"
             className="bg-coral text-white px-5 py-2.5 rounded-full font-medium hover:bg-clay transition-colors text-sm"
           >
             + Add Artwork
           </Link>
+          <Link
+            to="/admin/account"
+            className="text-ink/60 hover:text-coral transition-colors text-sm"
+          >
+            Account
+          </Link>
+
           <button
             onClick={logout}
             className="text-ink/60 hover:text-clay transition-colors text-sm"
