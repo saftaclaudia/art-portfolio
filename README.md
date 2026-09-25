@@ -27,6 +27,7 @@ A personal art portfolio and online shop, showcasing original watercolor, acryli
 - Order notifications sent by email
 - Admin panel (login-protected, with password reset) to add, edit, and delete artworks, including multi-image uploads
 - Admin artworks are grouped by medium, with drag-and-drop reordering within each category
+- Admin account page to view email, set a display name, and change password
 - Row Level Security (RLS) on the database — only authenticated users can modify data
 - Per-page SEO meta tags (title, description, Open Graph) plus `robots.txt` and `sitemap.xml`
 
