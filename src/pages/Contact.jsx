@@ -52,13 +52,15 @@ function Contact() {
       </Helmet>
       <section id="contact" className="pt-20 pb-16 px-4">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="font-accent text-xl text-coral mb-1">let&apos;s talk</p>
+          <p className="font-accent text-xl text-coral mb-1">
+            let&rsquo;s talk
+          </p>
           <h2 className="text-3xl md:text-4xl font-display font-mediumtext-ink mb-4">
             Contact
           </h2>
           <p className="text-ink/70  mb-10">
             {" "}
-            Feel free to get in touch with me. I&aops;d love to hear from you!
+            Feel free to get in touch with me. I&rsquo;d love to hear from you!
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-5 text-left">
