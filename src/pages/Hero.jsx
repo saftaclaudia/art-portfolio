@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-scroll";
+
 import myPortrait from "../assets/profile-optimized.jpg";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
