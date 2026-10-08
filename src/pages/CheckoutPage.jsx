@@ -30,7 +30,10 @@ export default function CheckoutPage() {
     setError(false);
 
     const orderSummary = items
-      .map((item) => `- ${item.title} (${item.medium} - $${item.price})`)
+      .map(
+        (item) =>
+          `- ${item.title} (${item.medium} - $${item.price}) x${item.quantity || 1}`,
+      )
       .join("\n");
 
     const message =

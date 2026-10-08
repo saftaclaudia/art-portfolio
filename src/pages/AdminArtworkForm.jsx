@@ -272,7 +272,7 @@ export default function AdminArtworkForm() {
                 className="flex-1 rounded-xl border border-blush bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-coral/50"
               />
               <input
-                type="text"
+                type="number"
                 value={option.price ?? ""}
                 onChange={(e) =>
                   handlePrintOptionChange(index, "price", e.target.value)
