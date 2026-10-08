@@ -30,7 +30,7 @@ export default function AdminLoginPage() {
       setError("Invalid email or password");
       setLoading(false);
     } else {
-      navigate("/admin");
+      navigate("/admin", { replace: true });
     }
   };
 

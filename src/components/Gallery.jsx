@@ -78,7 +78,7 @@ export default function Gallery() {
       const { data, error } = await supabase
         .from("artworks")
         .select("*")
-        .order("medium", { ascemding: true })
+        .order("medium", { ascending: true })
         .order("sort_order", { ascending: true });
       if (error) {
         setError("Could not load artworks. Please try again later.");

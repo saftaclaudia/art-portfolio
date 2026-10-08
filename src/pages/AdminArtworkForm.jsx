@@ -54,7 +54,7 @@ export default function AdminArtworkForm() {
           medium: data.medium || "watercolor",
           price: data.price || "",
           artist: data.artist || "",
-          in_stoc: data.in_stock,
+          in_stock: data.in_stock,
           dimensions: data.dimensions || "",
         });
 
@@ -242,7 +242,7 @@ export default function AdminArtworkForm() {
           type="text"
           value={form.dimensions}
           onChange={handleChange}
-          placeholder="Original sixe (e.g 30 X 40 cm"
+          placeholder="Original size (e.g. 30 X 40 cm)"
           className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
         />
         <div>
@@ -325,7 +325,7 @@ export default function AdminArtworkForm() {
 
         <div>
           <label className="block text-sm text-ink/70 md-2">
-            Aditinal images (optional, unlimited)
+            Additional images (optional, unlimited)
           </label>
           {existingExtraImages.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-3">
@@ -351,14 +351,14 @@ export default function AdminArtworkForm() {
 
           <input
             type="file"
-            accept="omage/*"
+            accept="image/*"
             multiple
             onChange={(e) => setExtraImageFiles(Array.from(e.target.files))}
             className="w-full text-sm text-ink/70"
           />
           {extraImageFiles.length > 0 && (
             <p className="text-xs text-ink/50 mt-1">
-              {extraImageFiles.length} new image(5) selected
+              {extraImageFiles.length} new image(s) selected
             </p>
           )}
         </div>

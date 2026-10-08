@@ -41,11 +41,11 @@ export default function AdminAccountPage() {
     setPasswordMessage("");
 
     if (newPassword.length < 6) {
-      setPasswordMessage("Password must be at least 6 characters.");
+      setPasswordError("Password must be at least 6 characters.");
       return;
     }
     if (newPassword !== confirmPassword) {
-      setPasswordError("Password do not match.");
+      setPasswordError("Passwords do not match.");
       return;
     }
 
@@ -67,7 +67,7 @@ export default function AdminAccountPage() {
     <div className="max-w-lg mx-auto px-4 py-16">
       <Link
         to="/admin"
-        className="inline-block text-sm text-ink/60 hover:text-coral transistion-colors mb-8"
+        className="inline-block text-sm text-ink/60 hover:text-coral transition-colors mb-8"
       >
         &larr; Back to admin
       </Link>
@@ -83,7 +83,7 @@ export default function AdminAccountPage() {
         </p>
       </div>
 
-      {/* Diplay Name */}
+      {/* Display Name */}
       <form onSubmit={handleSaveName} className="mb-10">
         <h2 className="text-sm font-medium text-ink/60 mb-2">Display Name</h2>
         <div className="flex gap-2">
@@ -107,7 +107,7 @@ export default function AdminAccountPage() {
         </div>
       </form>
 
-      {/* Cjhange password */}
+      {/* Change password */}
       <form onSubmit={handleChangePassword}>
         <h2 className="text-sm font-medium text-ink/60 mb-2">
           Change Password
@@ -125,7 +125,7 @@ export default function AdminAccountPage() {
               type="button"
               onClick={() => setShowNewPassword(!showNewPassword)}
               aria-label={showNewPassword ? "Hide password" : "Show password"}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/40 hover:text-coral transtion-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/40 hover:text-coral transition-colors"
             >
               {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
@@ -145,7 +145,7 @@ export default function AdminAccountPage() {
               aria-label={
                 showConfirmPassword ? "Hide password" : "Show password"
               }
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/40 hover:text-coral transtion-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/40 hover:text-coral transition-colors"
             >
               {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
