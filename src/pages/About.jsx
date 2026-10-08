@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import aboutPortrait from "../assets/about-portrait.jpg";
 import { Helmet } from "react-helmet-async";
