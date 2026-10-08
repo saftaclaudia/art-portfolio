@@ -277,7 +277,7 @@ export default function ProductPage() {
                 </button>
 
                 {feedback && (
-                  <p className="text-sm text-sage-700 mt-3">{feedback}</p>
+                  <p className="text-sm text-sage mt-3">{feedback}</p>
                 )}
               </>
             )}

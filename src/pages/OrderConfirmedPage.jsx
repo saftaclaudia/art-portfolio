@@ -5,7 +5,7 @@ export default function OrderConfirmedPage() {
   return (
     <div className="max-w-xl mx-auto px-4 py-4 text-center">
       <CheckCircle size={56} className="text-sage mx-auto mb-6" />
-      <h1 className="text-3xl font-display font-medium text-link mb-4">
+      <h1 className="text-3xl font-display font-medium text-ink mb-4">
         Order received!
       </h1>
       <p className="text-ink/70 mb-10 leading-relaxed">

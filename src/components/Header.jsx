@@ -48,7 +48,7 @@ function Header() {
       >
         <ShoppingBag size={24} />
         {items.length > 0 && (
-          <span className="absolute -top-2 -right-2 bg-coral text0white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">
+          <span className="absolute -top-2 -right-2 bg-coral text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">
             {items.length}
           </span>
         )}

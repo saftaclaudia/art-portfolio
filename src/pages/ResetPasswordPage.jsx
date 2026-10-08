@@ -42,7 +42,7 @@ export default function ResetPasswordPage() {
         Set a New Password
       </h1>
       {success ? (
-        <p className="text-center text-sage-700">
+        <p className="text-center text-sage">
           Password updated! Redirecting to login...
         </p>
       ) : (

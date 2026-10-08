@@ -55,7 +55,7 @@ function Contact() {
           <p className="font-accent text-xl text-coral mb-1">
             let&rsquo;s talk
           </p>
-          <h2 className="text-3xl md:text-4xl font-display font-mediumtext-ink mb-4">
+          <h2 className="text-3xl md:text-4xl font-display font-medium text-ink mb-4">
             Contact
           </h2>
           <p className="text-ink/70  mb-10">
@@ -99,10 +99,10 @@ function Contact() {
               disabled={sending}
               className="bg-coral text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
             >
-              {sending ? "Senfinh..." : "Send Message"}
+              {sending ? "Sending..." : "Send Message"}
             </button>
             {success && (
-              <p className="text-sage-700 text-sm">
+              <p className="text-sage text-sm">
                 Message sent successfully. Thank you
               </p>
             )}

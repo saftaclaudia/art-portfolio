@@ -102,7 +102,7 @@ export default function AdminAccountPage() {
             {savingName ? "Saving" : "Save"}
           </button>
           {nameMessage && (
-            <p className="text-sm text-sage-700 mt-2">{nameMessage}</p>
+            <p className="text-sm text-sage mt-2">{nameMessage}</p>
           )}
         </div>
       </form>
@@ -163,7 +163,7 @@ export default function AdminAccountPage() {
           <p className="text-sm text-clay mt-2">{passwordError}</p>
         )}
         {passwordMessage && (
-          <p className="text-sm text-sage-700 mt-2">{passwordMessage}</p>
+          <p className="text-sm text-sage mt-2">{passwordMessage}</p>
         )}
       </form>
     </div>
