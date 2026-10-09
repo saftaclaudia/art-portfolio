@@ -78,7 +78,7 @@ export default function AdminLoginPage() {
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             aria-label={showPassword ? "Hide password" : "Show password"}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/40 hover:text-coral transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/75TEMPMARK hover:text-coralText transition-colors"
           >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
@@ -87,7 +87,7 @@ export default function AdminLoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-coral text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
+          className="w-full bg-coralText text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
         >
           {loading ? "Logging in..." : "Log In"}
         </button>
@@ -98,7 +98,7 @@ export default function AdminLoginPage() {
         <button
           type="button"
           onClick={() => setShowForgotPassword(true)}
-          className="block w-full text-center text-sm text-ink/60 hover:text-coral transition-colors mt-4"
+          className="block w-full text-center text-sm text-ink/75 hover:text-coralText transition-colors mt-4"
         >
           Forgot password?
         </button>
@@ -120,7 +120,7 @@ export default function AdminLoginPage() {
             {resetSending ? "Sending..." : "Send Reset Link"}
           </button>
           {resetMessage && (
-            <p className="text-sm text-center text-ink/70">{resetMessage}</p>
+            <p className="text-sm text-center text-ink/75">{resetMessage}</p>
           )}
         </form>
       )}

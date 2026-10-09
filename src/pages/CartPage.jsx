@@ -10,12 +10,12 @@ export default function CartPage() {
         <h1 className="text-2xl font-display text-ink mb-3">
           Your cart is empty
         </h1>
-        <p className="text-ink/60 mb-6">
+        <p className="text-ink/75 mb-6">
           Browse the gallery ad find a piece you love
         </p>
         <Link
           to="/gallery"
-          className="inline-block bg-coral text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors"
+          className="inline-block bg-coralText text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors"
         >
           Go to Gallery
         </Link>
@@ -51,7 +51,7 @@ export default function CartPage() {
               </p>
             </div>
             {item.price && (
-              <span className="text-coral font-semibold whitespace-nowrap">
+              <span className="text-coralText font-semibold whitespace-nowrap">
                 ${item.price} {item.quantity > 1 ? `× ${item.quantity}` : ""}
               </span>
             )}
@@ -59,7 +59,7 @@ export default function CartPage() {
             <button
               onClick={() => removeFromCart(item.id)}
               aria-label={`Remove ${item.title} from cart`}
-              className="text-ink/40 hover:text-clay transition-colors"
+              className="text-ink/75TEMPMARK hover:text-clay transition-colors"
             >
               <Trash2 size={18} />
             </button>
@@ -69,11 +69,11 @@ export default function CartPage() {
 
       <div className="flex items-center justify-between border-t border-blush pt-6">
         <span className="text-lg font-medium text-ink">Total</span>
-        <span className="text-2xl font-semibold text-coral">${total}</span>
+        <span className="text-2xl font-semibold text-coralText">${total}</span>
       </div>
       <Link
         to="/checkout"
-        className="block text-center bg-coral text-white px-8 py-3.5 rounded-full font-medium hover:bg-clay transition-colors mt-8"
+        className="block text-center bg-coralText text-white px-8 py-3.5 rounded-full font-medium hover:bg-clay transition-colors mt-8"
       >
         Proceed to Checkout
       </Link>

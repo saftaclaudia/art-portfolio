@@ -62,7 +62,7 @@ export default function CheckoutPage() {
         <h2 className="text-2xl font-display text-ink mb-3">
           Your cart is empty
         </h2>
-        <p className="text-ink/60">Add something from the gallery first.</p>
+        <p className="text-ink/75">Add something from the gallery first.</p>
       </div>
     );
   }
@@ -72,8 +72,8 @@ export default function CheckoutPage() {
       <h1 className="text-3xl md:text-4xl font-display font-medium text-ink mb-3 text-center">
         Checkout
       </h1>
-      <p className="text-ink/60 text-center mb-10">
-        Total: <span className="text-coral font-semibold">${total}</span>
+      <p className="text-ink/75 text-center mb-10">
+        Total: <span className="text-coralText font-semibold">${total}</span>
       </p>
       <form onSubmit={handleSubmit} className="space-y-5">
         <input
@@ -135,7 +135,7 @@ export default function CheckoutPage() {
         <button
           type="submit"
           disabled={sending}
-          className="w-full bg-coral text-white px-8 py-3.5 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
+          className="w-full bg-coralText text-white px-8 py-3.5 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
         >
           {sending ? "Placing order..." : "Place Order"}
         </button>

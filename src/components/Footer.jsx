@@ -2,8 +2,8 @@ import { Instagram } from "lucide-react";
 
 function Footer() {
   return (
-    <footer className="border-t border-blush/60 pt-8 pb-6  text-center text-sm text-ink/60 bg-cream">
-      <p className="font-accent text-lg text-coral mb-2">
+    <footer className="border-t border-blush/60 pt-8 pb-6  text-center text-sm text-ink/75 bg-cream">
+      <p className="font-accent text-lg text-coralText mb-2">
         © {new Date().getFullYear()} Art by Claudia
       </p>
       <p className="mb-3">© {new Date().getFullYear()} All rights reserved</p>
@@ -14,7 +14,7 @@ function Footer() {
           href="https://www.instagram.com/claudiasafta_draw"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-coral transition-colors"
+          className="hover:text-coralText transition-colors"
           aria-label="Instagram"
         >
           <Instagram size={18} />

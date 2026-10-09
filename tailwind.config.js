@@ -9,8 +9,9 @@ export default {
         blush: "#F3D9CD",
         peach: "#F0B8A0",
         coral: "#E38B6F",
-        sage: "#B4C4A8",
-        clay: "#B56A4C",
+        coralText: "#C44C26",
+        sage: "#667D54",
+        clay: "#A66045",
         ink: "#4A4038",
       },
       fontFamily: {

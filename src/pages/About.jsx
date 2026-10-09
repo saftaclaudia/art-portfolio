@@ -34,8 +34,8 @@ function About() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <p className="font-accent text-xl text-coral mb-1">about me</p>
-            <h2 className="text-3xl md:text-4xl font-medium mb-5">About Me</h2>
+            <p className="font-accent text-xl text-coralText mb-1">about me</p>
+            <h1 className="text-3xl md:text-4xl font-medium mb-5">About Me</h1>
             <p className="text-ink/75 leading-relaxed mb-4">
               I&apos;m Claudia, a passionate artist inspired by the beauty of
               nature, human emotion, and vibrant colors. I create watercolor and

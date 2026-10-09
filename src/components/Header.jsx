@@ -16,13 +16,13 @@ function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const linkClass = ({ isActive }) =>
-    `hover:text-coral transition-colors ${isActive ? "text-coral" : "text-ink/80"}`;
+    `hover:text-coralText transition-colors ${isActive ? "text-coralText" : "text-ink/80"}`;
 
   return (
     <header className=" sticky top-0 z-50 flex justify-between items-center px-6 md:px-10 py-4 border-b border-blush/60 bg-cream/85 backdrop-blur-md">
       <NavLink
         to="/"
-        className=" font-accent text-2xl md:text-3xl text-clay hover:text-coral transition-colors"
+        className=" font-accent text-2xl md:text-3xl text-clay hover:text-coralText transition-colors"
       >
         Art by Claudia
       </NavLink>
@@ -44,11 +44,12 @@ function Header() {
       {/* Cart icon */}
       <Link
         to="/cart"
-        className="relative text-clay hover:text-coral transition-colors"
+        aria-label="Cart"
+        className="relative text-clay hover:text-coralText transition-colors"
       >
         <ShoppingBag size={24} />
         {items.length > 0 && (
-          <span className="absolute -top-2 -right-2 bg-coral text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">
+          <span className="absolute -top-2 -right-2 bg-coralText text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">
             {items.length}
           </span>
         )}

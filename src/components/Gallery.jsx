@@ -37,7 +37,7 @@ function ArtworkCardImage({ artwork }) {
           <button
             onClick={prev}
             aria-label="Previous image"
-            className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/80 shadow flex items-center justify-center text-ink/60 hover:text-coral transition-colors"
+            className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/80 shadow flex items-center justify-center text-ink/75 hover:text-coralText transition-colors"
           >
             {" "}
             ‹{" "}
@@ -45,7 +45,7 @@ function ArtworkCardImage({ artwork }) {
           <button
             onClick={next}
             aria-label="Next image"
-            className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/80 shadow flex items-center justify-center text-ink/60 hover:text-coral transition-colors"
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/80 shadow flex items-center justify-center text-ink/75 hover:text-coralText transition-colors"
           >
             {" "}
             ›
@@ -110,10 +110,10 @@ export default function Gallery() {
       <section id="gallery" className="bg-cream px-4 py-20 sm:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-4">
-            <p className="font-accent text-xl text-coral mb-1">my artworks</p>
-            <h2 className="text-3xl md:text-4xl font-display font-medium text-ink">
+            <p className="font-accent text-xl text-coralText mb-1">my artworks</p>
+            <h1 className="text-3xl md:text-4xl font-display font-medium text-ink">
               Gallery
-            </h2>
+            </h1>
           </div>
 
           {/* Filters */}
@@ -124,8 +124,8 @@ export default function Gallery() {
                 onClick={() => setActiveFilter(f.key)}
                 className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
                   activeFilter === f.key
-                    ? "bg-coral text-white border-coral"
-                    : "bg-white text-ink/70 border-blush hover:border-coral hover:text-coral"
+                    ? "bg-coralText text-white border-coralText"
+                    : "bg-white text-ink/75 border-blush hover:border-coral hover:text-coralText"
                 }`}
               >
                 {f.label}
@@ -152,7 +152,7 @@ export default function Gallery() {
           )}
 
           {!loading && !error && filteredArtworks.length === 0 && (
-            <p className="text-center text-ink/60">
+            <p className="text-center text-ink/75">
               No artworks in this category yet.
             </p>
           )}
@@ -173,11 +173,11 @@ export default function Gallery() {
 
                   <div className="p-5">
                     <div className="flex items-start justify-between gap-2 mb-1">
-                      <h3 className="text-lg font-display font-medium text-ink">
+                      <h2 className="text-lg font-display font-medium text-ink">
                         {artwork.title}
-                      </h3>
+                      </h2>
                       {artwork.price && (
-                        <span className="text-coral font-semibold whitespace-nowrap">
+                        <span className="text-coralText font-semibold whitespace-nowrap">
                           ${artwork.price}
                         </span>
                       )}
@@ -189,7 +189,7 @@ export default function Gallery() {
                     </p>
 
                     {artwork.description && (
-                      <p className="text-sm text-ink/70 leading-relaxed">
+                      <p className="text-sm text-ink/75 leading-relaxed">
                         {artwork.description}
                       </p>
                     )}

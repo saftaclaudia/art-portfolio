@@ -66,7 +66,7 @@ export default function ResetPasswordPage() {
           <button
             type="submit"
             disabled={saving}
-            className="w-full bg-coral text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
+            className="w-full bg-coralText text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
           >
             {saving ? "Saving..." : "Update Password"}
           </button>

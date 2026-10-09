@@ -123,10 +123,10 @@ export default function ProductPage() {
         <h2 className="text-2xl font-display text-ink mb-3">
           Artwork not found
         </h2>
-        <p className="text-ink/60 mb-3">
+        <p className="text-ink/75 mb-3">
           This piece may have been sold or removed.
         </p>
-        <Link to="/gallery" className="text-coral font-medium hover:text-clay">
+        <Link to="/gallery" className="text-coralText font-medium hover:text-clay">
           &larr; Back to gallery
         </Link>
       </div>
@@ -164,7 +164,7 @@ export default function ProductPage() {
       <section className="max-w-5xl mx-auto px-4 py-16">
         <Link
           to="/gallery"
-          className="inline-block text-sm text-ink/60 hover:text-coral transition-colors mb-8"
+          className="inline-block text-sm text-ink/75 hover:text-coralText transition-colors mb-8"
         >
           &larr; Back to gallery
         </Link>
@@ -206,7 +206,7 @@ export default function ProductPage() {
             )}
 
             {options.length === 0 && (
-              <span className="inline-block bg-ink/10 text-ink/60 px-6 py-3 rounded-full font-medium mb-6">
+              <span className="inline-block bg-ink/10 text-ink/75 px-6 py-3 rounded-full font-medium mb-6">
                 Sold
               </span>
             )}
@@ -236,7 +236,7 @@ export default function ProductPage() {
                           {option.label}
                         </span>
                       </span>
-                      <span className="text-coral font-semibold whitespace-nowrap">
+                      <span className="text-coralText font-semibold whitespace-nowrap">
                         ${option.price}
                       </span>
                     </label>
@@ -244,12 +244,12 @@ export default function ProductPage() {
                 </div>
                 {selectedOption?.key !== "original" && (
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="text-sm text-ink/60">Quantity</span>
+                    <span className="text-sm text-ink/75">Quantity</span>
                     <div className="flex items-center border border-blush rounded-full overflow-hidden">
                       <button
                         type="button"
                         onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                        className="w-9 h-9 flex items-center justify-center text-ink/60 hover:text-coral transition-colors"
+                        className="w-9 h-9 flex items-center justify-center text-ink/75 hover:text-coralText transition-colors"
                         aria-label="Decrease quantity"
                       >
                         −
@@ -260,7 +260,7 @@ export default function ProductPage() {
                       <button
                         type="button"
                         onClick={() => setQuantity((q) => q + 1)}
-                        className="w-9 h-9 flex items-center justify-center text-ink/60 hover:text-coral transition-colors"
+                        className="w-9 h-9 flex items-center justify-center text-ink/75 hover:text-coralText transition-colors"
                         aria-label="Increase quantity"
                       >
                         +
@@ -271,7 +271,7 @@ export default function ProductPage() {
 
                 <button
                   onClick={handleAddToCart}
-                  className="bg-coral text-white px-8 py-3.5 rounded-full font-medium shadow-md shadow-coral/20 hover:bg-clay transition-colors"
+                  className="bg-coralText text-white px-8 py-3.5 rounded-full font-medium shadow-md shadow-coral/20 hover:bg-clay transition-colors"
                 >
                   Add to Cart
                 </button>

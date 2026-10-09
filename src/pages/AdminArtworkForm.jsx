@@ -176,7 +176,7 @@ export default function AdminArtworkForm() {
 
   if (loading) {
     return (
-      <div className="max-w-lg mx-auto px-4 py-24 text-center text-ink/60">
+      <div className="max-w-lg mx-auto px-4 py-24 text-center text-ink/75">
         Loading...
       </div>
     );
@@ -248,14 +248,14 @@ export default function AdminArtworkForm() {
         />
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="block text-sm text-ink/70">
+            <label className="block text-sm text-ink/75">
               Print options (up to 3){" "}
             </label>
             {printOptions.length < 3 && (
               <button
                 type="button"
                 onClick={addPrintOption}
-                className="text-sm text-coral hover:text-clay transition-colors"
+                className="text-sm text-coralText hover:text-clay transition-colors"
               >
                 + Add option
               </button>
@@ -285,7 +285,7 @@ export default function AdminArtworkForm() {
                 type="button"
                 onClick={() => removePrintOption(index)}
                 aria-label="Remove print option"
-                className="text-ink/40 hover:text-clay transition-colors px-2"
+                className="text-ink/75TEMPMARK hover:text-clay transition-colors px-2"
               >
                 {" "}
                 x
@@ -294,7 +294,7 @@ export default function AdminArtworkForm() {
           ))}
         </div>
 
-        <label className="flex items-center gap-2 text-sm text-ink/70">
+        <label className="flex items-center gap-2 text-sm text-ink/75">
           <input
             name="in_stock"
             type="checkbox"
@@ -305,7 +305,7 @@ export default function AdminArtworkForm() {
         </label>
 
         <div>
-          <label className="block text-sm text-ink/70 mb-2">
+          <label className="block text-sm text-ink/75 mb-2">
             {isEditing ? "Replace image (optional)" : "Image"}
           </label>
           {existingImageUrl && !imageFile && (
@@ -320,12 +320,12 @@ export default function AdminArtworkForm() {
             accept="image/*"
             onChange={(e) => setImageFile(e.target.files[0])}
             required={!isEditing}
-            className="w-full text-sm text-ink/70"
+            className="w-full text-sm text-ink/75"
           />
         </div>
 
         <div>
-          <label className="block text-sm text-ink/70 md-2">
+          <label className="block text-sm text-ink/75 md-2">
             Additional images (optional, unlimited)
           </label>
           {existingExtraImages.length > 0 && (
@@ -355,7 +355,7 @@ export default function AdminArtworkForm() {
             accept="image/*"
             multiple
             onChange={(e) => setExtraImageFiles(Array.from(e.target.files))}
-            className="w-full text-sm text-ink/70"
+            className="w-full text-sm text-ink/75"
           />
           {extraImageFiles.length > 0 && (
             <p className="text-xs text-ink/50 mt-1">
@@ -367,7 +367,7 @@ export default function AdminArtworkForm() {
         <button
           type="submit"
           disabled={saving}
-          className="w-full bg-coral text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
+          className="w-full bg-coralText text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
         >
           {saving ? "Saving..." : isEditing ? "Save Changes" : "Add Artwork"}
         </button>

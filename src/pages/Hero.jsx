@@ -40,7 +40,7 @@ export default function Hero() {
 
           {/* Subtitle */}
           <motion.p
-            className="text-ink/70 text-lg md:text-xl mb-10 leading-relaxed"
+            className="text-ink/75 text-lg md:text-xl mb-10 leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.4 }}
@@ -54,7 +54,7 @@ export default function Hero() {
           <motion.button
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
-            className="bg-coral text-white px-8 py-3.5 rounded-full font-medium shadow-md shadow-coral/20 hover:bg-clay transition-colors"
+            className="bg-coralText text-white px-8 py-3.5 rounded-full font-medium shadow-md shadow-coral/20 hover:bg-clay transition-colors"
             onClick={() => navigate("/gallery")}
           >
             View Gallery

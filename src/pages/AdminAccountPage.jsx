@@ -67,7 +67,7 @@ export default function AdminAccountPage() {
     <div className="max-w-lg mx-auto px-4 py-16">
       <Link
         to="/admin"
-        className="inline-block text-sm text-ink/60 hover:text-coral transition-colors mb-8"
+        className="inline-block text-sm text-ink/75 hover:text-coralText transition-colors mb-8"
       >
         &larr; Back to admin
       </Link>
@@ -77,7 +77,7 @@ export default function AdminAccountPage() {
 
       {/* Email (read-only) */}
       <div className="mb-10">
-        <h2 className="text-sm font-medium text-ink/60 mb-2">Email</h2>
+        <h2 className="text-sm font-medium text-ink/75 mb-2">Email</h2>
         <p className="text-ink bg-sand/50 rounded-xl px-4 py-3">
           {user?.email}
         </p>
@@ -85,7 +85,7 @@ export default function AdminAccountPage() {
 
       {/* Display Name */}
       <form onSubmit={handleSaveName} className="mb-10">
-        <h2 className="text-sm font-medium text-ink/60 mb-2">Display Name</h2>
+        <h2 className="text-sm font-medium text-ink/75 mb-2">Display Name</h2>
         <div className="flex gap-2">
           <input
             type="text"
@@ -109,7 +109,7 @@ export default function AdminAccountPage() {
 
       {/* Change password */}
       <form onSubmit={handleChangePassword}>
-        <h2 className="text-sm font-medium text-ink/60 mb-2">
+        <h2 className="text-sm font-medium text-ink/75 mb-2">
           Change Password
         </h2>
         <div className="space-y-3">
@@ -125,7 +125,7 @@ export default function AdminAccountPage() {
               type="button"
               onClick={() => setShowNewPassword(!showNewPassword)}
               aria-label={showNewPassword ? "Hide password" : "Show password"}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/40 hover:text-coral transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/75TEMPMARK hover:text-coralText transition-colors"
             >
               {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
@@ -145,7 +145,7 @@ export default function AdminAccountPage() {
               aria-label={
                 showConfirmPassword ? "Hide password" : "Show password"
               }
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/40 hover:text-coral transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/75TEMPMARK hover:text-coralText transition-colors"
             >
               {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
@@ -154,7 +154,7 @@ export default function AdminAccountPage() {
           <button
             type="submit"
             disabled={savingPassword}
-            className="bg-coral text-white px-6 py-2.5 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
+            className="bg-coralText text-white px-6 py-2.5 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
           >
             {savingPassword ? "Saving..." : "Update Password"}
           </button>

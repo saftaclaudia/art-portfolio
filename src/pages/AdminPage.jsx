@@ -59,7 +59,7 @@ function SortableArtworkCard({ artwork, onDelete }) {
           {...attributes}
           {...listeners}
           aria-label="Drag to reorder"
-          className="absolute top-3 left-3 w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md text-ink/60 hover:text-coral hover:shadow-lg cursor-grab active:cursor-grabbing transition-all touch-none"
+          className="absolute top-3 left-3 w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md text-ink/75 hover:text-coralText hover:shadow-lg cursor-grab active:cursor-grabbing transition-all touch-none"
         >
           <GripVertical size={18} />
         </button>
@@ -84,7 +84,7 @@ function SortableArtworkCard({ artwork, onDelete }) {
         <div className="mt-auto pt-3 flex justify-between items-center border-t border-blush/60">
           <Link
             to={`/admin/edit/${artwork.id}`}
-            className="text-sm text-ink/60 hover:text-coral transition-colors"
+            className="text-sm text-ink/75 hover:text-coralText transition-colors"
           >
             Edit
           </Link>
@@ -192,30 +192,30 @@ export default function AdminPage() {
         <div className="flex gap-3 items-center">
           <Link
             to="/admin/new"
-            className="bg-coral text-white px-5 py-2.5 rounded-full font-medium hover:bg-clay transition-colors text-sm"
+            className="bg-coralText text-white px-5 py-2.5 rounded-full font-medium hover:bg-clay transition-colors text-sm"
           >
             + Add Artwork
           </Link>
           <Link
             to="/admin/account"
-            className="text-ink/60 hover:text-coral transition-colors text-sm"
+            className="text-ink/75 hover:text-coralText transition-colors text-sm"
           >
             Account
           </Link>
 
           <button
             onClick={logout}
-            className="text-ink/60 hover:text-clay transition-colors text-sm"
+            className="text-ink/75 hover:text-clay transition-colors text-sm"
           >
             Log Out
           </button>
         </div>
       </div>
 
-      {loading && <p className="text-ink/60">Loading...</p>}
+      {loading && <p className="text-ink/75">Loading...</p>}
 
       {!loading && artworks.length === 0 && (
-        <p className="text-ink/60">No artworks yet.</p>
+        <p className="text-ink/75">No artworks yet.</p>
       )}
 
       {!loading &&

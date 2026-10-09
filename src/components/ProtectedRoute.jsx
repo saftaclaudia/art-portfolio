@@ -6,7 +6,7 @@ export default function ProtectedRoute({ children }) {
 
   if (loading) {
     return (
-      <div className="max-w-sm mx-auto px-4 py-24 text-center text-ink/60">
+      <div className="max-w-sm mx-auto px-4 py-24 text-center text-ink/75">
         Loading...
       </div>
     );

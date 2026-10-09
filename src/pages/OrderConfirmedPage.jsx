@@ -8,13 +8,13 @@ export default function OrderConfirmedPage() {
       <h1 className="text-3xl font-display font-medium text-ink mb-4">
         Order received!
       </h1>
-      <p className="text-ink/70 mb-10 leading-relaxed">
+      <p className="text-ink/75 mb-10 leading-relaxed">
         Thank you for your order. I&apos;ll reach out by email shortly to
         confirm the details and arrange payment and shipping.
       </p>
       <Link
         to="/gallery"
-        className="inline-block bg-coral text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors"
+        className="inline-block bg-coralText text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors"
       >
         Continue Browsing
       </Link>

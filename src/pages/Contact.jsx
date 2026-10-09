@@ -52,13 +52,13 @@ function Contact() {
       </Helmet>
       <section id="contact" className="pt-20 pb-16 px-4">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="font-accent text-xl text-coral mb-1">
+          <p className="font-accent text-xl text-coralText mb-1">
             let&rsquo;s talk
           </p>
-          <h2 className="text-3xl md:text-4xl font-display font-medium text-ink mb-4">
+          <h1 className="text-3xl md:text-4xl font-display font-medium text-ink mb-4">
             Contact
-          </h2>
-          <p className="text-ink/70  mb-10">
+          </h1>
+          <p className="text-ink/75  mb-10">
             {" "}
             Feel free to get in touch with me. I&rsquo;d love to hear from you!
           </p>
@@ -97,7 +97,7 @@ function Contact() {
             <button
               type="submit"
               disabled={sending}
-              className="bg-coral text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
+              className="bg-coralText text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
             >
               {sending ? "Sending..." : "Send Message"}
             </button>
