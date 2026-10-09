@@ -3,6 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 
 const MEDIUMS = ["watercolor", "acrylic", "digital"];
+const MAX_IMAGE_DIMENSION = 2000;
+const IMAGE_QUALITY = 0.82;
+const SKIP_RESIZE_SIZE = 500 * 1024;
+
 function slugify(text) {
   return text
     .normalize("NFD")
@@ -11,6 +15,55 @@ function slugify(text) {
     .trim()
     .replace(/[^a-z0-9\s-]/g, "")
     .replace(/\s+/g, "-");
+}
+
+function resizeImageFile(file) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+
+    img.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+      const scale = Math.min(
+        1,
+        MAX_IMAGE_DIMENSION / Math.max(img.width, img.height),
+      );
+
+      if (scale === 1 && file.size <= SKIP_RESIZE_SIZE) {
+        resolve(file);
+        return;
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.round(img.width * scale);
+      canvas.height = Math.round(img.height * scale);
+      canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      const outputType = file.type === "image/png" ? "image/png" : "image/jpeg";
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) {
+            resolve(file);
+            return;
+          }
+          const newName =
+            outputType === "image/jpeg"
+              ? file.name.replace(/\.[^.]+$/, ".jpg")
+              : file.name;
+          resolve(new File([blob], newName, { type: outputType }));
+        },
+        outputType,
+        outputType === "image/jpeg" ? IMAGE_QUALITY : undefined,
+      );
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      resolve(file);
+    };
+
+    img.src = objectUrl;
+  });
 }
 export default function AdminArtworkForm() {
   const { id } = useParams(); //undefined= adding new, present = editig
@@ -101,12 +154,13 @@ export default function AdminArtworkForm() {
     let imageUrl = existingImageUrl;
 
     if (imageFile) {
-      const fileExt = imageFile.name.split(".").pop();
+      const resizedFile = await resizeImageFile(imageFile);
+      const fileExt = resizedFile.name.split(".").pop();
       const fileName = `${slugify(form.title)}-${Date.now()}.${fileExt}`;
 
       const { error: uploadedError } = await supabase.storage
         .from("artworks")
-        .upload(fileName, imageFile);
+        .upload(fileName, resizedFile);
 
       if (uploadedError) {
         setError("Image upload failed:" + uploadedError.message);
@@ -123,12 +177,13 @@ export default function AdminArtworkForm() {
 
     const newExtraImageUrls = [];
     for (const file of extraImageFiles) {
-      const fileExt = file.name.split(".").pop();
+      const resizedFile = await resizeImageFile(file);
+      const fileExt = resizedFile.name.split(".").pop();
       const fileName = `${slugify(form.title)}-extra-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${fileExt}`;
 
       const { error: uploadError } = await supabase.storage
         .from("artworks")
-        .upload(fileName, file);
+        .upload(fileName, resizedFile);
 
       if (!uploadError) {
         const { data: publicUrlData } = supabase.storage
