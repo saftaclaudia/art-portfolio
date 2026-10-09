@@ -5,12 +5,13 @@ import { supabase } from "../supabaseClient";
 const MEDIUMS = ["watercolor", "acrylic", "digital"];
 function slugify(text) {
   return text
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9\s-]/g, "")
     .replace(/\s+/g, "-");
 }
-
 export default function AdminArtworkForm() {
   const { id } = useParams(); //undefined= adding new, present = editig
   const navigate = useNavigate();
