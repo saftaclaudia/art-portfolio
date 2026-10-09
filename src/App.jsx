@@ -1,4 +1,5 @@
 import "./App.css";
+import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
@@ -12,12 +13,13 @@ import ScrollToTop from "./components/ScrollToTop";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderConfirmedPage from "./pages/OrderConfirmedPage";
-import AdminLoginPage from "./pages/AdminLoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
-import AdminPage from "./pages/AdminPage";
-import AdminArtworkForm from "./pages/AdminArtworkForm";
-import ResetPasswordPage from "./pages/ResetPasswordPage";
-import AdminAccountPage from "./pages/AdminAccountPage";
+
+const AdminLoginPage = lazy(() => import("./pages/AdminLoginPage"));
+const AdminPage = lazy(() => import("./pages/AdminPage"));
+const AdminArtworkForm = lazy(() => import("./pages/AdminArtworkForm"));
+const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
+const AdminAccountPage = lazy(() => import("./pages/AdminAccountPage"));
 
 function App() {
   return (
@@ -25,52 +27,63 @@ function App() {
       <ScrollToTop />
       <Header />
       <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<Hero />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/gallery/:slug" element={<ProductPage />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/order-confirmed" element={<OrderConfirmedPage />} />
-          <Route path="/admin/login" element={<AdminLoginPage />} />
-          <Route path="/admin/reset-password" element={<ResetPasswordPage />} />
+        <Suspense
+          fallback={
+            <div className="max-w-sm mx-auto px-4 py-24 text-center text-ink/75">
+              Loading...
+            </div>
+          }
+        >
+          <Routes>
+            <Route path="/" element={<Hero />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/gallery/:slug" element={<ProductPage />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/order-confirmed" element={<OrderConfirmedPage />} />
+            <Route path="/admin/login" element={<AdminLoginPage />} />
+            <Route
+              path="/admin/reset-password"
+              element={<ResetPasswordPage />}
+            />
 
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute>
-                <AdminPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/account"
-            element={
-              <ProtectedRoute>
-                <AdminAccountPage />
-              </ProtectedRoute>
-            }
-          />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <AdminPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/account"
+              element={
+                <ProtectedRoute>
+                  <AdminAccountPage />
+                </ProtectedRoute>
+              }
+            />
 
-          <Route
-            path="/admin/new"
-            element={
-              <ProtectedRoute>
-                <AdminArtworkForm />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/edit/:id"
-            element={
-              <ProtectedRoute>
-                <AdminArtworkForm />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
+            <Route
+              path="/admin/new"
+              element={
+                <ProtectedRoute>
+                  <AdminArtworkForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/edit/:id"
+              element={
+                <ProtectedRoute>
+                  <AdminArtworkForm />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </div>
