@@ -45,7 +45,7 @@ export default function AdminArtworkForm() {
         .from("artworks")
         .select("*")
         .eq("id", id)
-        .single();
+        .maybeSingle();
 
       if (!error && data) {
         setForm({

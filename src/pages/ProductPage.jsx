@@ -22,7 +22,7 @@ export default function ProductPage() {
         .from("artworks")
         .select("*")
         .eq("slug", slug)
-        .single();
+        .maybeSingle();
 
       if (error || !data) {
         setNotFound(true);
