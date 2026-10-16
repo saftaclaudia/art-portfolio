@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { useCart } from "../context/useCart";
 import { Helmet } from "react-helmet-async";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 export default function ProductPage() {
   const { slug } = useParams();
@@ -14,10 +15,14 @@ export default function ProductPage() {
   const [selectedKey, setSelectedKey] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [feedback, setFeedback] = useState("");
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
     async function fetchArtwork() {
       setLoading(true);
+      setNotFound(false);
+      setArtwork(null);
       const { data, error } = await supabase
         .from("artworks")
         .select("*")
@@ -63,6 +68,38 @@ export default function ProductPage() {
 
     return list;
   }, [artwork]);
+
+  const allImages = useMemo(() => {
+    if (!artwork) return [];
+    const extra = Array.isArray(artwork.images) ? artwork.images : [];
+    return [artwork.image_url, ...extra];
+  }, [artwork]);
+
+  const goPrev = () =>
+    setActiveIndex((i) => (i - 1 + allImages.length) % allImages.length);
+  const goNext = () => setActiveIndex((i) => (i + 1) % allImages.length);
+  // reset when b=navigating to a different artwork
+  useEffect(() => {
+    setActiveIndex(0);
+    setLightboxOpen(false);
+    setSelectedKey(null);
+  }, [slug]);
+
+  // Keyboard controls while the lightbox in open
+  useEffect(() => {
+    if (!lightboxOpen) return;
+
+    function handleKey(e) {
+      if (e.key === "Escape") setLightboxOpen(false);
+      if (e.key === "ArrowRight")
+        setActiveIndex((i) => (i + 1) % allImages.length);
+      if (e.key === "ArrowLeft")
+        setActiveIndex((i) => (i - 1 + allImages.length) % allImages.length);
+    }
+
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [lightboxOpen, allImages.length]);
 
   // Default to the first available option once artwork loads
   useEffect(() => {
@@ -126,7 +163,10 @@ export default function ProductPage() {
         <p className="text-ink/75 mb-3">
           This piece may have been sold or removed.
         </p>
-        <Link to="/gallery" className="text-coralText font-medium hover:text-clay">
+        <Link
+          to="/gallery"
+          className="text-coralText font-medium hover:text-clay"
+        >
           &larr; Back to gallery
         </Link>
       </div>
@@ -169,30 +209,72 @@ export default function ProductPage() {
           &larr; Back to gallery
         </Link>
 
-        <div className="grid md:grid-cols-2 gap-10">
-          <div className="space-y-6">
-            <div className="rounded-2xl overflow-hidden bg-sand">
-              <img
-                src={artwork.image_url}
-                alt={artwork.title}
-                className="w-full h-full object-cover"
-              />
+        <div className="grid md:grid-cols-2 gap-10 items-start">
+          <div>
+            {/* Main image */}
+            <div className=" relative bg-sand rounded-2xl overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setLightboxOpen(true)}
+                aria-label="View image full screen"
+                className="block w-full cursor-zoom-in"
+              >
+                <img
+                  src={allImages[activeIndex]}
+                  alt={artwork.title}
+                  className="w-full h-[55vh] md:h-[70vh] object-contain"
+                />
+              </button>
+
+              {allImages.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={goPrev}
+                    aria-label="Previous image"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center text-ink/60 hover:text-coral transition-colors"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={goNext}
+                    aria-label="Next image"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center text-ink/60 hover:text-coral transition-colors"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </>
+              )}
             </div>
 
-            {Array.isArray(artwork.images) &&
-              artwork.images?.length > 0 &&
-              artwork.images.map((url, index) => (
-                <div key={url} className="rounded-2xl overflow-hidden bg-sand">
-                  <img
-                    src={url}
-                    alt={`${artwork.title} - view ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ))}
+            {/* Thumbnails */}
+            {allImages.length > 1 && (
+              <div className="flex gap-3 mt-4 overflow-x-auto pb-1">
+                {allImages.map((url, i) => (
+                  <button
+                    key={url}
+                    type="button"
+                    onClick={() => setActiveIndex(i)}
+                    aria-label={`Show image ${i + 1}`}
+                    className={`flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all ${
+                      i === activeIndex
+                        ? "border-coral"
+                        : "border-transparent opacity-60 hover:opacity-100"
+                    }`}
+                  >
+                    <img
+                      src={url}
+                      alt=""
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
-          <div>
+          <div className="md:sticky md:top-28">
             <p className="text-xs uppercase tracking-wide text-sage font-medium mb-4">
               {artwork.medium} {artwork.artist ? ` · ${artwork.artist}` : ""}
             </p>
@@ -284,6 +366,56 @@ export default function ProductPage() {
           </div>
         </div>
       </section>
+
+      {lightboxOpen && (
+        <div
+          className="fixed inset-0 z-[60] bg-ink/90 flex items-center justify-center p-4"
+          onClick={() => setLightboxOpen(false)}
+        >
+          <button
+            type="button"
+            onClick={() => setLightboxOpen(false)}
+            aria-label="Close"
+            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 flex items-center justify-center text-ink/70 hover:text-coral transition-colors"
+          >
+            <X size={22} />
+          </button>
+
+          <img
+            src={allImages[activeIndex]}
+            alt={artwork.title}
+            className="max-w-full max-h-full object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+
+          {allImages.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goPrev();
+                }}
+                aria-label="Previous image"
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 flex items-center justify-center text-ink/70 hover:text-coral transition-colors"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goNext();
+                }}
+                aria-label="Next image"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 flex items-center justify-center text-ink/70 hover:text-coral transition-colors"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </>
+          )}
+        </div>
+      )}
     </>
   );
 }
