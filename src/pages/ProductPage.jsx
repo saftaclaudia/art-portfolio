@@ -4,6 +4,8 @@ import { supabase } from "../supabaseClient";
 import { useCart } from "../context/useCart";
 import { Helmet } from "react-helmet-async";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import ProductInfo from "../components/ProductInfo";
+import SimilarArtworks from "../components/SimilarArtworks";
 
 export default function ProductPage() {
   const { slug } = useParams();
@@ -209,20 +211,20 @@ export default function ProductPage() {
           &larr; Back to gallery
         </Link>
 
-        <div className="grid md:grid-cols-2 gap-10 items-start">
-          <div>
+        <div className="grid  grid-cols-1 md:grid-cols-2 gap-10 items-start">
+          <div className="min-w-0">
             {/* Main image */}
-            <div className=" relative bg-sand rounded-2xl overflow-hidden">
+            <div className="relative w-fit max-w-full mx-auto  bg-sand rounded-2xl overflow-hidden p-3 md:p-4">
               <button
                 type="button"
                 onClick={() => setLightboxOpen(true)}
                 aria-label="View image full screen"
-                className="block w-full cursor-zoom-in"
+                className="block cursor-zoom-in"
               >
                 <img
                   src={allImages[activeIndex]}
                   alt={artwork.title}
-                  className="w-full h-[55vh] md:h-[70vh] object-contain"
+                  className="block w-auto h-auto max-w-full max-h-[60vh] md:max-h-[70vh] rounded-lg"
                 />
               </button>
 
@@ -250,7 +252,7 @@ export default function ProductPage() {
 
             {/* Thumbnails */}
             {allImages.length > 1 && (
-              <div className="flex gap-3 mt-4 overflow-x-auto pb-1">
+              <div className="flex gap-3 mt-4 overflow-x-auto pb-1 w-fit max-w-full mx-auto">
                 {allImages.map((url, i) => (
                   <button
                     key={url}
@@ -274,7 +276,7 @@ export default function ProductPage() {
             )}
           </div>
 
-          <div className="md:sticky md:top-28">
+          <div className="min-w-0 md:sticky md:top-28">
             <p className="text-xs uppercase tracking-wide text-sage font-medium mb-4">
               {artwork.medium} {artwork.artist ? ` · ${artwork.artist}` : ""}
             </p>
@@ -324,6 +326,22 @@ export default function ProductPage() {
                     </label>
                   ))}
                 </div>
+
+                {selectedOption?.key === "original" &&
+                  artwork.medium === "watercolor" && (
+                    <p className="mb-6 text-sm text-ink/75 leading-relaxed">
+                      Original ink and watercolor painting on paper, one of a
+                      kind, sold unframed. The frame in the photo is for display
+                      only. A frame can be added for an extra cost.{" "}
+                      <Link
+                        to="/contact"
+                        className="text-coralText underline hover:text-clay"
+                      >
+                        Please contact me for details.
+                      </Link>
+                    </p>
+                  )}
+
                 {selectedOption?.key !== "original" && (
                   <div className="flex items-center gap-3 mb-4">
                     <span className="text-sm text-ink/75">Quantity</span>
@@ -365,6 +383,8 @@ export default function ProductPage() {
             )}
           </div>
         </div>
+        <ProductInfo />
+        <SimilarArtworks artworkId={artwork.id} medium={artwork.medium} />
       </section>
 
       {lightboxOpen && (
