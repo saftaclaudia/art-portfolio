@@ -11,7 +11,7 @@ export default function CartPage() {
           Your cart is empty
         </h1>
         <p className="text-ink/75 mb-6">
-          Browse the gallery ad find a piece you love
+          Browse the gallery and find a piece you love.
         </p>
         <Link
           to="/gallery"
@@ -59,7 +59,7 @@ export default function CartPage() {
             <button
               onClick={() => removeFromCart(item.id)}
               aria-label={`Remove ${item.title} from cart`}
-              className="text-ink/75TEMPMARK hover:text-clay transition-colors"
+              className="text-ink/75 hover:text-clay transition-colors"
             >
               <Trash2 size={18} />
             </button>
@@ -68,9 +68,14 @@ export default function CartPage() {
       </div>
 
       <div className="flex items-center justify-between border-t border-blush pt-6">
-        <span className="text-lg font-medium text-ink">Total</span>
+        <span className="text-lg font-medium text-ink">Items total</span>
         <span className="text-2xl font-semibold text-coralText">${total}</span>
       </div>
+      <p className="text-sm text-ink/75 mt-2 text-right">
+        Shipping is not included. I&apos;ll confirm the exact cost by email
+        before you pay.
+      </p>
+
       <Link
         to="/checkout"
         className="block text-center bg-coralText text-white px-8 py-3.5 rounded-full font-medium hover:bg-clay transition-colors mt-8"

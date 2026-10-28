@@ -14,13 +14,14 @@ export default function CheckoutPage() {
     address: "",
     city: "",
     postalCode: "",
+    country: "",
+    notes: "",
   });
 
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(false);
 
   const handleChanges = (e) => {
-    e.preventDefault();
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -29,15 +30,34 @@ export default function CheckoutPage() {
     setSending(true);
     setError(false);
 
-    const orderSummary = items
-      .map(
-        (item) =>
-          `- ${item.title} (${item.medium} - $${item.price}) x${item.quantity || 1}`,
-      )
+    const orderLines = items
+      .map((item) => {
+        const qty = item.quantity || 1;
+        const lineTotal = (item.price || 0) * qty;
+        const variant = item.variantLabel ? ` — ${item.variantLabel}` : "";
+        return `- ${item.title}${variant} (${item.medium}) | $${item.price} x ${qty} = $${lineTotal}`;
+      })
       .join("\n");
 
-    const message =
-      `New order from ${form.name} Items: ${orderSummary} Total: $${total} Shipping details: ${form.address}, ${form.city} ${form.postalCode} Phone:${form.phone}`.trim();
+    const message = [
+      `NEW ORDER from ${form.name}`,
+      "",
+      "ITEMS",
+      orderLines,
+      "",
+      `Items total: $${total} (shipping not included)`,
+      "",
+      "SHIP TO",
+      form.name,
+      form.address,
+      `${form.postalCode} ${form.city}`,
+      form.country,
+      `Phone: ${form.phone}`,
+      `Email: ${form.email}`,
+      "",
+      "NOTES",
+      form.notes.trim() || "(none)",
+    ].join("\n");
 
     emailjs
       .send(
@@ -72,9 +92,16 @@ export default function CheckoutPage() {
       <h1 className="text-3xl md:text-4xl font-display font-medium text-ink mb-3 text-center">
         Checkout
       </h1>
-      <p className="text-ink/75 text-center mb-10">
-        Total: <span className="text-coralText font-semibold">${total}</span>
+
+      <p className="text-ink/75 text-center mb-1">
+        Items total:{" "}
+        <span className="text-coralText font-semibold">${total}</span>
       </p>
+      <p className="text-sm text-ink/75 text-center mb-10">
+        Shipping is not included. I&apos;ll confirm the exact cost by email
+        before you pay.
+      </p>
+
       <form onSubmit={handleSubmit} className="space-y-5">
         <input
           name="name"
@@ -132,6 +159,32 @@ export default function CheckoutPage() {
             className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-3 focus:ring-coral/50"
           />
         </div>
+
+        <input
+          name="country"
+          type="text"
+          value={form.country}
+          onChange={handleChanges}
+          placeholder="Country"
+          required
+          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+        />
+        <div>
+          <label htmlFor="notes" className="block text-sm text-ink/75 mb-2">
+            Notes (optional)
+          </label>
+          <textarea
+            id="notes"
+            name="notes"
+            rows="3"
+            maxLength={500}
+            value={form.notes}
+            onChange={handleChanges}
+            placeholder="Framing, signature, gift message, questions…"
+            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+          />
+        </div>
+
         <button
           type="submit"
           disabled={sending}
