@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet-async";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import ProductInfo from "../components/ProductInfo";
 import SimilarArtworks from "../components/SimilarArtworks";
+import ArtworkPager from "../components/ArtworkPager";
 
 export default function ProductPage() {
   const { slug } = useParams();
@@ -204,12 +205,15 @@ export default function ProductPage() {
       </Helmet>
 
       <section className="max-w-5xl mx-auto px-4 py-16">
-        <Link
-          to="/gallery"
-          className="inline-block text-sm text-ink/75 hover:text-coralText transition-colors mb-8"
-        >
-          &larr; Back to gallery
-        </Link>
+        <div className="flex items-center justify-between mb-8">
+          <Link
+            to="/gallery"
+            className="text-sm text-ink/75 hover:text-coralText transition-colors mb-8"
+          >
+            &larr; Back to gallery
+          </Link>
+          <ArtworkPager artworkId={artwork.id} />
+        </div>
 
         <div className="grid  grid-cols-1 md:grid-cols-2 gap-10 items-start">
           <div className="min-w-0">
