@@ -14,7 +14,7 @@ export default function ArtworkPager({ artworkId }) {
         .from("artworks")
         .select("id, slug, title")
         .order("medium", { ascending: true })
-        .order("sort_order", { ascending: "true" });
+        .order("sort_order", { ascending: true });
 
       if (error) {
         console.error("Artwork pager:", error);
@@ -30,7 +30,7 @@ export default function ArtworkPager({ artworkId }) {
 
   const index = list.findIndex((a) => a.id === artworkId);
   //Nothing to navigate to, or the current artwork isn't in the list yet
-  if (index === -1 || list.lemgth < 2) return null;
+  if (index === -1 || list.length < 2) return null;
   // wraps around at both ends
   const prev = list[(index - 1 + list.length) % list.length];
   const next = list[(index + 1) % list.length];
@@ -42,11 +42,11 @@ export default function ArtworkPager({ artworkId }) {
     <nav aria-label="Browse artworks" className="flex items-center gap-4">
       <Link
         to={`/gallery/${prev.slug}`}
-        aria-label={`Previos artwork: ${prev.title}`}
+        aria-label={`Previous artwork: ${prev.title}`}
         title={prev.title}
         className={linkClass}
       >
-        <ChevronLeft sise={18} />
+        <ChevronLeft size={18} />
         <span className="hidden sm:inline">Previous</span>
       </Link>
       <Link
@@ -56,7 +56,7 @@ export default function ArtworkPager({ artworkId }) {
         className={linkClass}
       >
         <span className="hidden sm:inline">Next</span>
-        <ChevronRight sise={18} />
+        <ChevronRight size={18} />
       </Link>
     </nav>
   );
