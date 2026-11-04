@@ -4,6 +4,8 @@ import { Trash2 } from "lucide-react";
 
 export default function CartPage() {
   const { items, removeFromCart, total } = useCart();
+  const hasFraming = items.some((item) => item.framed);
+
   if (items.length === 0) {
     return (
       <div className="max-w-xl mx-auto px-4 py-24 text-center">
@@ -72,8 +74,10 @@ export default function CartPage() {
         <span className="text-2xl font-semibold text-coralText">${total}</span>
       </div>
       <p className="text-sm text-ink/75 mt-2 text-right">
-        Shipping is not included. I&apos;ll confirm the exact cost by email
-        before you pay.
+        {hasFraming
+          ? "Shiping and framing are not included."
+          : "Shipping is not included."}
+        {""} I&apos;ll confirm the exact cost by email before you pay.
       </p>
 
       <Link
