@@ -35,7 +35,7 @@ const INFO_SECTIONS = [
     lines: [
       "Originals are painted by hand in watercolor and ink on watercolor paper. Details vary by piece.",
       "Originals can be signed on request.",
-      "Prints are made on premium matte fine-art paper (200 gsm).",
+
       "Artwork is sold unframed. Framing can be added for an extra cost, so please contact me before ordering.",
       "Keep artwork out of direct sunlight and away from humidity.",
     ],
