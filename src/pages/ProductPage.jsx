@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import ProductInfo from "../components/ProductInfo";
 import SimilarArtworks from "../components/SimilarArtworks";
 import ArtworkPager from "../components/ArtworkPager";
+import { SELL_PRINTS } from "../config";
 
 export default function ProductPage() {
   const { slug } = useParams();
@@ -61,13 +62,15 @@ export default function ProductPage() {
       });
     }
 
-    (artwork.print_options || []).forEach((p) => {
-      list.push({
-        key: `print-${p.size}`,
-        label: `Print — ${p.size}`,
-        price: p.price,
+    if (SELL_PRINTS) {
+      (artwork.print_options || []).forEach((p) => {
+        list.push({
+          key: `print-${p.size}`,
+          label: `Print — ${p.size}`,
+          price: p.price,
+        });
       });
-    });
+    }
 
     return list;
   }, [artwork]);
