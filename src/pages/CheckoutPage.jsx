@@ -5,6 +5,7 @@ import { useCart } from "../context/useCart";
 
 export default function CheckoutPage() {
   const { items, total, clearCart } = useCart();
+  const hasFraming = items.some((item) => item.framed);
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -45,7 +46,7 @@ export default function CheckoutPage() {
       "ITEMS",
       orderLines,
       "",
-      `Items total: $${total} (shipping not included)`,
+      `Items total: $${total} (shipping${hasFraming ? " add framing" : ""}not included)`,
       "",
       "SHIP TO",
       form.name,
@@ -98,8 +99,10 @@ export default function CheckoutPage() {
         <span className="text-coralText font-semibold">${total}</span>
       </p>
       <p className="text-sm text-ink/75 text-center mb-10">
-        Shipping is not included. I&apos;ll confirm the exact cost by email
-        before you pay.
+        {hasFraming
+          ? "Shipping and framing are not included"
+          : "Shipping is not included."}
+        {""} I&apos;ll confirm the exact cost by email before you pay.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
