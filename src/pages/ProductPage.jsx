@@ -437,7 +437,11 @@ export default function ProductPage() {
             )}
           </div>
         </div>
-        <ProductInfo />
+        <ProductInfo
+          medium={artwork.medium}
+          hasOriginal={options.some((o) => o.key === "original")}
+          hasPrints={options.some((o) => o.key.startsWith("print-"))}
+        />
         <SimilarArtworks artworkId={artwork.id} medium={artwork.medium} />
       </section>
 
