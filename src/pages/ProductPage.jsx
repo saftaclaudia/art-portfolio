@@ -21,6 +21,7 @@ export default function ProductPage() {
   const [feedback, setFeedback] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [framed, setFramed] = useState(false);
 
   useEffect(() => {
     async function fetchArtwork() {
@@ -89,6 +90,7 @@ export default function ProductPage() {
     setActiveIndex(0);
     setLightboxOpen(false);
     setSelectedKey(null);
+    setFramed(false);
   }, [slug]);
 
   // Keyboard controls while the lightbox in open
@@ -120,19 +122,32 @@ export default function ProductPage() {
 
   const selectedOption = options.find((o) => o.key === selectedKey);
 
-  const cartItemId =
-    artwork && selectedOption ? `${artwork.id}-${selectedOption.key}` : null;
+  // A digital master file is a file, not an object, so it can't be framed
+  const isPhysical =
+    !!selectedOption &&
+    (selectedOption.key !== "original" || artwork?.medium !== "digital");
+  const wantsFrame = framed && isPhysical;
 
-  const alreadyInCart = items.some((item) => item.id === cartItemId);
+  const cartItemId =
+    artwork && selectedOption
+      ? `${artwork.id}-${selectedOption.key}${wantsFrame ? "-framed" : ""}`
+      : null;
+
+  // An original is one of a kind:  block it if ANY version of it framed or not is already in the cart
+  const originalInCart = artwork
+    ? items.some((item) => item.id.startsWith(`${artwork.id}-original`))
+    : false;
 
   function handleAddToCart() {
     if (!artwork || !selectedOption) return;
 
     const isOriginal = selectedOption.key === "original";
 
-    if (isOriginal && alreadyInCart) {
-      setFeedback("You already added this to your cart.");
-      setTimeout(() => setFeedback(""), 2500);
+    if (isOriginal && originalInCart) {
+      setFeedback(
+        "This piece is already in your cart. Remove it there to change the framing.",
+      );
+      setTimeout(() => setFeedback(""), 3500);
       return;
     }
 
@@ -141,8 +156,9 @@ export default function ProductPage() {
         ...artwork,
         id: cartItemId,
         price: selectedOption.price,
-        variantLabel: selectedOption.label,
+        variantLabel: `${selectedOption.label}${wantsFrame ? " + frame" : ""}`,
         variantType: isOriginal ? "original" : "print",
+        framed: wantsFrame,
       },
       isOriginal ? 1 : quantity,
     );
@@ -150,6 +166,7 @@ export default function ProductPage() {
     setFeedback("Added to cart!");
     setTimeout(() => setFeedback(""), 2500);
     setQuantity(1);
+    setFramed(false);
   }
 
   if (loading) {
@@ -177,6 +194,18 @@ export default function ProductPage() {
         </Link>
       </div>
     );
+  }
+
+  let variantNote = "";
+  if (isPhysical) {
+    if (selectedOption.key === "original") {
+      variantNote =
+        artwork.medium === "watercolor"
+          ? "Original ink and watercolor painting on paper, one of a kind. "
+          : "Original artwork, one of a kind. ";
+    } else {
+      variantNote = "Print of the original artwork. ";
+    }
   }
 
   return (
@@ -211,7 +240,7 @@ export default function ProductPage() {
         <div className="flex items-center justify-between mb-8">
           <Link
             to="/gallery"
-            className="text-sm text-ink/75 hover:text-coralText transition-colors mb-8"
+            className="text-sm text-ink/75 hover:text-coralText transition-colors"
           >
             &larr; Back to gallery
           </Link>
@@ -334,20 +363,38 @@ export default function ProductPage() {
                   ))}
                 </div>
 
-                {selectedOption?.key === "original" &&
-                  artwork.medium === "watercolor" && (
-                    <p className="mb-6 text-sm text-ink/75 leading-relaxed">
-                      Original ink and watercolor painting on paper, one of a
-                      kind, sold unframed. The frame in the photo is for display
-                      only. A frame can be added for an extra cost.{" "}
-                      <Link
-                        to="/contact"
-                        className="text-coralText underline hover:text-clay"
-                      >
-                        Please contact me for details.
-                      </Link>
-                    </p>
-                  )}
+                {isPhysical && (
+                  <p className="mb-4 text-sm text-ink/75 leading-relaxed">
+                    {variantNote}Sold unframed unless you add a frame below. The
+                    frame shown in photos is for display only.{" "}
+                    <Link
+                      to="/contact"
+                      className="text-coralText underline hover:text-clay"
+                    >
+                      Questions? Contact me.
+                    </Link>
+                  </p>
+                )}
+
+                {isPhysical && (
+                  <label className="mb-6 flex items-start gap-3 rounded-xl border border-blush bg-white px-4 py-3 cursor-pointer hover:border-coral/50 transition-colors">
+                    <input
+                      type="checkbox"
+                      checked={framed}
+                      onChange={(e) => setFramed(e.target.checked)}
+                      className="mt-1 accent-coral"
+                    />
+                    <span className="text-sm">
+                      <span className="block font-medium text-ink/80">
+                        Add a frame
+                      </span>
+                      <span className="block text-ink/75">
+                        Extra cost, confirmed by email before you pay. Framed
+                        orders ship in about 4 days.
+                      </span>
+                    </span>
+                  </label>
+                )}
 
                 {selectedOption?.key !== "original" && (
                   <div className="flex items-center gap-3 mb-4">
