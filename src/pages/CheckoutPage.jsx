@@ -46,7 +46,7 @@ export default function CheckoutPage() {
       "ITEMS",
       orderLines,
       "",
-      `Items total: $${total} (shipping${hasFraming ? " add framing" : ""}not included)`,
+      `Items total: $${total} (shipping${hasFraming ? " and framing" : ""} not included)`,
       "",
       "SHIP TO",
       form.name,
