@@ -216,7 +216,14 @@ export default function ProductPage() {
         .map((text) => text.trim())
         .filter(Boolean)
     : [];
+  // one detail per line, e.g. "Created in Procreate"
 
+  const detailLines = artwork.details
+    ? artwork.details
+        .split(/\r?\n/)
+        .map((text) => text.trim())
+        .filter(Boolean)
+    : [];
   // Show note next to the price, so nobody assumes  it is the final total
   let priceNote = "";
   if (selectedOption) {
@@ -368,6 +375,23 @@ export default function ProductPage() {
                 {descriptionParagraphs.map((text, i) => (
                   <p key={i}>{text}</p>
                 ))}
+              </div>
+            )}
+
+            {detailLines.length > 0 && (
+              <div className="mb-8">
+                <h2 className="mb-2 text-sm font-medium text-ink">Details</h2>
+                <ul className="space-y-1.5 text-sm text-ink/75">
+                  {detailLines.map((line, i) => (
+                    <li key={i} className="flex gap-2">
+                      <span
+                        aria-hidden="true"
+                        className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-coral"
+                      />
+                      {line}
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
 
