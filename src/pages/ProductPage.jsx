@@ -200,6 +200,33 @@ export default function ProductPage() {
   }
 
   let variantNote = "";
+
+  // Small context line: "watercolor 19 x 19 cm" (a dfital file has no paper size)
+  const details = [
+    artwork.medium,
+    artwork.medium !== "digital" ? artwork.dimensions : null,
+  ]
+    .filter(Boolean)
+    .join(" ˙ ");
+
+  // A blank line in the description starts a new paragraph
+  const descriptionParagraphs = artwork.description
+    ? artwork.description
+        .split(/\n\s*\n/)
+        .map((text) => text.trim())
+        .filter(Boolean)
+    : [];
+
+  // Show note next to the price, so nobody assumes  it is the final total
+  let priceNote = "";
+  if (selectedOption) {
+    if (!isPhysical) {
+      priceNote = "delivered by email";
+    } else {
+      priceNote = wantsFrame ? "+ frame and shipping" : "+ shipping";
+    }
+  }
+
   if (isPhysical) {
     if (selectedOption.key === "original") {
       variantNote =
@@ -314,58 +341,90 @@ export default function ProductPage() {
               </div>
             )}
           </div>
-
-          <div className="min-w-0 md:sticky md:top-28">
-            <p className="text-xs uppercase tracking-wide text-sage font-medium mb-4">
-              {artwork.medium} {artwork.artist ? ` · ${artwork.artist}` : ""}
+          <div className="min-w-0 text-left md:sticky md:top-28">
+            {/* 1. Context line */}
+            <p className="mb-3 text-xs font-medium uppercase tracking-wide text-sage">
+              {details}
             </p>
-            <h1 className="text-3xl md:text-4xl font-display font-medium text-ink mb-4">
+
+            {/* 2. Title */}
+            <h1 className="mb-4 text-3xl font-display font-medium leading-tight text-ink md:text-4xl">
               {artwork.title}
             </h1>
-            {artwork.description && (
-              <p className="text-ink/75 leading-relaxed mb-6">
-                {artwork.description}
+
+            {/* 3. Price */}
+            {selectedOption && (
+              <p className="mb-6 flex items-baseline gap-2">
+                <span className="text-3xl font-display font-semibold text-coralText">
+                  ${selectedOption.price}
+                </span>
+                <span className="text-sm text-ink/75">{priceNote}</span>
               </p>
             )}
 
+            {/* 4. Description */}
+            {descriptionParagraphs.length > 0 && (
+              <div className="mb-8 max-w-prose space-y-4 leading-7 text-ink/75">
+                {descriptionParagraphs.map((text, i) => (
+                  <p key={i}>{text}</p>
+                ))}
+              </div>
+            )}
+
             {options.length === 0 && (
-              <span className="inline-block bg-ink/10 text-ink/75 px-6 py-3 rounded-full font-medium mb-6">
+              <span className="inline-block bg-ink/10 text-ink/75 px-6 py-3 rounded-full font-medium">
                 Sold
               </span>
             )}
 
+            {/* 5. Purchase zone */}
             {options.length > 0 && (
-              <>
-                {/* Option selector */}
-                <div className="mb-6 space-y-2">
-                  {options.map((option) => (
-                    <label
-                      key={option.key}
-                      className={`flex items-center justify-between gap-3 rounded-xl border px-4 py-3 cursor-pointer transition-colors ${
-                        selectedKey === option.key
-                          ? "border-coral bg-blush/30"
-                          : "border-blush bg-white hover:border-coral/50"
-                      }`}
-                    >
-                      <span className="flex items-center gap-3">
-                        <input
-                          type="radio"
-                          name="option"
-                          checked={selectedKey === option.key}
-                          onChange={() => setSelectedKey(option.key)}
-                          className="accent-coral"
-                        />
-                        <span className="text-ink/80 font-medium">
-                          {option.label}
-                        </span>
-                      </span>
-                      <span className="text-coralText font-semibold whitespace-nowrap">
-                        ${option.price}
-                      </span>
-                    </label>
-                  ))}
-                </div>
+              <div className="border-t border-blush pt-8">
+                {options.length > 1 ? (
+                  <fieldset className="mb-6 min-w-0">
+                    <legend className="mb-3 text-sm font-medium text-ink">
+                      Choose an option
+                    </legend>
 
+                    <div className="space-y-2">
+                      {options.map((option) => (
+                        <label
+                          key={option.key}
+                          className={`flex items-center justify-between gap-3 rounded-xl border px-4 py-3 cursor-pointer transition-colors ${
+                            selectedKey === option.key
+                              ? "border-coral bg-blush/30"
+                              : "border-blush bg-white hover:border-coral/50"
+                          }`}
+                        >
+                          <span className="flex items-center gap-3">
+                            <input
+                              type="radio"
+                              name="option"
+                              checked={selectedKey === option.key}
+                              onChange={() => setSelectedKey(option.key)}
+                              className="accent-coral"
+                            />
+                            <span className="text-ink/80 font-medium">
+                              {option.label}
+                            </span>
+                          </span>
+                          <span className="text-coralText font-semibold whitespace-nowrap">
+                            ${option.price}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+                ) : (
+                  <div className="mb-6 rounded-xl border border-blush bg-white px-4 py-3">
+                    <p className="mb-1 text-xs font-medium uppercase tracking-wide text-sage">
+                      What you get
+                    </p>
+                    <p className="font-medium text-ink/80">
+                      {options[0].label}
+                    </p>
+                  </div>
+                )}
                 {isPhysical && (
                   <p className="mb-4 text-sm text-ink/75 leading-relaxed">
                     {variantNote}Sold unframed unless you add a frame below. The
@@ -400,7 +459,7 @@ export default function ProductPage() {
                 )}
 
                 {selectedOption?.key !== "original" && (
-                  <div className="flex items-center gap-3 mb-4">
+                  <div className="mb-4 flex items-center gap-3">
                     <span className="text-sm text-ink/75">Quantity</span>
                     <div className="flex items-center border border-blush rounded-full overflow-hidden">
                       <button
@@ -426,20 +485,32 @@ export default function ProductPage() {
                   </div>
                 )}
 
+                {/* 6. Main action */}
                 <button
+                  type="button"
                   onClick={handleAddToCart}
-                  className="bg-coralText text-white px-8 py-3.5 rounded-full font-medium shadow-md shadow-coral/20 hover:bg-clay transition-colors"
+                  className="w-full bg-coralText text-white px-8 py-3.5 rounded-full font-medium shadow-md shadow-coral/20 hover:bg-clay transition-colors"
                 >
                   Add to Cart
                 </button>
 
-                {feedback && (
-                  <p className="text-sm text-sage mt-3">{feedback}</p>
-                )}
-              </>
+                <p className="mt-3 text-xs text-ink/75">
+                  {isPhysical
+                    ? "Shipping is calculated per order and confirmed by email before you pay."
+                    : "Your file is delivered by email after payment."}
+                </p>
+
+                <div
+                  aria-live="polite"
+                  className="mt-2 min-h-[1.25rem] text-sm text-sage"
+                >
+                  {feedback}
+                </div>
+              </div>
             )}
           </div>
         </div>
+
         <ProductInfo
           medium={artwork.medium}
           hasOriginal={options.some((o) => o.key === "original")}
