@@ -73,6 +73,7 @@ export default function AdminArtworkForm() {
   const [form, setForm] = useState({
     title: "",
     description: "",
+    details: "",
     medium: "watercolor",
     price: "",
     artist: "",
@@ -105,6 +106,7 @@ export default function AdminArtworkForm() {
         setForm({
           title: data.title,
           description: data.description || "",
+          details: data.details || "",
           medium: data.medium || "watercolor",
           price: data.price || "",
           artist: data.artist || "",
@@ -203,6 +205,7 @@ export default function AdminArtworkForm() {
     const payload = {
       title: form.title,
       description: form.description,
+      details: form.details.trim() || null,
       medium: form.medium,
       price: form.price ? Number(form.price) : null,
       artist: form.artist,
@@ -252,15 +255,34 @@ export default function AdminArtworkForm() {
           required
           className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
         />
+        <div>
+          <textarea
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            placeholder="Description (the story behind the piece)"
+            rows="4"
+            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+          />
+          <p className="mt-1 text-xs text-ink/50">
+            Press Enter twice to start a new paragraph
+          </p>
+        </div>
 
-        <textarea
-          name="description"
-          value={form.description}
-          onChange={handleChange}
-          placeholder="Description"
-          rows="4"
-          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
-        />
+        <div>
+          <label htmlFor="details" className="block text-sm text-ink/75 mb-2">
+            Details (optional, one per line)
+          </label>
+          <textarea
+            id="details"
+            name="details"
+            value={form.details}
+            onChange={handleChange}
+            placeholder={"Created in Procreate\nBest printed up to 14 x 20 cm"}
+            rows="3"
+            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+          />
+        </div>
 
         <select
           name="medium"
@@ -298,7 +320,7 @@ export default function AdminArtworkForm() {
           type="text"
           value={form.dimensions}
           onChange={handleChange}
-          placeholder="Original size (e.g. 30 X 40 cm)"
+          placeholder="Size (e.g. 19 x 19 cm,  or 1640 x 2360 px for digital file)"
           className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
         />
         <div>
@@ -340,7 +362,7 @@ export default function AdminArtworkForm() {
                 type="button"
                 onClick={() => removePrintOption(index)}
                 aria-label="Remove print option"
-                className="text-ink/75TEMPMARK hover:text-clay transition-colors px-2"
+                className="text-ink/75 hover:text-clay transition-colors px-2"
               >
                 {" "}
                 x
@@ -380,7 +402,7 @@ export default function AdminArtworkForm() {
         </div>
 
         <div>
-          <label className="block text-sm text-ink/75 md-2">
+          <label className="block text-sm text-ink/75 mB-2">
             Additional images (optional, unlimited)
           </label>
           {existingExtraImages.length > 0 && (
