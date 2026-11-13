@@ -224,6 +224,7 @@ export default function ProductPage() {
         .map((text) => text.trim())
         .filter(Boolean)
     : [];
+
   // Show note next to the price, so nobody assumes  it is the final total
   let priceNote = "";
   if (selectedOption) {
