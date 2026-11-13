@@ -9,6 +9,9 @@ import SimilarArtworks from "../components/SimilarArtworks";
 import ArtworkPager from "../components/ArtworkPager";
 import { SELL_PRINTS } from "../config";
 
+const imageArrowClass =
+  "absolute top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-ink/70 text-white ring-1 ring-white/60 shadow-md flex items-center justify-center transition-colors hover:bg-ink/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral";
+
 export default function ProductPage() {
   const { slug } = useParams();
   const { items, addToCart } = useCart();
@@ -270,17 +273,17 @@ export default function ProductPage() {
                     type="button"
                     onClick={goPrev}
                     aria-label="Previous image"
-                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center text-ink/60 hover:text-coral transition-colors"
+                    className={`${imageArrowClass} left-3`}
                   >
-                    <ChevronLeft size={20} />
+                    <ChevronLeft size={20} strokeWidth={2.5} />
                   </button>
                   <button
                     type="button"
                     onClick={goNext}
                     aria-label="Next image"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center text-ink/60 hover:text-coral transition-colors"
+                    className={`${imageArrowClass} right-3`}
                   >
-                    <ChevronRight size={20} />
+                    <ChevronRight size={20} strokeWidth={2.5} />
                   </button>
                 </>
               )}
