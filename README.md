@@ -1,6 +1,6 @@
 # Art Portfolio & Shop – Claudia Popescu 🎨
 
-A personal art portfolio and online shop for original watercolor, acrylic, and digital artworks. Visitors can browse the gallery, read about each piece, choose between the original (with or without a frame) and prints, and place an order through the site.
+A personal art portfolio and online shop for original watercolor, acrylic, and digital artworks. Visitors can browse the gallery, read about each piece, choose the original (with or without a frame), and place an order through the site. Print sales are built in but currently paused.
 
 ## 🌐 Live Demo
 
@@ -24,15 +24,16 @@ A personal art portfolio and online shop for original watercolor, acrylic, and d
 
 - Responsive design with a custom warm color palette
 - Gallery with filtering by medium (watercolor / acrylic / digital)
-- Uniform square gallery cards showing title, price, medium, and size; the price adapts to availability (`$50`, `Prints from $25`, or `Sold`)
+- Uniform square gallery cards showing title, price, medium, and size; the price adapts to availability (`$50` or `Sold`, and `Prints from $25` when print sales are on)
 - Each card is a single accessible link that opens the artwork, with a swipeable image carousel inside
 - Product pages with shareable URLs:
   - Main image that fits any artwork shape without empty bands, thumbnails, and a full-screen lightbox with keyboard controls
   - Clear text hierarchy: title, price, story (split into paragraphs), and a short details list
-  - Options for the original or prints, an optional frame, and a quantity selector for prints
+  - Options for the original, an optional frame, and (when print sales are on) print sizes with a quantity selector
   - Digital works are sold as a "Digital Master File" (no frame option)
   - Delivery, returns, and materials information that adapts to what is actually for sale (physical vs. digital)
   - "You may also like" suggestions and Previous / Next navigation between artworks
+
 - Shopping cart persisted in local storage; originals are one of a kind and cannot be added twice
 - Checkout by email request: the order email lists each item with its variant, quantity, and subtotal, plus the shipping address, country, and a notes field (framing, signature, gift message)
 - Per-page SEO meta tags (title, description, Open Graph), `robots.txt`, and `sitemap.xml`
@@ -47,7 +48,7 @@ A personal art portfolio and online shop for original watercolor, acrylic, and d
 
 ### Configuration
 
-`src/config.js` holds a feature flag, `SELL_PRINTS`, that turns print sales on or off without touching any data.
+`src/config.js` holds a feature flag, `SELL_PRINTS`, that turns print sales on or off without touching any data. It is currently off.
 
 ## 🧱 Project Structure
 
