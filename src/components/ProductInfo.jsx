@@ -85,9 +85,7 @@ function buildSections({ medium, hasOriginal, hasPrints }) {
       "Each Digital Master File is sold to one buyer only.",
     );
   }
-  if (hasPrints) {
-    detailLines.push("Prints are made on premium matte paper.");
-  }
+
   if (hasPhysical) {
     detailLines.push(
       "Artwork is sold unframed unless you add a frame when ordering. The extra cost is confirmed by email before you pay.",
