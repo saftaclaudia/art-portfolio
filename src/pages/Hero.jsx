@@ -12,7 +12,7 @@ export default function Hero() {
         <title>Art by Claudia | Watercolor, Acrylic & Digital Art</title>
         <meta
           name="description"
-          content="Original watercolor, acrylic, and digital paintings by Claudia, inspired by travel and nature. Browse the gallery and shop original art and prints"
+          content="Original watercolor, acrylic, and digital paintings by Claudia, inspired by travel and nature. Browse the gallery and shop original art."
         />
       </Helmet>
 
