@@ -48,7 +48,7 @@ A personal art portfolio and online shop for original watercolor, acrylic, and d
 
 ### Configuration
 
-`src/config.js` holds a feature flag, `SELL_PRINTS`, that turns print sales on or off without touching any data. It is currently off.
+`src/config.js` holds a feature flag, `SELL_PRINTS`, that turns print sales on or off without touching any data. It is currently off.It also holds `SITE_URL`, the public address used for absolute URLs in structured data.
 
 ## 🧱 Project Structure
 
@@ -57,7 +57,7 @@ src/
 ├── components/   Gallery, ProductInfo, SimilarArtworks, ArtworkPager, ProtectedRoute, ScrollToTop…
 ├── pages/        ProductPage, CartPage, CheckoutPage, OrderConfirmedPage, About, Admin* pages…
 ├── context/      Cart and Auth providers, with custom hooks (useCart, useAuth)
-├── config.js     Shop feature flags
+├── config.js     Shop feature flags and site URL
 └── supabaseClient.js
 ```
 
@@ -76,10 +76,11 @@ VITE_SUPABASE_URL=...
 VITE_SUPABASE_ANON_KEY=...
 VITE_EMAILJS_SERVICE_ID=...
 VITE_EMAILJS_TEMPLATE_ID=...
+VITE_EMAILJS_ORDER_TEMPLATE_ID=...
 VITE_EMAILJS_PUBLIC_KEY=...
 ```
 
-3. Run the dev server:
+`VITE_EMAILJS_TEMPLATE_ID` is the EmailJS template used by the contact form, and `VITE_EMAILJS_ORDER_TEMPLATE_ID` is the one used for order emails. 3. Run the dev server:
 
 ```bash
 npm run dev
@@ -105,6 +106,7 @@ Images are stored in a public Supabase Storage bucket.
 - Orders are placed by email request, with no online payment. Shipping and framing costs are confirmed manually by email before payment, so they are not included in the cart total.
 - Cart prices are stored in the browser. A payment-enabled version would recompute prices on the server at checkout.
 - `sitemap.xml` is static and does not list individual artwork pages.
+- Structured data is injected by JavaScript in the browser (the site is a client-rendered single-page app), so search engines may not always use it for rich results. Server-side rendering or pre-rendering would make it reliable.
 
 ## 🚀 Deployment
 
