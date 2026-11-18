@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import ProductInfo from "../components/ProductInfo";
 import SimilarArtworks from "../components/SimilarArtworks";
 import ArtworkPager from "../components/ArtworkPager";
-import { SELL_PRINTS } from "../config";
+import { SELL_PRINTS, SITE_URL } from "../config";
 
 const imageArrowClass =
   "absolute top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-ink/70 text-white ring-1 ring-white/60 shadow-md flex items-center justify-center transition-colors hover:bg-ink/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral";
@@ -88,7 +88,8 @@ export default function ProductPage() {
   const goPrev = () =>
     setActiveIndex((i) => (i - 1 + allImages.length) % allImages.length);
   const goNext = () => setActiveIndex((i) => (i + 1) % allImages.length);
-  // reset when b=navigating to a different artwork
+
+  // Reset when navigating to a different artwork
   useEffect(() => {
     setActiveIndex(0);
     setLightboxOpen(false);
@@ -96,7 +97,7 @@ export default function ProductPage() {
     setFramed(false);
   }, [slug]);
 
-  // Keyboard controls while the lightbox in open
+  // Keyboard controls while the lightbox is open
   useEffect(() => {
     if (!lightboxOpen) return;
 
@@ -136,7 +137,8 @@ export default function ProductPage() {
       ? `${artwork.id}-${selectedOption.key}${wantsFrame ? "-framed" : ""}`
       : null;
 
-  // An original is one of a kind:  block it if ANY version of it framed or not is already in the cart
+  // An original is one of a kind: block it if ANY version of it
+  // (framed or not) is already in the cart
   const originalInCart = artwork
     ? items.some((item) => item.id.startsWith(`${artwork.id}-original`))
     : false;
@@ -199,15 +201,13 @@ export default function ProductPage() {
     );
   }
 
-  let variantNote = "";
-
-  // Small context line: "watercolor 19 x 19 cm" (a dfital file has no paper size)
+  // Small context line: "watercolor · 19 x 19 cm" (a digital file has no paper size)
   const details = [
     artwork.medium,
     artwork.medium !== "digital" ? artwork.dimensions : null,
   ]
     .filter(Boolean)
-    .join(" ˙ ");
+    .join(" · ");
 
   // A blank line in the description starts a new paragraph
   const descriptionParagraphs = artwork.description
@@ -216,8 +216,8 @@ export default function ProductPage() {
         .map((text) => text.trim())
         .filter(Boolean)
     : [];
-  // one detail per line, e.g. "Created in Procreate"
 
+  // One detail per line, e.g. "Created in Procreate"
   const detailLines = artwork.details
     ? artwork.details
         .split(/\r?\n/)
@@ -225,7 +225,7 @@ export default function ProductPage() {
         .filter(Boolean)
     : [];
 
-  // Show note next to the price, so nobody assumes  it is the final total
+  // Short note next to the price, so nobody assumes it is the final total
   let priceNote = "";
   if (selectedOption) {
     if (!isPhysical) {
@@ -235,6 +235,7 @@ export default function ProductPage() {
     }
   }
 
+  let variantNote = "";
   if (isPhysical) {
     if (selectedOption.key === "original") {
       variantNote =
@@ -245,6 +246,50 @@ export default function ProductPage() {
       variantNote = "Print of the original artwork. ";
     }
   }
+
+  // ---- Structured data for search engines (JSON-LD, schema.org Product) ----
+  // Built from the same data the page shows, so price and availability match.
+  const pageUrl = `${SITE_URL}/gallery/${artwork.slug}`;
+
+  let offers = [];
+  if (options.length > 0) {
+    // Something is for sale: one offer per option the visitor can pick
+    offers = options
+      .filter((o) => Number(o.price) > 0)
+      .map((o) => ({
+        "@type": "Offer",
+        url: pageUrl,
+        price: Number(o.price),
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+      }));
+  } else if (Number(artwork.price) > 0) {
+    // Sold piece: keep the page described, marked as sold out
+    offers = [
+      {
+        "@type": "Offer",
+        url: pageUrl,
+        price: Number(artwork.price),
+        priceCurrency: "USD",
+        availability: "https://schema.org/SoldOut",
+      },
+    ];
+  }
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: artwork.title,
+    image: allImages,
+    description: descriptionParagraphs.join(" ") || undefined,
+    sku: artwork.slug,
+    url: pageUrl,
+    brand: { "@type": "Brand", name: "Art by Claudia" },
+    offers: offers.length > 0 ? offers : undefined,
+  };
+
+  // "<" is escaped so text from the database can never close the script tag
+  const jsonLdString = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
 
   return (
     <>
@@ -272,6 +317,7 @@ export default function ProductPage() {
         />
         <meta property="og:image" content={artwork.image_url} />
         <meta property="og:type" content="product" />
+        <script type="application/ld+json">{jsonLdString}</script>
       </Helmet>
 
       <section className="max-w-5xl mx-auto px-4 py-16">
@@ -285,10 +331,10 @@ export default function ProductPage() {
           <ArtworkPager artworkId={artwork.id} />
         </div>
 
-        <div className="grid  grid-cols-1 md:grid-cols-2 gap-10 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
           <div className="min-w-0">
             {/* Main image */}
-            <div className="relative w-fit max-w-full mx-auto  bg-sand rounded-2xl overflow-hidden p-3 md:p-4">
+            <div className="relative w-fit max-w-full mx-auto bg-sand rounded-2xl overflow-hidden p-3 md:p-4">
               <button
                 type="button"
                 onClick={() => setLightboxOpen(true)}
@@ -349,6 +395,7 @@ export default function ProductPage() {
               </div>
             )}
           </div>
+
           <div className="min-w-0 text-left md:sticky md:top-28">
             {/* 1. Context line */}
             <p className="mb-3 text-xs font-medium uppercase tracking-wide text-sage">
@@ -450,6 +497,7 @@ export default function ProductPage() {
                     </p>
                   </div>
                 )}
+
                 {isPhysical && (
                   <p className="mb-4 text-sm text-ink/75 leading-relaxed">
                     {variantNote}Sold unframed unless you add a frame below. The
