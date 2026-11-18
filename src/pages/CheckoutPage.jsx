@@ -63,7 +63,7 @@ export default function CheckoutPage() {
     emailjs
       .send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        import.meta.env.VITE_EMAILJS_ORDER_TEMPLATE_ID,
         { name: form.name, email: form.email, message },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       )
