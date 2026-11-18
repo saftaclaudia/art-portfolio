@@ -75,9 +75,9 @@ export default function CartPage() {
       </div>
       <p className="text-sm text-ink/75 mt-2 text-right">
         {hasFraming
-          ? "Shiping and framing are not included."
+          ? "Shipping and framing are not included."
           : "Shipping is not included."}
-        {""} I&apos;ll confirm the exact cost by email before you pay.
+        {" "}I&apos;ll confirm the exact cost by email before you pay.
       </p>
 
       <Link

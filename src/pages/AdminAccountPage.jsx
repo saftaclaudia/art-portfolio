@@ -12,7 +12,7 @@ export default function AdminAccountPage() {
   );
 
   const [savingName, setSavingName] = useState(false);
-  const [nameMessage, setNameMesage] = useState("");
+  const [nameMessage, setNameMessage] = useState("");
 
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -25,14 +25,14 @@ export default function AdminAccountPage() {
   const handleSaveName = async (e) => {
     e.preventDefault();
     setSavingName(true);
-    setNameMesage("");
+    setNameMessage("");
 
     const { error } = await supabase.auth.updateUser({
       data: { full_name: displayName },
     });
 
     setSavingName(false);
-    setNameMesage(error ? "Something went wrong." : " Name updated");
+    setNameMessage(error ? "Something went wrong." : "Name updated.");
   };
 
   const handleChangePassword = async (e) => {
@@ -92,7 +92,7 @@ export default function AdminAccountPage() {
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
             placeholder="Your name"
-            className="flex-1 rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-coral/50"
+            className="flex-1 rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
           />
           <button
             type="submit"
@@ -101,10 +101,8 @@ export default function AdminAccountPage() {
           >
             {savingName ? "Saving" : "Save"}
           </button>
-          {nameMessage && (
-            <p className="text-sm text-sage mt-2">{nameMessage}</p>
-          )}
         </div>
+        {nameMessage && <p className="text-sm text-sage mt-2">{nameMessage}</p>}
       </form>
 
       {/* Change password */}
@@ -125,7 +123,7 @@ export default function AdminAccountPage() {
               type="button"
               onClick={() => setShowNewPassword(!showNewPassword)}
               aria-label={showNewPassword ? "Hide password" : "Show password"}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/75TEMPMARK hover:text-coralText transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/75 hover:text-coralText transition-colors"
             >
               {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
@@ -145,7 +143,7 @@ export default function AdminAccountPage() {
               aria-label={
                 showConfirmPassword ? "Hide password" : "Show password"
               }
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/75TEMPMARK hover:text-coralText transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/75 hover:text-coralText transition-colors"
             >
               {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>

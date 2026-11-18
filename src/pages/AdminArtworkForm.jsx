@@ -91,6 +91,7 @@ export default function AdminArtworkForm() {
   const [loading, setLoading] = useState(isEditing);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [loadError, setLoadError] = useState("");
 
   useEffect(() => {
     if (!isEditing) return;
@@ -117,6 +118,13 @@ export default function AdminArtworkForm() {
         setPrintOptions(data.print_options || []);
         setExistingImageUrl(data.image_url || "");
         setExistingExtraImages(data.images || []);
+      } else {
+        // Without the saved data, the form would overwrite the artwork with blanks
+        setLoadError(
+          error
+            ? "Could not load this artwork. Please try again."
+            : "Artwork not found.",
+        );
       }
       setLoading(false);
     }
@@ -154,6 +162,12 @@ export default function AdminArtworkForm() {
     setError("");
 
     let imageUrl = existingImageUrl;
+
+    if (!imageUrl && !imageFile) {
+      setError("Please upload an image");
+      setSaving(false);
+      return;
+    }
 
     if (imageFile) {
       const resizedFile = await resizeImageFile(imageFile);
@@ -196,12 +210,6 @@ export default function AdminArtworkForm() {
     }
     const finalImages = [...existingExtraImages, ...newExtraImageUrls];
 
-    if (!imageUrl) {
-      setError("Please upload an image");
-      setSaving(false);
-      return;
-    }
-
     const payload = {
       title: form.title,
       description: form.description,
@@ -236,6 +244,13 @@ export default function AdminArtworkForm() {
     return (
       <div className="max-w-lg mx-auto px-4 py-24 text-center text-ink/75">
         Loading...
+      </div>
+    );
+  }
+  if (loadError) {
+    return (
+      <div className="max-w-lg mx-auto px-4 py-24 text-center text-clay">
+        {loadError}
       </div>
     );
   }
@@ -402,7 +417,7 @@ export default function AdminArtworkForm() {
         </div>
 
         <div>
-          <label className="block text-sm text-ink/75 mB-2">
+          <label className="block text-sm text-ink/75 mb-2">
             Additional images (optional, unlimited)
           </label>
           {existingExtraImages.length > 0 && (

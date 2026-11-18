@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet-async";
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-  const [success, setSucccess] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [sending, setSending] = useState(false);
 
@@ -16,7 +16,7 @@ function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSending(true);
-    setSucccess(false);
+    setSuccess(false);
     setError(false);
 
     emailjs
@@ -27,7 +27,7 @@ function Contact() {
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       )
       .then(() => {
-        setSucccess(true);
+        setSuccess(true);
         setError(false);
         setForm({ name: "", email: "", message: "" });
       })
@@ -37,8 +37,6 @@ function Contact() {
       })
       .finally(() => setSending(false));
 
-    console.log("Submitted form", form);
-    //send to email or backend
   };
 
   return (

@@ -27,6 +27,9 @@ export default function ProductPage() {
   const [framed, setFramed] = useState(false);
 
   useEffect(() => {
+    // Ignore a slow response for an artwork the visitor already left
+    let cancelled = false;
+
     async function fetchArtwork() {
       setLoading(true);
       setNotFound(false);
@@ -37,6 +40,7 @@ export default function ProductPage() {
         .eq("slug", slug)
         .maybeSingle();
 
+      if (cancelled) return;
       if (error || !data) {
         setNotFound(true);
       } else {
@@ -45,6 +49,9 @@ export default function ProductPage() {
       setLoading(false);
     }
     fetchArtwork();
+    return () => {
+      cancelled = true;
+    };
   }, [slug]);
 
   // Build the list of purchasable options: the original (if in stock) + any print sizes

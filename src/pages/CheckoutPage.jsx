@@ -100,9 +100,9 @@ export default function CheckoutPage() {
       </p>
       <p className="text-sm text-ink/75 text-center mb-10">
         {hasFraming
-          ? "Shipping and framing are not included"
+          ? "Shipping and framing are not included."
           : "Shipping is not included."}
-        {""} I&apos;ll confirm the exact cost by email before you pay.
+        {" "}I&apos;ll confirm the exact cost by email before you pay.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
@@ -113,7 +113,7 @@ export default function CheckoutPage() {
           onChange={handleChanges}
           placeholder="Full name"
           required
-          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-3 focus:ring-coral/50"
+          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
         />
         <input
           name="email"
@@ -122,7 +122,7 @@ export default function CheckoutPage() {
           onChange={handleChanges}
           placeholder="Email"
           required
-          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-3 focus:ring-coral/50"
+          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
         />
         <input
           name="phone"
@@ -131,7 +131,7 @@ export default function CheckoutPage() {
           onChange={handleChanges}
           placeholder="Phone number"
           required
-          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-3 focus:ring-coral/50"
+          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
         />
         <input
           name="address"
@@ -140,7 +140,7 @@ export default function CheckoutPage() {
           onChange={handleChanges}
           placeholder="Street address"
           required
-          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-3 focus:ring-coral/50"
+          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
         />
         <div className="flex gap-4">
           <input
@@ -150,7 +150,7 @@ export default function CheckoutPage() {
             onChange={handleChanges}
             placeholder="City"
             required
-            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-3 focus:ring-coral/50"
+            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
           />
           <input
             name="postalCode"
@@ -159,7 +159,7 @@ export default function CheckoutPage() {
             onChange={handleChanges}
             placeholder="Postal code"
             required
-            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-3 focus:ring-coral/50"
+            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
           />
         </div>
 
@@ -197,7 +197,7 @@ export default function CheckoutPage() {
         </button>
         {error && (
           <p className="text-clay text-sm text-center">
-            Something went wrong.Please try again.
+            Something went wrong. Please try again.
           </p>
         )}
       </form>

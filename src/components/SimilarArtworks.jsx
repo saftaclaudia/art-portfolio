@@ -22,7 +22,7 @@ export default function SimilarArtworks({ artworkId, medium }) {
         .limit(MAX_ITEMS);
 
       if (sameError) {
-        console.log("Similar artworks (same medium):", sameError);
+        console.error("Similar artworks (same medium):", sameError);
       }
 
       let result = sameMedium ?? [];
@@ -38,7 +38,7 @@ export default function SimilarArtworks({ artworkId, medium }) {
           .limit(MAX_ITEMS - result.length);
 
         if (otherErrors) {
-          console.log("Similar atworks (other media):", otherErrors);
+          console.error("Similar artworks (other media):", otherErrors);
         }
 
         result = [...result, ...(others ?? [])];
@@ -58,7 +58,7 @@ export default function SimilarArtworks({ artworkId, medium }) {
   if (visible.length === 0) return null;
 
   return (
-    <section className="mt-16" aria-labelledby="smilar-heading">
+    <section className="mt-16" aria-labelledby="similar-heading">
       <h2
         id="similar-heading"
         className="text-2xl font-display font-medium text-ink mb-6 text-center"
@@ -75,13 +75,13 @@ export default function SimilarArtworks({ artworkId, medium }) {
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <h3 className="mt-2 text-sm font-display text-ink group-hover:text-coralText transition-colors">
-                {a.title}
-              </h3>
-              <p className="text-xs uppercase tracking-wide text-sage">
-                {a.medium}
-              </p>
             </div>
+            <h3 className="mt-2 text-sm font-display text-ink group-hover:text-coralText transition-colors">
+              {a.title}
+            </h3>
+            <p className="text-xs uppercase tracking-wide text-sage">
+              {a.medium}
+            </p>
           </Link>
         ))}
       </div>
