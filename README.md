@@ -36,7 +36,7 @@ A personal art portfolio and online shop for original watercolor, acrylic, and d
 
 - Shopping cart persisted in local storage; originals are one of a kind and cannot be added twice
 - Checkout by email request: the order email lists each item with its variant, quantity, and subtotal, plus the shipping address, country, and a notes field (framing, signature, gift message)
-- Per-page SEO meta tags (title, description, Open Graph), `robots.txt`, and `sitemap.xml`
+- SEO: per-page meta tags (title, description, Open Graph), `Product` structured data (JSON-LD) with price and availability on every artwork page, `robots.txt`, and `sitemap.xml`
 
 ### Admin
 
