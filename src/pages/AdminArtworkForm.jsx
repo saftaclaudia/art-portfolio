@@ -14,7 +14,26 @@ function slugify(text) {
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9\s-]/g, "")
-    .replace(/\s+/g, "-");
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+// Returns the base slug, or base-2, base-3... if another artwork already uses it
+async function findFreeSlug(base, ownId) {
+  let query = supabase
+    .from("artworks")
+    .select("slug")
+    .like("slug", `${base}%`);
+  if (ownId) query = query.neq("id", ownId);
+  const { data, error } = await query;
+  if (error) throw error;
+
+  const taken = new Set((data ?? []).map((a) => a.slug));
+  if (!taken.has(base)) return base;
+  let n = 2;
+  while (taken.has(`${base}-${n}`)) n++;
+  return `${base}-${n}`;
 }
 
 function resizeImageFile(file) {
@@ -88,6 +107,8 @@ export default function AdminArtworkForm() {
   const [existingExtraImages, setExistingExtraImages] = useState([]);
 
   const [existingImageUrl, setExistingImageUrl] = useState("");
+  // Kept as-is when editing, so links to the artwork keep working after a title change
+  const [existingSlug, setExistingSlug] = useState("");
   const [loading, setLoading] = useState(isEditing);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -117,6 +138,7 @@ export default function AdminArtworkForm() {
 
         setPrintOptions(data.print_options || []);
         setExistingImageUrl(data.image_url || "");
+        setExistingSlug(data.slug || "");
         setExistingExtraImages(data.images || []);
       } else {
         // Without the saved data, the form would overwrite the artwork with blanks
@@ -210,6 +232,17 @@ export default function AdminArtworkForm() {
     }
     const finalImages = [...existingExtraImages, ...newExtraImageUrls];
 
+    let slug = existingSlug;
+    if (!slug) {
+      try {
+        slug = await findFreeSlug(slugify(form.title) || "artwork", id);
+      } catch (err) {
+        setError("Could not create the artwork link: " + err.message);
+        setSaving(false);
+        return;
+      }
+    }
+
     const payload = {
       title: form.title,
       description: form.description,
@@ -220,7 +253,7 @@ export default function AdminArtworkForm() {
       in_stock: form.in_stock,
       image_url: imageUrl,
       images: finalImages,
-      slug: slugify(form.title),
+      slug,
       dimensions: form.dimensions,
       print_options: printOptions
         .filter((p) => p.size && p.price)
