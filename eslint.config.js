@@ -33,4 +33,9 @@ export default defineConfig([
       "react/prop-types": "off", // nu folosim PropTypes în acest proiect
     },
   },
+  {
+    // Scripturile de build rulează în Node, nu în browser
+    files: ["scripts/**/*.js"],
+    languageOptions: { globals: globals.node },
+  },
 ]);
