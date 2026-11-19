@@ -18,6 +18,18 @@ A personal art portfolio and online shop for original watercolor, acrylic, and d
 - @dnd-kit (drag-and-drop reordering in admin)
 - Deployed on Vercel
 
+## Screenshots
+
+|                   Home                   |                        Gallery                         |
+| :--------------------------------------: | :----------------------------------------------------: |
+| ![Home page](docs/screenshots/home.webp) | ![Gallery with filters](docs/screenshots/gallery.webp) |
+
+|                              Product page                               |                          Cart                          |
+| :---------------------------------------------------------------------: | :----------------------------------------------------: |
+| ![Product page with details and options](docs/screenshots/product.webp) | ![Cart with order summary](docs/screenshots/cart.webp) |
+
+Live site: https://art-portfolio-smoky.vercel.app
+
 ## ✨ Features
 
 ### Storefront
@@ -33,7 +45,6 @@ A personal art portfolio and online shop for original watercolor, acrylic, and d
   - Digital works are sold as a "Digital Master File" (no frame option)
   - Delivery, returns, and materials information that adapts to what is actually for sale (physical vs. digital)
   - "You may also like" suggestions and Previous / Next navigation between artworks
-
 - Shopping cart persisted in local storage; originals are one of a kind and cannot be added twice
 - Checkout by email request: the order email lists each item with its variant, quantity, and subtotal, plus the shipping address, country, and a notes field (framing, signature, gift message)
 - SEO: per-page meta tags (title, description, Open Graph), `Product` structured data (JSON-LD) with price and availability on every artwork page, `robots.txt`, and `sitemap.xml`
@@ -48,7 +59,7 @@ A personal art portfolio and online shop for original watercolor, acrylic, and d
 
 ### Configuration
 
-`src/config.js` holds a feature flag, `SELL_PRINTS`, that turns print sales on or off without touching any data. It is currently off.It also holds `SITE_URL`, the public address used for absolute URLs in structured data.
+`src/config.js` holds a feature flag, `SELL_PRINTS`, that turns print sales on or off without touching any data. It is currently off. It also holds `SITE_URL`, the public address used for absolute URLs in structured data.
 
 ## 🧱 Project Structure
 
@@ -63,13 +74,13 @@ src/
 
 ## 🛠️ Getting Started
 
-1. Clone the repo and install dependencies:
+**1. Clone the repo and install dependencies**
 
 ```bash
 npm install
 ```
 
-2. Create a `.env` file in the project root with:
+**2. Create a `.env` file in the project root**
 
 ```
 VITE_SUPABASE_URL=...
@@ -80,7 +91,9 @@ VITE_EMAILJS_ORDER_TEMPLATE_ID=...
 VITE_EMAILJS_PUBLIC_KEY=...
 ```
 
-`VITE_EMAILJS_TEMPLATE_ID` is the EmailJS template used by the contact form, and `VITE_EMAILJS_ORDER_TEMPLATE_ID` is the one used for order emails. 3. Run the dev server:
+`VITE_EMAILJS_TEMPLATE_ID` is the EmailJS template used by the contact form, and `VITE_EMAILJS_ORDER_TEMPLATE_ID` is the one used for order emails.
+
+**3. Run the dev server**
 
 ```bash
 npm run dev
