@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
@@ -203,7 +203,7 @@ export default function Gallery() {
                 const isSold = priceLabel === "Sold";
 
                 return (
-                  <motion.article
+                  <m.article
                     key={artwork.id}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -249,7 +249,7 @@ export default function Gallery() {
                         />
                       </p>
                     </div>
-                  </motion.article>
+                  </m.article>
                 );
               })}
             </div>

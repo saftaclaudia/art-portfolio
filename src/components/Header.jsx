@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X, ShoppingBag } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { useCart } from "../context/useCart";
 
 const navItems = [
@@ -67,7 +67,7 @@ function Header() {
       {/* Mobile meniu with animatiom */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
@@ -85,7 +85,7 @@ function Header() {
                 {item.label}
               </NavLink>
             ))}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

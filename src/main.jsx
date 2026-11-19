@@ -4,18 +4,19 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
 import { CartProvider } from "./context/CartProvider.jsx";
-import { AuthProvider } from "./context/AuthProvider.jsx";
 import { HelmetProvider } from "react-helmet-async";
+import { LazyMotion, domAnimation } from "framer-motion";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <HelmetProvider>
       <BrowserRouter>
-        <AuthProvider>
-          <CartProvider>
+        <CartProvider>
+          {/* Loads only the animation features the site uses */}
+          <LazyMotion features={domAnimation} strict>
             <App />
-          </CartProvider>
-        </AuthProvider>
+          </LazyMotion>
+        </CartProvider>
       </BrowserRouter>
     </HelmetProvider>
   </StrictMode>,

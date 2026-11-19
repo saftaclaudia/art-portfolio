@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import aboutPortrait from "../assets/about-portrait.jpg";
 import { Helmet } from "react-helmet-async";
 
@@ -14,7 +14,7 @@ function About() {
       </Helmet>
       <section id="about" className="py-24 px-6 text-ink bg-sand/50">
         <div className="max-w-3xl mx-auto flex flex-col items-center gap-10 ">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
@@ -26,8 +26,8 @@ function About() {
               alt="Artist Claudia Popescu"
               className="w-full aspect-[3/2]   object-cover rounded-2xl shadow-lg border-4 border-white"
             />
-          </motion.div>
-          <motion.div
+          </m.div>
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -53,7 +53,7 @@ function About() {
               at all. Lately, I&apos;ve found joy in small watercolor
               illustrations, inspired by the new places I get to visit.
             </p>
-          </motion.div>
+          </m.div>
         </div>
       </section>
     </>
