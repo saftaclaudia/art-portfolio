@@ -104,6 +104,7 @@ export default function AdminPage() {
   const { logout } = useAuth();
   const [artworks, setArtworks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -121,7 +122,11 @@ export default function AdminPage() {
       .order("medium", { ascending: true })
       .order("sort_order", { ascending: true });
 
-    if (!error) setArtworks(data ?? []);
+    if (error) {
+      setError("Could not load artworks: " + error.message);
+    } else {
+      setArtworks(data ?? []);
+    }
     setLoading(false);
   }
 
@@ -131,10 +136,22 @@ export default function AdminPage() {
     );
     if (!confirmed) return;
 
-    const { error } = await supabase.from("artworks").delete().eq("id", id);
-    if (!error) {
-      setArtworks((prev) => prev.filter((a) => a.id !== id));
+    setError("");
+    // .select() returns the deleted row, so a delete blocked by permissions
+    // (which Supabase reports as "0 rows", not as an error) is caught too
+    const { data, error } = await supabase
+      .from("artworks")
+      .delete()
+      .eq("id", id)
+      .select("id");
+
+    if (error || !data?.length) {
+      setError(
+        `Could not delete "${title}"` + (error ? `: ${error.message}` : "."),
+      );
+      return;
     }
+    setArtworks((prev) => prev.filter((a) => a.id !== id));
   }
 
   async function handleDragEnd(mediumKey, event) {
@@ -163,11 +180,23 @@ export default function AdminPage() {
     );
 
     // Persist the new order to Supabase
-    for (const u of updates) {
-      await supabase
-        .from("artworks")
-        .update({ sort_order: u.sort_order })
-        .eq("id", u.id);
+    setError("");
+    const results = await Promise.all(
+      updates.map((u) =>
+        supabase
+          .from("artworks")
+          .update({ sort_order: u.sort_order })
+          .eq("id", u.id)
+          .select("id"),
+      ),
+    );
+
+    if (results.some((r) => r.error || !r.data?.length)) {
+      setError(
+        "The new order could not be saved. Showing the order saved on the site.",
+      );
+      // Reload so the admin shows the order visitors actually see
+      fetchArtworks();
     }
   }
 
@@ -211,6 +240,15 @@ export default function AdminPage() {
           </button>
         </div>
       </div>
+
+      {error && (
+        <p
+          role="alert"
+          className="mb-6 rounded-lg bg-blush/40 px-4 py-3 text-sm text-clay"
+        >
+          {error}
+        </p>
+      )}
 
       {loading && <p className="text-ink/75">Loading...</p>}
 

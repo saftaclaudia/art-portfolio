@@ -214,6 +214,7 @@ export default function AdminArtworkForm() {
     }
 
     const newExtraImageUrls = [];
+    const failedUploads = [];
     for (const file of extraImageFiles) {
       const resizedFile = await resizeImageFile(file);
       const fileExt = resizedFile.name.split(".").pop();
@@ -228,7 +229,16 @@ export default function AdminArtworkForm() {
           .from("artworks")
           .getPublicUrl(fileName);
         newExtraImageUrls.push(publicUrlData.publicUrl);
+      } else {
+        failedUploads.push(file.name);
       }
+    }
+    if (failedUploads.length > 0) {
+      setError(
+        `Could not upload: ${failedUploads.join(", ")}. Nothing was saved, please try again.`,
+      );
+      setSaving(false);
+      return;
     }
     const finalImages = [...existingExtraImages, ...newExtraImageUrls];
 
@@ -260,12 +270,17 @@ export default function AdminArtworkForm() {
         .map((p) => ({ size: p.size, price: Number(p.price) })),
     };
 
-    const { error: saveError } = isEditing
-      ? await supabase.from("artworks").update(payload).eq("id", id)
-      : await supabase.from("artworks").insert(payload);
+    // .select() returns the saved row, so a save blocked by permissions
+    // (which Supabase reports as "0 rows", not as an error) is caught too
+    const { data: savedRows, error: saveError } = isEditing
+      ? await supabase.from("artworks").update(payload).eq("id", id).select("id")
+      : await supabase.from("artworks").insert(payload).select("id");
 
-    if (saveError) {
-      setError(saveError.message);
+    if (saveError || !savedRows?.length) {
+      setError(
+        saveError?.message ??
+          "Nothing was saved. Check that you are logged in with the admin account.",
+      );
       setSaving(false);
       return;
     }
