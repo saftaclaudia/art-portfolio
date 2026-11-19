@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { m, AnimatePresence } from "framer-motion";
 import { useCart } from "../context/useCart";
+import logo from "../assets/logo-header.webp";
 
 const navItems = [
   { to: "/", label: "Home" },
@@ -22,11 +23,17 @@ function Header() {
     <header className=" sticky top-0 z-50 flex justify-between items-center px-6 md:px-10 py-4 border-b border-blush/60 bg-cream/85 backdrop-blur-md">
       <NavLink
         to="/"
-        className=" font-accent text-2xl md:text-3xl text-clay hover:text-coralText transition-colors"
+        className="flex items-center gap-2 font-accent text-2xl md:text-3xl text-clay hover:text-coralText transition-colors"
       >
+        <img
+          src={logo}
+          alt=""
+          width="34"
+          height="48"
+          className="h-12 w-auto md:h-14"
+        />
         Art by Claudia
       </NavLink>
-
       {/* Desktop nav */}
       <nav className="hidden md:flex space-x-8 text-sm font-medium tracking-wide">
         {navItems.map((item) => (
