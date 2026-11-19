@@ -1,14 +1,23 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../context/useCart";
 import { Trash2 } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 export default function CartPage() {
   const { items, removeFromCart, total } = useCart();
   const hasFraming = items.some((item) => item.framed);
 
+  const head = (
+    <Helmet>
+      <title>Cart | Art by Claudia</title>
+      <meta name="robots" content="noindex" />
+    </Helmet>
+  );
+
   if (items.length === 0) {
     return (
       <div className="max-w-xl mx-auto px-4 py-24 text-center">
+        {head}
         <h1 className="text-2xl font-display text-ink mb-3">
           Your cart is empty
         </h1>
@@ -27,6 +36,7 @@ export default function CartPage() {
 
   return (
     <section className="max-w-3xl mx-auto px-4 py-16">
+      {head}
       <h1 className="text-3xl md:text-4xl font-display font-medium text-ink mb-10 text-center">
         Your Cart
       </h1>

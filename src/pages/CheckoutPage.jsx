@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import emailjs from "emailjs-com";
 import { useCart } from "../context/useCart";
+import { Helmet } from "react-helmet-async";
 
 export default function CheckoutPage() {
   const { items, total, clearCart } = useCart();
@@ -77,9 +78,17 @@ export default function CheckoutPage() {
       })
       .finally(() => setSending(false));
   };
+  const head = (
+    <Helmet>
+      <title>Checkout | Art by Claudia</title>
+      <meta name="robots" content="noindex" />
+    </Helmet>
+  );
+
   if (items.length === 0) {
     return (
       <div className="max-w-xl mx-auto px-4 py-24 text-center">
+        {head}
         <h2 className="text-2xl font-display text-ink mb-3">
           Your cart is empty
         </h2>
@@ -90,6 +99,7 @@ export default function CheckoutPage() {
 
   return (
     <section className="max-w-2xl mx-auto px-4 py-16">
+      {head}
       <h1 className="text-3xl md:text-4xl font-display font-medium text-ink mb-3 text-center">
         Checkout
       </h1>

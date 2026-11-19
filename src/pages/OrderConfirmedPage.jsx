@@ -1,9 +1,14 @@
 import { CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export default function OrderConfirmedPage() {
   return (
-    <div className="max-w-xl mx-auto px-4 py-4 text-center">
+    <div className="max-w-xl mx-auto px-4 py-24 text-center">
+      <Helmet>
+        <title>Order received | Art by Claudia</title>
+        <meta name="robots" content="noindex" />
+      </Helmet>
       <CheckCircle size={56} className="text-sage mx-auto mb-6" />
       <h1 className="text-3xl font-display font-medium text-ink mb-4">
         Order received!
