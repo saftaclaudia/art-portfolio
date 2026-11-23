@@ -8,8 +8,6 @@ export default {
         sand: "#F5EDE3",
         // Borders and soft fills: neutral cream-grey, so the teal stays the accent
         blush: "#E6DFD7",
-        peach: "#F0B8A0",
-        coral: "#E38B6F",
         // Terracotta: handwritten titles, prices, the "Art by Claudia" name
         coralText: "#C44C26",
         // Teal from the logo. "teal" is the exact logo color, for decoration
