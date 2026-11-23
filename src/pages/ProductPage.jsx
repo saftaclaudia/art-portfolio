@@ -8,6 +8,7 @@ import ProductInfo from "../components/ProductInfo";
 import SimilarArtworks from "../components/SimilarArtworks";
 import ArtworkPager from "../components/ArtworkPager";
 import { SELL_PRINTS, SITE_URL } from "../config";
+import { formatPrice } from "../utils/price";
 
 const imageArrowClass =
   "absolute top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-ink/70 text-white ring-1 ring-white/60 shadow-md flex items-center justify-center transition-colors hover:bg-ink/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal";
@@ -418,7 +419,7 @@ export default function ProductPage() {
             {selectedOption && (
               <p className="mb-6 flex items-baseline gap-2">
                 <span className="text-3xl font-display font-semibold text-coralText">
-                  ${selectedOption.price}
+                  {formatPrice(selectedOption.price)}
                 </span>
                 <span className="text-sm text-ink/75">{priceNote}</span>
               </p>
@@ -488,7 +489,7 @@ export default function ProductPage() {
                             </span>
                           </span>
                           <span className="text-coralText font-semibold whitespace-nowrap">
-                            ${option.price}
+                            {formatPrice(option.price)}
                           </span>
                         </label>
                       ))}
