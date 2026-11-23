@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../context/useCart";
 import { Trash2 } from "lucide-react";
+import { formatPrice } from "../utils/price";
 import { Helmet } from "react-helmet-async";
 
 export default function CartPage() {
@@ -62,11 +63,10 @@ export default function CartPage() {
                 {item.variantLabel ? ` · ${item.variantLabel}` : ""}
               </p>
             </div>
-            {item.price && (
-              <span className="text-coralText font-semibold whitespace-nowrap">
-                ${item.price} {item.quantity > 1 ? `× ${item.quantity}` : ""}
-              </span>
-            )}
+            <span className="text-coralText font-semibold whitespace-nowrap">
+              {formatPrice(item.price)}{" "}
+              {item.quantity > 1 ? `× ${item.quantity}` : ""}
+            </span>
 
             <button
               onClick={() => removeFromCart(item.id)}

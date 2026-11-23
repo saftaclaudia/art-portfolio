@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 import { useCart } from "../context/useCart";
+import { formatPrice } from "../utils/price";
 import { Helmet } from "react-helmet-async";
 
 export default function CheckoutPage() {
@@ -35,9 +36,12 @@ export default function CheckoutPage() {
     const orderLines = items
       .map((item) => {
         const qty = item.quantity || 1;
-        const lineTotal = (item.price || 0) * qty;
         const variant = item.variantLabel ? ` — ${item.variantLabel}` : "";
-        return `- ${item.title}${variant} (${item.medium}) | $${item.price} x ${qty} = $${lineTotal}`;
+        const line = `- ${item.title}${variant} (${item.medium}) | ${formatPrice(item.price)} x ${qty}`;
+        // No line total for an item without a price: it would read "$0"
+        return Number(item.price) > 0
+          ? `${line} = $${Number(item.price) * qty}`
+          : line;
       })
       .join("\n");
 
