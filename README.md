@@ -34,7 +34,7 @@ Live site: https://art-portfolio-smoky.vercel.app
 
 ### Storefront
 
-- Responsive design with a custom warm color palette
+- Responsive design with a custom palette matched to the logo: teal for buttons and links, terracotta for handwritten titles and prices, on a warm cream background
 - Gallery with filtering by medium (watercolor / acrylic / digital)
 - Uniform square gallery cards showing title, price, medium, and size; the price adapts to availability (`$50` or `Sold`, and `Prints from $25` when print sales are on)
 - Each card is a single accessible link that opens the artwork, with a swipeable image carousel inside
