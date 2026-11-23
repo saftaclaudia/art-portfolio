@@ -119,6 +119,7 @@ Images are stored in a public Supabase Storage bucket.
 - Orders are placed by email request, with no online payment. Shipping and framing costs are confirmed manually by email before payment, so they are not included in the cart total.
 - Cart prices are stored in the browser. A payment-enabled version would recompute prices on the server at checkout.
 - `sitemap.xml` is generated at build time (`scripts/generate-sitemap.js`) with one entry per artwork, so a new artwork appears in it only after the next deploy. If Supabase can't be reached during the build, the static `public/sitemap.xml` (fixed pages only) is used instead.
+- Link previews (Facebook, WhatsApp, etc.) don't run JavaScript, so `scripts/prerender-meta.js` writes a copy of the page for Gallery, About, Contact and every artwork at build time, with that page's title, description and image in the HTML. Vercel serves them through `cleanUrls` in `vercel.json`. Like the sitemap, a new artwork gets its own preview only after the next deploy; until then it shows the home page preview.
 - Structured data is injected by JavaScript in the browser (the site is a client-rendered single-page app), so search engines may not always use it for rich results. Server-side rendering or pre-rendering would make it reliable.
 
 ## 🚀 Deployment
