@@ -28,7 +28,7 @@ function Header() {
         <img
           src={logo}
           alt=""
-          width="34"
+          width="68"
           height="48"
           className="h-12 w-auto md:h-14"
         />
