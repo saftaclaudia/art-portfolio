@@ -17,7 +17,7 @@ function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const linkClass = ({ isActive }) =>
-    `hover:text-coralText transition-colors ${isActive ? "text-coralText" : "text-ink/80"}`;
+    `hover:text-tealText transition-colors ${isActive ? "text-tealText" : "text-ink/80"}`;
 
   return (
     <header className=" sticky top-0 z-50 flex justify-between items-center px-6 md:px-10 py-4 border-b border-blush/60 bg-cream/85 backdrop-blur-md">
@@ -52,11 +52,11 @@ function Header() {
       <Link
         to="/cart"
         aria-label="Cart"
-        className="relative text-clay hover:text-coralText transition-colors"
+        className="relative text-tealText hover:text-tealDark transition-colors"
       >
         <ShoppingBag size={24} />
         {items.length > 0 && (
-          <span className="absolute -top-2 -right-2 bg-coralText text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">
+          <span className="absolute -top-2 -right-2 bg-tealText text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">
             {items.length}
           </span>
         )}
@@ -64,7 +64,7 @@ function Header() {
 
       {/* Mobile burger button */}
       <button
-        className="md:hidden text-clay"
+        className="md:hidden text-tealText"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle menu"
       >

@@ -10,7 +10,7 @@ import ArtworkPager from "../components/ArtworkPager";
 import { SELL_PRINTS, SITE_URL } from "../config";
 
 const imageArrowClass =
-  "absolute top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-ink/70 text-white ring-1 ring-white/60 shadow-md flex items-center justify-center transition-colors hover:bg-ink/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral";
+  "absolute top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-ink/70 text-white ring-1 ring-white/60 shadow-md flex items-center justify-center transition-colors hover:bg-ink/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal";
 
 export default function ProductPage() {
   const { slug } = useParams();
@@ -200,7 +200,7 @@ export default function ProductPage() {
         </p>
         <Link
           to="/gallery"
-          className="text-coralText font-medium hover:text-clay"
+          className="text-tealText font-medium hover:text-tealDark"
         >
           &larr; Back to gallery
         </Link>
@@ -331,7 +331,7 @@ export default function ProductPage() {
         <div className="flex items-center justify-between mb-8">
           <Link
             to="/gallery"
-            className="text-sm text-ink/75 hover:text-coralText transition-colors"
+            className="text-sm text-ink/75 hover:text-tealText transition-colors"
           >
             &larr; Back to gallery
           </Link>
@@ -388,7 +388,7 @@ export default function ProductPage() {
                     aria-label={`Show image ${i + 1}`}
                     className={`flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all ${
                       i === activeIndex
-                        ? "border-coral"
+                        ? "border-teal"
                         : "border-transparent opacity-60 hover:opacity-100"
                     }`}
                   >
@@ -441,7 +441,7 @@ export default function ProductPage() {
                     <li key={i} className="flex gap-2">
                       <span
                         aria-hidden="true"
-                        className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-coral"
+                        className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-teal"
                       />
                       {line}
                     </li>
@@ -471,8 +471,8 @@ export default function ProductPage() {
                           key={option.key}
                           className={`flex items-center justify-between gap-3 rounded-xl border px-4 py-3 cursor-pointer transition-colors ${
                             selectedKey === option.key
-                              ? "border-coral bg-blush/30"
-                              : "border-blush bg-white hover:border-coral/50"
+                              ? "border-teal bg-teal/10"
+                              : "border-blush bg-white hover:border-teal/50"
                           }`}
                         >
                           <span className="flex items-center gap-3">
@@ -481,7 +481,7 @@ export default function ProductPage() {
                               name="option"
                               checked={selectedKey === option.key}
                               onChange={() => setSelectedKey(option.key)}
-                              className="accent-coral"
+                              className="accent-tealText"
                             />
                             <span className="text-ink/80 font-medium">
                               {option.label}
@@ -511,7 +511,7 @@ export default function ProductPage() {
                     frame shown in photos is for display only.{" "}
                     <Link
                       to="/contact"
-                      className="text-coralText underline hover:text-clay"
+                      className="text-tealText underline hover:text-tealDark"
                     >
                       Questions? Contact me.
                     </Link>
@@ -519,12 +519,12 @@ export default function ProductPage() {
                 )}
 
                 {isPhysical && (
-                  <label className="mb-6 flex items-start gap-3 rounded-xl border border-blush bg-white px-4 py-3 cursor-pointer hover:border-coral/50 transition-colors">
+                  <label className="mb-6 flex items-start gap-3 rounded-xl border border-blush bg-white px-4 py-3 cursor-pointer hover:border-teal/50 transition-colors">
                     <input
                       type="checkbox"
                       checked={framed}
                       onChange={(e) => setFramed(e.target.checked)}
-                      className="mt-1 accent-coral"
+                      className="mt-1 accent-tealText"
                     />
                     <span className="text-sm">
                       <span className="block font-medium text-ink/80">
@@ -545,7 +545,7 @@ export default function ProductPage() {
                       <button
                         type="button"
                         onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                        className="w-9 h-9 flex items-center justify-center text-ink/75 hover:text-coralText transition-colors"
+                        className="w-9 h-9 flex items-center justify-center text-ink/75 hover:text-tealText transition-colors"
                         aria-label="Decrease quantity"
                       >
                         −
@@ -556,7 +556,7 @@ export default function ProductPage() {
                       <button
                         type="button"
                         onClick={() => setQuantity((q) => q + 1)}
-                        className="w-9 h-9 flex items-center justify-center text-ink/75 hover:text-coralText transition-colors"
+                        className="w-9 h-9 flex items-center justify-center text-ink/75 hover:text-tealText transition-colors"
                         aria-label="Increase quantity"
                       >
                         +
@@ -569,7 +569,7 @@ export default function ProductPage() {
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  className="w-full bg-coralText text-white px-8 py-3.5 rounded-full font-medium shadow-md shadow-coral/20 hover:bg-clay transition-colors"
+                  className="w-full bg-tealText text-white px-8 py-3.5 rounded-full font-medium shadow-md shadow-teal/20 hover:bg-tealDark transition-colors"
                 >
                   Add to Cart
                 </button>
@@ -608,7 +608,7 @@ export default function ProductPage() {
             type="button"
             onClick={() => setLightboxOpen(false)}
             aria-label="Close"
-            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 flex items-center justify-center text-ink/70 hover:text-coral transition-colors"
+            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 flex items-center justify-center text-ink/70 hover:text-tealText transition-colors"
           >
             <X size={22} />
           </button>
@@ -629,7 +629,7 @@ export default function ProductPage() {
                   goPrev();
                 }}
                 aria-label="Previous image"
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 flex items-center justify-center text-ink/70 hover:text-coral transition-colors"
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 flex items-center justify-center text-ink/70 hover:text-tealText transition-colors"
               >
                 <ChevronLeft size={24} />
               </button>
@@ -640,7 +640,7 @@ export default function ProductPage() {
                   goNext();
                 }}
                 aria-label="Next image"
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 flex items-center justify-center text-ink/70 hover:text-coral transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 flex items-center justify-center text-ink/70 hover:text-tealText transition-colors"
               >
                 <ChevronRight size={24} />
               </button>

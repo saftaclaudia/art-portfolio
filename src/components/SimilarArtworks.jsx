@@ -76,7 +76,7 @@ export default function SimilarArtworks({ artworkId, medium }) {
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
             </div>
-            <h3 className="mt-2 text-sm font-display text-ink group-hover:text-coralText transition-colors">
+            <h3 className="mt-2 text-sm font-display text-ink group-hover:text-tealText transition-colors">
               {a.title}
             </h3>
             <p className="text-xs uppercase tracking-wide text-sage">

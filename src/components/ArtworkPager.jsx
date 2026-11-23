@@ -36,7 +36,7 @@ export default function ArtworkPager({ artworkId }) {
   const next = list[(index + 1) % list.length];
 
   const linkClass =
-    "flex items-center gap-1 text-sm text-ink/75 hover:text-coralText transition-colors";
+    "flex items-center gap-1 text-sm text-ink/75 hover:text-tealText transition-colors";
 
   return (
     <nav aria-label="Browse artworks" className="flex items-center gap-4">

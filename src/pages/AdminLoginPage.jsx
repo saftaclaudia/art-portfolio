@@ -63,7 +63,7 @@ export default function AdminLoginPage() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
           required
-          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
         />
         <div className="relative">
           <input
@@ -72,13 +72,13 @@ export default function AdminLoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             required
-            className="w-full rounded-xl border border-blush bg-white px-4 py-3 pr-11 focus:outline-none focus:ring-2 focus:ring-coral/50"
+            className="w-full rounded-xl border border-blush bg-white px-4 py-3 pr-11 focus:outline-none focus:ring-2 focus:ring-teal/50"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             aria-label={showPassword ? "Hide password" : "Show password"}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/75 hover:text-coralText transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/75 hover:text-tealText transition-colors"
           >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
@@ -87,7 +87,7 @@ export default function AdminLoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-coralText text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
+          className="w-full bg-tealText text-white px-8 py-3 rounded-full font-medium hover:bg-tealDark transition-colors disabled:opacity-60"
         >
           {loading ? "Logging in..." : "Log In"}
         </button>
@@ -98,7 +98,7 @@ export default function AdminLoginPage() {
         <button
           type="button"
           onClick={() => setShowForgotPassword(true)}
-          className="block w-full text-center text-sm text-ink/75 hover:text-coralText transition-colors mt-4"
+          className="block w-full text-center text-sm text-ink/75 hover:text-tealText transition-colors mt-4"
         >
           Forgot password?
         </button>
@@ -110,7 +110,7 @@ export default function AdminLoginPage() {
             onChange={(e) => setResetEmail(e.target.value)}
             placeholder="Your email"
             required
-            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
           />
           <button
             type="submit"

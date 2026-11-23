@@ -14,7 +14,7 @@ function Footer() {
           href="https://www.instagram.com/claudiasafta_draw"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-coralText transition-colors"
+          className="hover:text-tealText transition-colors"
           aria-label="Instagram"
         >
           <Instagram size={18} />
