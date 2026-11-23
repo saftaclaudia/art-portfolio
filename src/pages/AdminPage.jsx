@@ -59,7 +59,7 @@ function SortableArtworkCard({ artwork, onDelete }) {
           {...attributes}
           {...listeners}
           aria-label="Drag to reorder"
-          className="absolute top-3 left-3 w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md text-ink/75 hover:text-coralText hover:shadow-lg cursor-grab active:cursor-grabbing transition-all touch-none"
+          className="absolute top-3 left-3 w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md text-ink/75 hover:text-tealText hover:shadow-lg cursor-grab active:cursor-grabbing transition-all touch-none"
         >
           <GripVertical size={18} />
         </button>
@@ -84,7 +84,7 @@ function SortableArtworkCard({ artwork, onDelete }) {
         <div className="mt-auto pt-3 flex justify-between items-center border-t border-blush/60">
           <Link
             to={`/admin/edit/${artwork.id}`}
-            className="text-sm text-ink/75 hover:text-coralText transition-colors"
+            className="text-sm text-ink/75 hover:text-tealText transition-colors"
           >
             Edit
           </Link>
@@ -221,13 +221,13 @@ export default function AdminPage() {
         <div className="flex gap-3 items-center">
           <Link
             to="/admin/new"
-            className="bg-coralText text-white px-5 py-2.5 rounded-full font-medium hover:bg-clay transition-colors text-sm"
+            className="bg-tealText text-white px-5 py-2.5 rounded-full font-medium hover:bg-tealDark transition-colors text-sm"
           >
             + Add Artwork
           </Link>
           <Link
             to="/admin/account"
-            className="text-ink/75 hover:text-coralText transition-colors text-sm"
+            className="text-ink/75 hover:text-tealText transition-colors text-sm"
           >
             Account
           </Link>

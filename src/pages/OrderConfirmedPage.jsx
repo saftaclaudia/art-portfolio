@@ -19,7 +19,7 @@ export default function OrderConfirmedPage() {
       </p>
       <Link
         to="/gallery"
-        className="inline-block bg-coralText text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors"
+        className="inline-block bg-tealText text-white px-8 py-3 rounded-full font-medium hover:bg-tealDark transition-colors"
       >
         Continue Browsing
       </Link>

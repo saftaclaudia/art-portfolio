@@ -69,7 +69,7 @@ function Contact() {
               onChange={handleChange}
               placeholder="Your name"
               required
-              className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+              className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
             />
 
             <input
@@ -79,7 +79,7 @@ function Contact() {
               onChange={handleChange}
               placeholder="Your email"
               required
-              className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+              className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
             />
 
             <textarea
@@ -89,13 +89,13 @@ function Contact() {
               onChange={handleChange}
               placeholder="Your message"
               required
-              className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+              className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
             />
 
             <button
               type="submit"
               disabled={sending}
-              className="bg-coralText text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
+              className="bg-tealText text-white px-8 py-3 rounded-full font-medium hover:bg-tealDark transition-colors disabled:opacity-60"
             >
               {sending ? "Sending..." : "Send Message"}
             </button>

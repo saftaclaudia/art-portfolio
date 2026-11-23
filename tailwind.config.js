@@ -6,10 +6,18 @@ export default {
       colors: {
         cream: "#FDF9F4",
         sand: "#F5EDE3",
-        blush: "#F3D9CD",
+        // Borders and soft fills: neutral cream-grey, so the teal stays the accent
+        blush: "#E6DFD7",
         peach: "#F0B8A0",
         coral: "#E38B6F",
+        // Terracotta: handwritten titles, prices, the "Art by Claudia" name
         coralText: "#C44C26",
+        // Teal from the logo. "teal" is the exact logo color, for decoration
+        // and focus rings only (too light for text). tealText (5.1:1 on cream,
+        // 5.4:1 with white text) is for buttons and links, tealDark for hover.
+        teal: "#68AAB9",
+        tealText: "#2F7383",
+        tealDark: "#255E6B",
         sage: "#667D54",
         clay: "#A66045",
         ink: "#4A4038",

@@ -316,7 +316,7 @@ export default function AdminArtworkForm() {
           onChange={handleChange}
           placeholder="Title"
           required
-          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
         />
         <div>
           <textarea
@@ -325,7 +325,7 @@ export default function AdminArtworkForm() {
             onChange={handleChange}
             placeholder="Description (the story behind the piece)"
             rows="4"
-            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
           />
           <p className="mt-1 text-xs text-ink/50">
             Press Enter twice to start a new paragraph
@@ -343,7 +343,7 @@ export default function AdminArtworkForm() {
             onChange={handleChange}
             placeholder={"Created in Procreate\nBest printed up to 14 x 20 cm"}
             rows="3"
-            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+            className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
           />
         </div>
 
@@ -351,7 +351,7 @@ export default function AdminArtworkForm() {
           name="medium"
           value={form.medium}
           onChange={handleChange}
-          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
         >
           {MEDIUMS.map((m) => (
             <option key={m} value={m}>
@@ -366,7 +366,7 @@ export default function AdminArtworkForm() {
           value={form.price}
           onChange={handleChange}
           placeholder="Price (optional)"
-          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
         />
 
         <input
@@ -375,7 +375,7 @@ export default function AdminArtworkForm() {
           value={form.artist}
           onChange={handleChange}
           placeholder="Artist (optional)"
-          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
         />
 
         <input
@@ -384,7 +384,7 @@ export default function AdminArtworkForm() {
           value={form.dimensions}
           onChange={handleChange}
           placeholder="Size (e.g. 19 x 19 cm,  or 1640 x 2360 px for digital file)"
-          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+          className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
         />
         <div>
           <div className="flex items-center justify-between mb-2">
@@ -395,7 +395,7 @@ export default function AdminArtworkForm() {
               <button
                 type="button"
                 onClick={addPrintOption}
-                className="text-sm text-coralText hover:text-clay transition-colors"
+                className="text-sm text-tealText hover:text-tealDark transition-colors"
               >
                 + Add option
               </button>
@@ -410,7 +410,7 @@ export default function AdminArtworkForm() {
                   handlePrintOptionChange(index, "size", e.target.value)
                 }
                 placeholder="Size (e.g. A4)"
-                className="flex-1 rounded-xl border border-blush bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-coral/50"
+                className="flex-1 rounded-xl border border-blush bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/50"
               />
               <input
                 type="number"
@@ -419,7 +419,7 @@ export default function AdminArtworkForm() {
                   handlePrintOptionChange(index, "price", e.target.value)
                 }
                 placeholder="Price"
-                className="w-28 rounded-xl border border-blush bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-coral/50"
+                className="w-28 rounded-xl border border-blush bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/50"
               />
               <button
                 type="button"
@@ -507,7 +507,7 @@ export default function AdminArtworkForm() {
         <button
           type="submit"
           disabled={saving}
-          className="w-full bg-coralText text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
+          className="w-full bg-tealText text-white px-8 py-3 rounded-full font-medium hover:bg-tealDark transition-colors disabled:opacity-60"
         >
           {saving ? "Saving..." : isEditing ? "Save Changes" : "Add Artwork"}
         </button>

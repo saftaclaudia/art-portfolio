@@ -54,7 +54,7 @@ export default function Hero() {
           <m.button
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
-            className="bg-coralText text-white px-8 py-3.5 rounded-full font-medium shadow-md shadow-coral/20 hover:bg-clay transition-colors"
+            className="bg-tealText text-white px-8 py-3.5 rounded-full font-medium shadow-md shadow-teal/20 hover:bg-tealDark transition-colors"
             onClick={() => navigate("/gallery")}
           >
             View Gallery

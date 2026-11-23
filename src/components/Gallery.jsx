@@ -54,7 +54,7 @@ function ArtworkCardImage({ artwork }) {
   };
 
   const arrowClass =
-    "absolute top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-ink/70 text-white ring-1 ring-white/60 shadow-md flex items-center justify-center transition-colors hover:bg-ink/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral";
+    "absolute top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-ink/70 text-white ring-1 ring-white/60 shadow-md flex items-center justify-center transition-colors hover:bg-ink/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal";
 
   return (
     <div className="relative aspect-square w-full overflow-hidden bg-sand">
@@ -90,7 +90,7 @@ function ArtworkCardImage({ artwork }) {
             {allImages.map((_, i) => (
               <span
                 key={i}
-                className={`h-1.5 rounded-full transition-all duration-300 ${i === index ? "w-4 bg-coralText" : " w-1.5 bg-ink/30"}`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${i === index ? "w-4 bg-tealText" : " w-1.5 bg-ink/30"}`}
               />
             ))}
           </div>
@@ -163,8 +163,8 @@ export default function Gallery() {
                 onClick={() => setActiveFilter(f.key)}
                 className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
                   activeFilter === f.key
-                    ? "bg-coralText text-white border-coralText"
-                    : "bg-white text-ink/75 border-blush hover:border-coral hover:text-coralText"
+                    ? "bg-tealText text-white border-tealText"
+                    : "bg-white text-ink/75 border-blush hover:border-teal hover:text-tealText"
                 }`}
               >
                 {f.label}
@@ -209,7 +209,7 @@ export default function Gallery() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: (i % 2) * 0.08 }}
-                    className="group relative rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-lg focus-within:ring-2 focus-within:ring-coral/50 transition-shadow duration-300 cursor-pointer"
+                    className="group relative rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-lg focus-within:ring-2 focus-within:ring-teal/50 transition-shadow duration-300 cursor-pointer"
                   >
                     <ArtworkCardImage artwork={artwork} />
 
@@ -218,7 +218,7 @@ export default function Gallery() {
                         <h2 className="text-lg font-display font-medium text-ink">
                           <Link
                             to={`/gallery/${artwork.slug}`}
-                            className="after:absolute after:inset-0 after:content-[''] group-hover:text-coralText transition-colors focus:outline-none"
+                            className="after:absolute after:inset-0 after:content-[''] group-hover:text-tealText transition-colors focus:outline-none"
                           >
                             {artwork.title}
                           </Link>
@@ -238,7 +238,7 @@ export default function Gallery() {
                       </p>
                       <p
                         aria-hidden="true"
-                        className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-coralText transition-colors group-hover:text-clay"
+                        className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-tealText transition-colors group-hover:text-tealDark"
                       >
                         {artwork.description
                           ? "Read the story"

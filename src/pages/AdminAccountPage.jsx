@@ -67,7 +67,7 @@ export default function AdminAccountPage() {
     <div className="max-w-lg mx-auto px-4 py-16">
       <Link
         to="/admin"
-        className="inline-block text-sm text-ink/75 hover:text-coralText transition-colors mb-8"
+        className="inline-block text-sm text-ink/75 hover:text-tealText transition-colors mb-8"
       >
         &larr; Back to admin
       </Link>
@@ -92,7 +92,7 @@ export default function AdminAccountPage() {
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
             placeholder="Your name"
-            className="flex-1 rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coral/50"
+            className="flex-1 rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
           />
           <button
             type="submit"
@@ -117,13 +117,13 @@ export default function AdminAccountPage() {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="New password"
-              className="w-full rounded-xl border border-blush bg-white px-4 py-3 pr-11 focus:outline-none focus:ring-2 focus:ring-coral/50"
+              className="w-full rounded-xl border border-blush bg-white px-4 py-3 pr-11 focus:outline-none focus:ring-2 focus:ring-teal/50"
             />
             <button
               type="button"
               onClick={() => setShowNewPassword(!showNewPassword)}
               aria-label={showNewPassword ? "Hide password" : "Show password"}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/75 hover:text-coralText transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/75 hover:text-tealText transition-colors"
             >
               {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
@@ -135,7 +135,7 @@ export default function AdminAccountPage() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm new password"
-              className="w-full rounded-xl border border-blush bg-white px-4 py-3 pr-11 focus:outline-none focus:ring-2 focus:ring-coral/50"
+              className="w-full rounded-xl border border-blush bg-white px-4 py-3 pr-11 focus:outline-none focus:ring-2 focus:ring-teal/50"
             />
             <button
               type="button"
@@ -143,7 +143,7 @@ export default function AdminAccountPage() {
               aria-label={
                 showConfirmPassword ? "Hide password" : "Show password"
               }
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/75 hover:text-coralText transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/75 hover:text-tealText transition-colors"
             >
               {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
@@ -152,7 +152,7 @@ export default function AdminAccountPage() {
           <button
             type="submit"
             disabled={savingPassword}
-            className="bg-coralText text-white px-6 py-2.5 rounded-full font-medium hover:bg-clay transition-colors disabled:opacity-60"
+            className="bg-tealText text-white px-6 py-2.5 rounded-full font-medium hover:bg-tealDark transition-colors disabled:opacity-60"
           >
             {savingPassword ? "Saving..." : "Update Password"}
           </button>

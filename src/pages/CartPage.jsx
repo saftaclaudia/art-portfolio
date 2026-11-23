@@ -26,7 +26,7 @@ export default function CartPage() {
         </p>
         <Link
           to="/gallery"
-          className="inline-block bg-coralText text-white px-8 py-3 rounded-full font-medium hover:bg-clay transition-colors"
+          className="inline-block bg-tealText text-white px-8 py-3 rounded-full font-medium hover:bg-tealDark transition-colors"
         >
           Go to Gallery
         </Link>
@@ -92,7 +92,7 @@ export default function CartPage() {
 
       <Link
         to="/checkout"
-        className="block text-center bg-coralText text-white px-8 py-3.5 rounded-full font-medium hover:bg-clay transition-colors mt-8"
+        className="block text-center bg-tealText text-white px-8 py-3.5 rounded-full font-medium hover:bg-tealDark transition-colors mt-8"
       >
         Proceed to Checkout
       </Link>
