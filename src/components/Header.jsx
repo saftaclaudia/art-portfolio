@@ -10,6 +10,7 @@ const navItems = [
   { to: "/gallery", label: "Gallery" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
+  { to: "/commissions", label: "Commissions" },
 ];
 
 function Header() {
