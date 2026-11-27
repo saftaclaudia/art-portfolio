@@ -71,8 +71,7 @@ function Contact() {
           <h1 className="text-3xl md:text-4xl font-display font-medium text-ink mb-4">
             Contact
           </h1>
-          <p className="text-ink/75  mb-10">
-            {" "}
+          <p className="text-ink/75 mb-10">
             Feel free to get in touch with me. I&rsquo;d love to hear from you!
           </p>
 
@@ -82,6 +81,7 @@ function Contact() {
               type="text"
               value={form.name}
               onChange={handleChange}
+              aria-label="Your name"
               placeholder="Your name"
               required
               className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
@@ -92,12 +92,14 @@ function Contact() {
               type="email"
               value={form.email}
               onChange={handleChange}
+              aria-label="Your email"
               placeholder="Your email"
               required
               className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
             />
             <select
               name="inquiry_type"
+              aria-label="Type of inquiry"
               value={form.inquiry_type}
               onChange={handleChange}
               className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
@@ -112,6 +114,7 @@ function Contact() {
               rows="5"
               value={form.message}
               onChange={handleChange}
+              aria-label="Your message"
               placeholder="Your message"
               required
               className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"

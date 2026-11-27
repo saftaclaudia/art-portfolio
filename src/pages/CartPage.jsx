@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../context/useCart";
 import { Trash2 } from "lucide-react";
-import { formatPrice } from "../utils/price";
+import { euro, formatPrice } from "../utils/price";
 import { Helmet } from "react-helmet-async";
 
 export default function CartPage() {
@@ -81,13 +81,15 @@ export default function CartPage() {
 
       <div className="flex items-center justify-between border-t border-blush pt-6">
         <span className="text-lg font-medium text-ink">Items total</span>
-        <span className="text-2xl font-semibold text-coralText">${total}</span>
+        <span className="text-2xl font-semibold text-coralText">
+          {euro(total)}
+        </span>
       </div>
       <p className="text-sm text-ink/75 mt-2 text-right">
         {hasFraming
           ? "Shipping and framing are not included."
-          : "Shipping is not included."}
-        {" "}I&apos;ll confirm the exact cost by email before you pay.
+          : "Shipping is not included."}{" "}
+        I&apos;ll confirm the exact cost by email before you pay.
       </p>
 
       <Link

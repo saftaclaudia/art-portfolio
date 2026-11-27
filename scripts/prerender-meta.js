@@ -29,6 +29,12 @@ const STATIC_PAGES = [
       "Meet Claudia, a watercolor and digital artist inspired by travel, nature and color. Learn about her artistic journey",
   },
   {
+    path: "/commissions",
+    title: `Custom Commissions | ${SITE_NAME}`,
+    description:
+      "Commission a custom watercolor painting: portraits, places, pets and gifts. Learn how it works and request a quote.",
+  },
+  {
     path: "/contact",
     title: `Contact | ${SITE_NAME}`,
     description:
