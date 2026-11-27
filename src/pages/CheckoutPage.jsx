@@ -126,6 +126,8 @@ export default function CheckoutPage() {
           value={form.name}
           onChange={handleChanges}
           placeholder="Full name"
+          aria-label="Full name"
+          autoComplete="name"
           required
           className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
         />
@@ -135,6 +137,8 @@ export default function CheckoutPage() {
           value={form.email}
           onChange={handleChanges}
           placeholder="Email"
+          aria-label="Email"
+          autoComplete="email"
           required
           className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
         />
@@ -144,6 +148,8 @@ export default function CheckoutPage() {
           value={form.phone}
           onChange={handleChanges}
           placeholder="Phone number"
+          aria-label="Phone number"
+          autoComplete="tel"
           required
           className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
         />
@@ -153,6 +159,8 @@ export default function CheckoutPage() {
           value={form.address}
           onChange={handleChanges}
           placeholder="Street address"
+          aria-label="Street address"
+          autoComplete="street-address"
           required
           className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
         />
@@ -163,6 +171,8 @@ export default function CheckoutPage() {
             value={form.city}
             onChange={handleChanges}
             placeholder="City"
+            aria-label="City"
+            autoComplete="address-level2"
             required
             className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
           />
@@ -172,6 +182,8 @@ export default function CheckoutPage() {
             value={form.postalCode}
             onChange={handleChanges}
             placeholder="Postal code"
+            aria-label="Postal code"
+            autoComplete="postal-code"
             required
             className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
           />
@@ -183,6 +195,8 @@ export default function CheckoutPage() {
           value={form.country}
           onChange={handleChanges}
           placeholder="Country"
+          aria-label="Country"
+          autoComplete="country-name"
           required
           className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
         />

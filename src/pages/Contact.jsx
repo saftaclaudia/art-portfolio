@@ -82,6 +82,7 @@ function Contact() {
               value={form.name}
               onChange={handleChange}
               aria-label="Your name"
+              autoComplete="name"
               placeholder="Your name"
               required
               className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
@@ -93,6 +94,7 @@ function Contact() {
               value={form.email}
               onChange={handleChange}
               aria-label="Your email"
+              autoComplete="email"
               placeholder="Your email"
               required
               className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"

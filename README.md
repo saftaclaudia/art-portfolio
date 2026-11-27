@@ -50,6 +50,9 @@ Live site: https://art-portfolio-smoky.vercel.app
 - Checkout by email request: the order email lists each item with its variant, quantity, and subtotal, plus the shipping address, country, and a notes field (framing, signature, gift message)
 - Commissions page explaining how custom work is ordered (idea, quote, sketch approval, painting and delivery), with a starting price and typical turnaround
 - Contact form with an inquiry type (general question, order question, commission request); the Commissions page links to it with "Commission request" already selected
+- Checkout and contact fields work with browser autofill and screen readers
+- A "Page not found" page for unknown addresses, with a link back to the gallery
+- After a new deploy, a visitor who still has the old version open gets the new one with a single automatic reload instead of a blank page
 - SEO: per-page meta tags (title, description, Open Graph), `Product` structured data (JSON-LD) with price and availability on every artwork page, `robots.txt`, and `sitemap.xml`
 
 ### Admin
