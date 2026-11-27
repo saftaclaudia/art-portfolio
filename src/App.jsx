@@ -26,6 +26,7 @@ const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 const AdminAccountPage = lazy(() => import("./pages/AdminAccountPage"));
 
 const Commissions = lazy(() => import("./pages/Commissions"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 function App() {
   return (
@@ -88,6 +89,9 @@ function App() {
                 }
               />
             </Route>
+
+            {/* Any other address */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </main>
