@@ -16,7 +16,7 @@ export default function Hero() {
         />
       </Helmet>
 
-      <section className="relative min-h-[85vh] flex items-center justify-center px-6 bg-cream">
+      <section className="relative min-h-[85vh] flex items-center justify-center px-6 py-12 bg-cream">
         <div className="max-w-2xl mx-auto text-center">
           {/* Profile image */}
           <m.img

@@ -1,9 +1,20 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { Helmet } from "react-helmet-async";
+import { useSearchParams } from "react-router-dom";
 
 function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [searchParams] = useSearchParams();
+  const defaultType =
+    searchParams.get("type") === "commission"
+      ? "Commission request"
+      : "General question";
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    inquiry_type: defaultType,
+    message: "",
+  });
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -29,14 +40,18 @@ function Contact() {
       .then(() => {
         setSuccess(true);
         setError(false);
-        setForm({ name: "", email: "", message: "" });
+        setForm({
+          name: "",
+          email: "",
+          inquiry_type: defaultType,
+          message: "",
+        });
       })
       .catch((error) => {
         console.error(error.text);
         setError(true);
       })
       .finally(() => setSending(false));
-
   };
 
   return (
@@ -81,6 +96,16 @@ function Contact() {
               required
               className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
             />
+            <select
+              name="inquiry_type"
+              value={form.inquiry_type}
+              onChange={handleChange}
+              className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
+            >
+              <option>General question</option>
+              <option>Order question</option>
+              <option>Commission request</option>
+            </select>
 
             <textarea
               name="message"

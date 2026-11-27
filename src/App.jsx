@@ -25,6 +25,8 @@ const AdminArtworkForm = lazy(() => import("./pages/AdminArtworkForm"));
 const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 const AdminAccountPage = lazy(() => import("./pages/AdminAccountPage"));
 
+const Commissions = lazy(() => import("./pages/Commissions"));
+
 function App() {
   return (
     <div className="min-h-screen flex flex-col bg-cream">
@@ -43,6 +45,7 @@ function App() {
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/gallery/:slug" element={<ProductPage />} />
             <Route path="/about" element={<About />} />
+            <Route path="/commissions" element={<Commissions />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
