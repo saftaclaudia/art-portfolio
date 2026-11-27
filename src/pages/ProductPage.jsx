@@ -20,6 +20,7 @@ export default function ProductPage() {
   const [artwork, setArtwork] = useState(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [loadFailed, setLoadFailed] = useState(false);
   const [selectedKey, setSelectedKey] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [feedback, setFeedback] = useState("");
@@ -34,6 +35,7 @@ export default function ProductPage() {
     async function fetchArtwork() {
       setLoading(true);
       setNotFound(false);
+      setLoadFailed(false);
       setArtwork(null);
       const { data, error } = await supabase
         .from("artworks")
@@ -42,7 +44,11 @@ export default function ProductPage() {
         .maybeSingle();
 
       if (cancelled) return;
-      if (error || !data) {
+      if (error) {
+        // Connection problem: the artwork may well exist
+        console.error(error);
+        setLoadFailed(true);
+      } else if (!data) {
         setNotFound(true);
       } else {
         setArtwork(data);
@@ -190,14 +196,21 @@ export default function ProductPage() {
     );
   }
 
-  if (notFound) {
+  if (notFound || loadFailed) {
     return (
       <div className="max-w-xl mx-auto px-4 py-24 text-center">
-        <h2 className="text-2xl font-display text-ink mb-3">
-          Artwork not found
-        </h2>
+        <Helmet>
+          {/* Helmet needs the title as one string */}
+          <title>{`${notFound ? "Artwork not found" : "Something went wrong"} | Art by Claudia`}</title>
+          <meta name="robots" content="noindex" />
+        </Helmet>
+        <h1 className="text-2xl font-display text-ink mb-3">
+          {notFound ? "Artwork not found" : "Could not load this artwork"}
+        </h1>
         <p className="text-ink/75 mb-3">
-          This piece may have been sold or removed.
+          {notFound
+            ? "This piece may have been sold or removed."
+            : "Please check your connection and refresh the page."}
         </p>
         <Link
           to="/gallery"
@@ -255,6 +268,11 @@ export default function ProductPage() {
     }
   }
 
+  // Same text as the link preview made by scripts/prerender-meta.js
+  const metaDescription = artwork.description
+    ? artwork.description.replace(/\s+/g, " ").trim().slice(0, 155)
+    : `${artwork.title} - original ${artwork.medium} artwork by Claudia`;
+
   // ---- Structured data for search engines (JSON-LD, schema.org Product) ----
   // Built from the same data the page shows, so price and availability match.
   const pageUrl = `${SITE_URL}/gallery/${artwork.slug}`;
@@ -303,26 +321,12 @@ export default function ProductPage() {
     <>
       <Helmet>
         <title>{artwork.title} | Art by Claudia</title>
-        <meta
-          name="description"
-          content={
-            artwork.description
-              ? artwork.description.slice(0, 155)
-              : `${artwork.title} - original ${artwork.medium} artwork by Claudia`
-          }
-        />
+        <meta name="description" content={metaDescription} />
         <meta
           property="og:title"
           content={`${artwork.title} | Art by Claudia`}
         />
-        <meta
-          property="og:description"
-          content={
-            artwork.description
-              ? artwork.description.slice(0, 155)
-              : `Original ${artwork.medium} artwork by Claudia`
-          }
-        />
+        <meta property="og:description" content={metaDescription} />
         <meta property="og:image" content={artwork.image_url} />
         <meta property="og:type" content="product" />
         <script type="application/ld+json">{jsonLdString}</script>

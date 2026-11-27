@@ -92,6 +92,7 @@ export default function AdminAccountPage() {
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
             placeholder="Your name"
+            aria-label="Display name"
             className="flex-1 rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
           />
           <button
@@ -117,6 +118,8 @@ export default function AdminAccountPage() {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="New password"
+              aria-label="New password"
+              autoComplete="new-password"
               className="w-full rounded-xl border border-blush bg-white px-4 py-3 pr-11 focus:outline-none focus:ring-2 focus:ring-teal/50"
             />
             <button
@@ -135,6 +138,8 @@ export default function AdminAccountPage() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm new password"
+              aria-label="Confirm new password"
+              autoComplete="new-password"
               className="w-full rounded-xl border border-blush bg-white px-4 py-3 pr-11 focus:outline-none focus:ring-2 focus:ring-teal/50"
             />
             <button
