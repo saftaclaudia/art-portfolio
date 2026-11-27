@@ -31,7 +31,7 @@ export default function ResetPasswordPage() {
     } else {
       setSuccess(true);
       setTimeout(() => {
-        navigate("/admin/login");
+        navigate("/admin", { replace: true });
       }, 2000);
     }
   };
@@ -43,7 +43,7 @@ export default function ResetPasswordPage() {
       </h1>
       {success ? (
         <p className="text-center text-sage">
-          Password updated! Redirecting to login...
+          Password updated! Opening the admin...
         </p>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -52,6 +52,8 @@ export default function ResetPasswordPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="New password"
+            aria-label="New password"
+            autoComplete="new-password"
             required
             className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
           />
@@ -59,7 +61,9 @@ export default function ResetPasswordPage() {
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Confirm new Password"
+            placeholder="Confirm new password"
+            aria-label="Confirm new password"
+            autoComplete="new-password"
             required
             className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
           />

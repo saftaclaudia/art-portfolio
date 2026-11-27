@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { supabase } from "../supabaseClient";
 import { Helmet } from "react-helmet-async";
 import { SELL_PRINTS } from "../config";
-import { euro } from "../utils/price";
+import { euro, formatPrice } from "../utils/price";
 
 const FILTERS = [
   { key: "all", label: "All" },
@@ -17,14 +17,12 @@ const FILTERS = [
 // What the card shows as the price, depending on what can actually be bought
 function getPriceLabel(artwork) {
   if (artwork.in_stock) {
-    return artwork.price != null ? euro(artwork.price) : "";
+    return formatPrice(artwork.price);
   }
 
   const printPrices =
     SELL_PRINTS && Array.isArray(artwork.print_options)
-      ? artwork.print_options
-          .map((p) => Number(p.price))
-          .filter((n) => Number.isFinite(n))
+      ? artwork.print_options.map((p) => Number(p.price)).filter((n) => n > 0)
       : [];
 
   if (printPrices.length > 0) {

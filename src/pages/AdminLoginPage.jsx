@@ -58,10 +58,12 @@ export default function AdminLoginPage() {
       </h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
-          type="text"
+          type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
+          aria-label="Email"
+          autoComplete="username"
           required
           className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
         />
@@ -71,6 +73,8 @@ export default function AdminLoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
+            aria-label="Password"
+            autoComplete="current-password"
             required
             className="w-full rounded-xl border border-blush bg-white px-4 py-3 pr-11 focus:outline-none focus:ring-2 focus:ring-teal/50"
           />
@@ -109,6 +113,8 @@ export default function AdminLoginPage() {
             value={resetEmail}
             onChange={(e) => setResetEmail(e.target.value)}
             placeholder="Your email"
+            aria-label="Your email"
+            autoComplete="email"
             required
             className="w-full rounded-xl border border-blush bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal/50"
           />
