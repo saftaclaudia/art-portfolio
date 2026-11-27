@@ -10,6 +10,7 @@ const STATIC_PAGES = [
   { path: "/", priority: "1.0" },
   { path: "/gallery", priority: "0.9" },
   { path: "/about", priority: "0.5" },
+  { path: "/commissions", priority: "0.6" },
   { path: "/contact", priority: "0.5" },
 ];
 

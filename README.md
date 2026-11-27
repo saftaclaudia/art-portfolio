@@ -35,8 +35,9 @@ Live site: https://art-portfolio-smoky.vercel.app
 ### Storefront
 
 - Responsive design with a custom palette matched to the logo: teal for buttons and links, terracotta for handwritten titles and prices, on a warm cream background
+- All prices are in euro (€); an artwork without a price shows "Price on request"
 - Gallery with filtering by medium (watercolor / acrylic / digital)
-- Uniform square gallery cards showing title, price, medium, and size; the price adapts to availability (`$50` or `Sold`, and `Prints from $25` when print sales are on)
+- Uniform square gallery cards showing title, price, medium, and size; the price adapts to availability (`€50` or `Sold`, and `Prints from €25` when print sales are on)
 - Each card is a single accessible link that opens the artwork, with a swipeable image carousel inside
 - Product pages with shareable URLs:
   - Main image that fits any artwork shape without empty bands, thumbnails, and a full-screen lightbox with keyboard controls
@@ -47,6 +48,8 @@ Live site: https://art-portfolio-smoky.vercel.app
   - "You may also like" suggestions and Previous / Next navigation between artworks
 - Shopping cart persisted in local storage; originals are one of a kind and cannot be added twice
 - Checkout by email request: the order email lists each item with its variant, quantity, and subtotal, plus the shipping address, country, and a notes field (framing, signature, gift message)
+- Commissions page explaining how custom work is ordered (idea, quote, sketch approval, painting and delivery), with a starting price and typical turnaround
+- Contact form with an inquiry type (general question, order question, commission request); the Commissions page links to it with "Commission request" already selected
 - SEO: per-page meta tags (title, description, Open Graph), `Product` structured data (JSON-LD) with price and availability on every artwork page, `robots.txt`, and `sitemap.xml`
 
 ### Admin
@@ -66,10 +69,12 @@ Live site: https://art-portfolio-smoky.vercel.app
 ```
 src/
 ├── components/   Gallery, ProductInfo, SimilarArtworks, ArtworkPager, ProtectedRoute, ScrollToTop…
-├── pages/        ProductPage, CartPage, CheckoutPage, OrderConfirmedPage, About, Admin* pages…
+├── pages/        ProductPage, CartPage, CheckoutPage, OrderConfirmedPage, About, Commissions, Contact, Admin* pages…
 ├── context/      Cart and Auth providers, with custom hooks (useCart, useAuth)
+├── utils/        price.js: euro formatting and the currency code used everywhere
 ├── config.js     Shop feature flags and site URL
 └── supabaseClient.js
+scripts/          Build-time sitemap and link-preview generation
 ```
 
 ## 🛠️ Getting Started
@@ -91,7 +96,7 @@ VITE_EMAILJS_ORDER_TEMPLATE_ID=...
 VITE_EMAILJS_PUBLIC_KEY=...
 ```
 
-`VITE_EMAILJS_TEMPLATE_ID` is the EmailJS template used by the contact form, and `VITE_EMAILJS_ORDER_TEMPLATE_ID` is the one used for order emails.
+`VITE_EMAILJS_TEMPLATE_ID` is the EmailJS template used by the contact form, and `VITE_EMAILJS_ORDER_TEMPLATE_ID` is the one used for order emails. The contact template receives `{{name}}`, `{{email}}`, `{{inquiry_type}}` and `{{message}}`. The order template receives `{{name}}`, `{{email}}` and `{{message}}` (the full order text).
 
 **3. Run the dev server**
 
@@ -119,7 +124,7 @@ Images are stored in a public Supabase Storage bucket.
 - Orders are placed by email request, with no online payment. Shipping and framing costs are confirmed manually by email before payment, so they are not included in the cart total.
 - Cart prices are stored in the browser. A payment-enabled version would recompute prices on the server at checkout.
 - `sitemap.xml` is generated at build time (`scripts/generate-sitemap.js`) with one entry per artwork, so a new artwork appears in it only after the next deploy. If Supabase can't be reached during the build, the static `public/sitemap.xml` (fixed pages only) is used instead.
-- Link previews (Facebook, WhatsApp, etc.) don't run JavaScript, so `scripts/prerender-meta.js` writes a copy of the page for Gallery, About, Contact and every artwork at build time, with that page's title, description and image in the HTML. Vercel serves them through `cleanUrls` in `vercel.json`. Like the sitemap, a new artwork gets its own preview only after the next deploy; until then it shows the home page preview.
+- Link previews (Facebook, WhatsApp, etc.) don't run JavaScript, so `scripts/prerender-meta.js` writes a copy of the page for Gallery, About, Commissions, Contact and every artwork at build time, with that page's title, description and image in the HTML. Vercel serves them through `cleanUrls` in `vercel.json`. Like the sitemap, a new artwork gets its own preview only after the next deploy; until then it shows the home page preview.
 - Structured data is injected by JavaScript in the browser (the site is a client-rendered single-page app), so search engines may not always use it for rich results. Server-side rendering or pre-rendering would make it reliable.
 
 ## 🚀 Deployment

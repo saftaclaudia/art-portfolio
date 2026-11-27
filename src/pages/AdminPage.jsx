@@ -17,6 +17,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { GripVertical } from "lucide-react";
 import { supabase } from "../supabaseClient";
 import { useAuth } from "../context/useAuth";
+import { euro } from "../utils/price";
 
 const MEDIUM_ORDER = ["watercolor", "digital", "acrylic"];
 const MEDIUM_LABELS = {
@@ -70,7 +71,7 @@ function SortableArtworkCard({ artwork, onDelete }) {
           {artwork.title}
         </h3>
         <p className="text-xs uppercase tracking-wide text-sage font-medium mb-1">
-          {artwork.price ? `$${artwork.price}` : "No price"}
+          {artwork.price ? euro(artwork.price) : "No price"}
           {artwork.dimensions ? ` · ${artwork.dimensions}` : ""}
           {!artwork.in_stock ? " · Sold" : ""}
         </p>

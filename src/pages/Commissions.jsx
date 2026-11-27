@@ -38,7 +38,6 @@ function Commissions() {
             Custom Commissions
           </h1>
           <p className="text-ink/75 mb-12">
-            {" "}
             Have a special place, pet or memory you would like to see in
             watercolor? I take a limited number of commissions each month.
           </p>
@@ -49,18 +48,20 @@ function Commissions() {
                 key={step.title}
                 className="rounded-xl border border-blush bg-white p-5"
               >
-                <span className="font-accent text-xl text-coral">{i + 1}</span>
+                <span className="font-accent text-xl text-coralText">
+                  {i + 1}
+                </span>
                 <h3 className="font-display text-lg text-ink">{step.title}</h3>
                 <p className="text-ink/75 text-sm mt-1">{step.text}</p>
               </li>
             ))}
           </ol>
           <p className="text-ink/75 mb-2">
-            Prices start from <strong>CHF 50</strong>, depending on size and
-            level of detail.
+            Prices start from <strong>€50</strong>, depending on size and level
+            of detail.
           </p>
           <p className="text-ink/75 mb-8">
-            Typical turnaround: <strong> 2 weeks</strong>.
+            Typical turnaround: <strong>2 weeks</strong>.
           </p>
           <Link
             to="/contact?type=commission"

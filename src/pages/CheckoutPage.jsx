@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 import { useCart } from "../context/useCart";
-import { formatPrice } from "../utils/price";
+import { euro, formatPrice } from "../utils/price";
 import { Helmet } from "react-helmet-async";
 
 export default function CheckoutPage() {
@@ -38,9 +38,9 @@ export default function CheckoutPage() {
         const qty = item.quantity || 1;
         const variant = item.variantLabel ? ` — ${item.variantLabel}` : "";
         const line = `- ${item.title}${variant} (${item.medium}) | ${formatPrice(item.price)} x ${qty}`;
-        // No line total for an item without a price: it would read "$0"
+        // No line total for an item without a price: it would read "€0"
         return Number(item.price) > 0
-          ? `${line} = $${Number(item.price) * qty}`
+          ? `${line} = ${euro(Number(item.price) * qty)}`
           : line;
       })
       .join("\n");
@@ -51,7 +51,7 @@ export default function CheckoutPage() {
       "ITEMS",
       orderLines,
       "",
-      `Items total: $${total} (shipping${hasFraming ? " and framing" : ""} not included)`,
+      `Items total: ${euro(total)} (shipping${hasFraming ? " and framing" : ""} not included)`,
       "",
       "SHIP TO",
       form.name,
@@ -110,7 +110,7 @@ export default function CheckoutPage() {
 
       <p className="text-ink/75 text-center mb-1">
         Items total:{" "}
-        <span className="text-coralText font-semibold">${total}</span>
+        <span className="text-coralText font-semibold">{euro(total)}</span>
       </p>
       <p className="text-sm text-ink/75 text-center mb-10">
         {hasFraming

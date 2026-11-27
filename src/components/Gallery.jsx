@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { supabase } from "../supabaseClient";
 import { Helmet } from "react-helmet-async";
 import { SELL_PRINTS } from "../config";
+import { euro } from "../utils/price";
 
 const FILTERS = [
   { key: "all", label: "All" },
@@ -16,7 +17,7 @@ const FILTERS = [
 // What the card shows as the price, depending on what can actually be bought
 function getPriceLabel(artwork) {
   if (artwork.in_stock) {
-    return artwork.price != null ? `$${artwork.price}` : "";
+    return artwork.price != null ? euro(artwork.price) : "";
   }
 
   const printPrices =
@@ -27,7 +28,7 @@ function getPriceLabel(artwork) {
       : [];
 
   if (printPrices.length > 0) {
-    return `Prints from $${Math.min(...printPrices)}`;
+    return `Prints from ${euro(Math.min(...printPrices))}`;
   }
   return "Sold";
 }
